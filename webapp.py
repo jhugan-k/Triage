@@ -70,3 +70,5 @@ if st.button("Predict Severity"):
         input_vector = vectorizer.transform([cleaned])
         prediction = clf.predict(input_vector)[0]
         st.success(f"🔮 Predicted Severity: **{prediction.upper()}**")
+        
+# test comment 

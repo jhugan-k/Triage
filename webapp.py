@@ -54,9 +54,9 @@ if uploaded_file is not None:
     if 'bug_description' not in df.columns:
         st.error("❌ CSV must contain a 'bug_description' column.")
     else:
-        df['cleaned'] = df['bug_description'].apply(clean_text)
+        df['cleaned'] = df['bug_description'].apply(clean_and_process)
         vecs = vectorizer.transform(df['cleaned'])
-        df['Predicted Severity'] = model.predict(vecs)
+        df['Predicted Severity'] = clf.predict(vecs)
 
         st.success("✅ Predictions complete!")
         st.write(df[['bug_description', 'Predicted Severity']])

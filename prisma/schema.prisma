@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id            String        @id @default(uuid())
+  email         String        @unique 
+  name          String? 
+  avatar        String?
+  createdAt     DateTime      @default(now())
+  memberships   Membership[]
+  createdBugs   Bug[]         @relation ("CreatedBy")
+}
+
+model Dashboard{
+  id            String        @id @default(uuid())
+  name          String        
+  accessKey     String        @unique @default(uuid())
+  createdBy     User          @relation(fields: [createdById], references: [id])
+  createdById   String 
+  createdAt     DateTime      @default(now())
+  memberships   Membership[]  
+  bugs          Bug[]
+}
+
+model Membership {
+  id            String        @id @default(uuid())
+  role          String 
+  joinedAt      DateTime      @default(now())
+
+  user          User          @relation(fields: [userId], references: [id]) 
+  userId        String 
+  dashboard     Dashboard     @relation(fields: [dashboardId], references: [id])
+  dashboardId   String 
+
+  @@unique([userId, dashboardId]) 
+}
+
+model Bug {
+  id            String         @id @default(uuid())
+  title         String 
+  description   String
+  severity      String 
+  status        String         @default("Unattended")
+  createdAt     String         @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  dashboard     Dashboard      @relation(fields: [dashboardId], references: [id])
+  dashboardId   String 
+  addedBy       User           @relation("CreatedBy", fields: [addedById], references: [id])
+  addedById     String
+}

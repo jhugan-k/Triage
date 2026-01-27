@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// --- MODELS ---
+
+model User {
+  id        String      @id @default(uuid())
+  email     String      @unique
+  name      String?
+  avatarUrl String?
+  createdAt DateTime    @default(now())
+  
+  dashboards Dashboard[]
+}
+
+model Dashboard {
+  id        String   @id @default(uuid())
+  name      String
+  accessKey String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members   User[]
+  bugs      Bug[]
+}
+
+model Bug {
+  id          String    @id @default(uuid())
+  title       String
+  description String
+  
+  severity    Severity
+  status      BugStatus @default(OPEN)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  dashboardId String
+  dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
+}
+
+// --- ENUMS ---
+
+enum Severity {
+  High
+  Normal
+  Low
+}
+
+enum BugStatus {
+  OPEN
+  RESOLVED
+}

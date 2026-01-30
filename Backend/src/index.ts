@@ -214,6 +214,18 @@ app.get('/health', async (req, res) => {
   }
 });
 
+app.patch('/bugs/:id/resolve', authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const bug = await prisma.bug.update({
+      where: { id: req.params.id as string },
+      data: { status: 'RESOLVED' }
+    });
+    res.json(bug);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to resolve bug" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Server ready at http://localhost:${PORT}`);
 });

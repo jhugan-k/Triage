@@ -6,3 +6,4 @@ pandas
 numpy
 spacy
 pydantic
+sentence_transformers

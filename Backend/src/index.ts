@@ -186,9 +186,8 @@ app.post('/bugs', authenticateToken, async (req: Request, res: Response) => {
     // Call Python AI
     let severity = "Normal";
     try {
-      const aiRes = await axios.post('http://127.0.0.1:8000/classify', {
-        title, description
-      });
+      const AI_URL = process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000/classify';
+      const aiRes = await axios.post(AI_URL, { title, description });
       severity = aiRes.data.severity;
       console.log(`-> AI Predicted: ${severity}`);
     } catch (err) {

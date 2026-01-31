@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// Point this to your Backend Port (4001)
-const API_URL = 'http://localhost:4001';
+// Point this to your Backend Port (4002)
+const API_URL = 'http://localhost:4002';
 
 export const api = axios.create({
   baseURL: API_URL,

@@ -59,6 +59,34 @@ app.post('/auth/login', async (req: Request, res: Response) => {
   }
 });
 
+
+// --- 1. DELETE DASHBOARD  ---
+
+app.delete('/purge-workspace/:id', authenticateToken, async (req: Request, res: Response) => {
+  // FIX: Explicitly tell TypeScript this is a string
+  const id = req.params.id as string;
+
+  console.log("!!! PURGE TRIGGERED FOR ID:", id); 
+  
+  try {
+    // 1. Delete all bugs associated with this dashboard
+    await prisma.bug.deleteMany({ 
+      where: { dashboardId: id } 
+    });
+
+    // 2. Delete the Dashboard itself
+    await prisma.dashboard.delete({ 
+      where: { id: id } 
+    });
+    
+    console.log("!!! PURGE SUCCESSFUL !!!");
+    res.json({ message: "Purged" });
+  } catch (e) {
+    console.error("Purge DB Error:", e);
+    res.status(500).json({ error: "DB Failure" });
+  }
+});
+
 // ==========================================
 // 2. DASHBOARD ROUTES
 // ==========================================

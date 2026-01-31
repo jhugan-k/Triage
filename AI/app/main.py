@@ -2,22 +2,19 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
 import numpy as np
-from app.utils import normalize_text
+from sentence_transformers import SentenceTransformer
 
 app = FastAPI()
 
-# --- Config ---
-THRESHOLD = 0.3  # The magic number you found
+# Configuration
+THRESHOLD = 0.35 # Slightly higher threshold for semantic precision
 
-print("Loading model...")
-model = joblib.load("app/triage_model.joblib")
-vectorizer = joblib.load("app/triage_vectorizer.joblib")
-
-# Find where "High" is located in the model's brain (usually index 0, 1, or 2)
-# We do this dynamically to be safe.
+print("Waking up Semantic Brain...")
+# Load the transformer (this is our new 'vectorizer')
+encoder = SentenceTransformer('all-MiniLM-L6-v2')
+# Load the fine-tuned classifier
+model = joblib.load("app/model_v2.joblib")
 classes = list(model.classes_)
-HIGH_INDEX = classes.index("High")
-print(f"Model loaded. 'High' severity is at index {HIGH_INDEX}")
 
 class BugPayload(BaseModel):
     title: str
@@ -25,35 +22,43 @@ class BugPayload(BaseModel):
 
 @app.post("/classify")
 def classify_bug(payload: BugPayload):
-    # 1. Clean
     full_text = f"{payload.title} {payload.description}"
-    clean_text = normalize_text(full_text)
     
-    # 2. Vectorize
-    features = vectorizer.transform([clean_text])
+    # Transform text to meaning vector
+    vector = encoder.encode([full_text])
     
-    # 3. Get Probabilities (e.g., [0.10, 0.45, 0.45])
-    # output is a list of lists, we take the first one [0]
-    probs = model.predict_proba(features)[0]
+    # Get prediction probabilities
+    probs = model.predict_proba(vector)[0]
+    classes = list(model.classes_)
+    high_idx = classes.index("High")
     
-    # 4. Apply Custom Logic
-    high_prob = probs[HIGH_INDEX]
+    high_prob = probs[high_idx]
+
+    # --- THE FIX ---
+    # 1. Increase Threshold to 0.7 (Only flag High if 70% sure)
+    # Since your model is 97% accurate, it should be very sure.
+    NEW_THRESHOLD = 0.7 
     
-    if high_prob > THRESHOLD:
-        prediction = "High"
+    if high_prob > NEW_THRESHOLD:
+        severity = "High"
     else:
-        # If it's not High, let the model decide between Normal/Low normally
-        # We temporarily silence the High score so it doesn't interfere
-        probs[HIGH_INDEX] = -1 
-        best_remaining_index = np.argmax(probs)
-        prediction = classes[best_remaining_index]
+        # If not High, we pick the mathematical winner between Normal and Low
+        severity = classes[np.argmax(probs)]
     
+    # Print to your Python terminal so you can see the math
+    print(f"--- AI ANALYSIS ---")
+    print(f"Text: {payload.title}")
+    for i, label in enumerate(classes):
+        print(f"{label}: {probs[i]:.2f}")
+    print(f"RESULT: {severity}")
+    print(f"-------------------")
+
     return {
-        "severity": prediction,
-        "confidence_score": float(high_prob), # Useful for debugging
-        "is_urgent": prediction == "High"
+        "severity": severity,
+        "confidence": float(high_prob),
+        "all_probs": {classes[i]: float(probs[i]) for i in range(len(classes))}
     }
 
 @app.get("/")
-def health_check():
-    return {"status": "online"}
+def health():
+    return {"status": "Semantic Engine v2.0 Operational"}

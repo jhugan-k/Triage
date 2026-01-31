@@ -1,0 +1,1501 @@
+text,severity
+Critical Memory leak in Auth Service preventing syncing logs.,High
+Security alert: Database timeout detected. Potential dropping connections.,High
+Immediate attention required: React Store failing.,High
+Immediate attention required: React Store lagging.,High
+Critical 500 Error in React Store preventing fetching user data.,High
+Critical 500 Error in API Gateway preventing processing checkout.,High
+System is leaking credentials because of 500 Error.,High
+Emergency: Deadlock is causing crashing production for all users.,High
+Immediate attention required: Prisma Layer missing.,High
+Security alert: Database timeout detected. Potential crashing production.,High
+Emergency: Auth bypass is causing leaking credentials for all users.,High
+Security alert: Database timeout detected. Potential dropping connections.,High
+Emergency: Database timeout is causing dropping connections for all users.,High
+Security alert: 500 Error detected. Potential completely unresponsive.,High
+System is crashing production because of Memory leak.,High
+Security alert: SQL injection detected. Potential dropping connections.,High
+Immediate attention required: Auth Service lagging.,High
+Security alert: Database timeout detected. Potential completely unresponsive.,High
+Critical Deadlock in Payment Module preventing fetching user data.,High
+System is crashing production because of Memory leak.,High
+Critical Database timeout in React Store preventing uploading files.,High
+Immediate attention required: API Gateway broken.,High
+Security alert: SQL injection detected. Potential completely unresponsive.,High
+Immediate attention required: Payment Module failing.,High
+Immediate attention required: API Gateway missing.,High
+Security alert: Auth bypass detected. Potential crashing production.,High
+System is completely unresponsive because of Database timeout.,High
+System is leaking credentials because of Database timeout.,High
+Critical Auth bypass in API Gateway preventing processing checkout.,High
+Security alert: 500 Error detected. Potential leaking credentials.,High
+Emergency: SQL injection is causing leaking credentials for all users.,High
+Emergency: SQL injection is causing leaking credentials for all users.,High
+Critical Auth bypass in React Store preventing processing checkout.,High
+Critical Auth bypass in Prisma Layer preventing verifying JWT.,High
+Critical Memory leak in React Store preventing uploading files.,High
+Immediate attention required: Auth Service off-center.,High
+Security alert: Memory leak detected. Potential completely unresponsive.,High
+Security alert: Auth bypass detected. Potential dropping connections.,High
+System is completely unresponsive because of Auth bypass.,High
+Critical Database timeout in Prisma Layer preventing syncing logs.,High
+Immediate attention required: S3 Bucket failing.,High
+Security alert: Deadlock detected. Potential crashing production.,High
+Emergency: Database timeout is causing completely unresponsive for all users.,High
+Security alert: Database timeout detected. Potential dropping connections.,High
+Emergency: Auth bypass is causing completely unresponsive for all users.,High
+Immediate attention required: API Gateway lagging.,High
+Immediate attention required: S3 Bucket broken.,High
+System is dropping connections because of Database timeout.,High
+Immediate attention required: API Gateway broken.,High
+Immediate attention required: React Store unresponsive.,High
+Immediate attention required: API Gateway unresponsive.,High
+Critical SQL injection in React Store preventing syncing logs.,High
+Security alert: Auth bypass detected. Potential leaking credentials.,High
+Critical 500 Error in React Store preventing fetching user data.,High
+Immediate attention required: API Gateway off-center.,High
+System is leaking credentials because of Memory leak.,High
+System is completely unresponsive because of SQL injection.,High
+Emergency: 500 Error is causing completely unresponsive for all users.,High
+System is crashing production because of Deadlock.,High
+System is dropping connections because of Deadlock.,High
+Immediate attention required: Payment Module lagging.,High
+Immediate attention required: S3 Bucket lagging.,High
+Immediate attention required: Prisma Layer failing.,High
+Security alert: Memory leak detected. Potential completely unresponsive.,High
+Security alert: Deadlock detected. Potential crashing production.,High
+Immediate attention required: Prisma Layer lagging.,High
+Immediate attention required: S3 Bucket lagging.,High
+Security alert: Auth bypass detected. Potential leaking credentials.,High
+Emergency: Auth bypass is causing dropping connections for all users.,High
+System is dropping connections because of Deadlock.,High
+Immediate attention required: S3 Bucket missing.,High
+Security alert: Database timeout detected. Potential dropping connections.,High
+Security alert: Deadlock detected. Potential crashing production.,High
+System is crashing production because of SQL injection.,High
+System is completely unresponsive because of 500 Error.,High
+Security alert: 500 Error detected. Potential crashing production.,High
+System is completely unresponsive because of 500 Error.,High
+System is completely unresponsive because of Memory leak.,High
+System is dropping connections because of Memory leak.,High
+System is leaking credentials because of SQL injection.,High
+Security alert: Deadlock detected. Potential leaking credentials.,High
+Immediate attention required: React Store broken.,High
+Critical Memory leak in S3 Bucket preventing syncing logs.,High
+Security alert: Auth bypass detected. Potential completely unresponsive.,High
+System is dropping connections because of Memory leak.,High
+System is crashing production because of SQL injection.,High
+Critical Deadlock in S3 Bucket preventing uploading files.,High
+System is dropping connections because of SQL injection.,High
+System is leaking credentials because of Deadlock.,High
+Critical Auth bypass in Payment Module preventing fetching user data.,High
+Immediate attention required: React Store broken.,High
+Emergency: Auth bypass is causing leaking credentials for all users.,High
+Critical Deadlock in Prisma Layer preventing processing checkout.,High
+System is crashing production because of Database timeout.,High
+Immediate attention required: Prisma Layer off-center.,High
+System is dropping connections because of Memory leak.,High
+System is dropping connections because of Memory leak.,High
+Critical Auth bypass in API Gateway preventing processing checkout.,High
+Security alert: Memory leak detected. Potential crashing production.,High
+Critical Auth bypass in React Store preventing fetching user data.,High
+Critical Deadlock in S3 Bucket preventing uploading files.,High
+Security alert: Database timeout detected. Potential leaking credentials.,High
+System is completely unresponsive because of Database timeout.,High
+Immediate attention required: Payment Module unresponsive.,High
+Critical Deadlock in React Store preventing processing checkout.,High
+Security alert: SQL injection detected. Potential crashing production.,High
+Critical Auth bypass in Prisma Layer preventing fetching user data.,High
+Immediate attention required: Prisma Layer missing.,High
+Emergency: SQL injection is causing crashing production for all users.,High
+System is dropping connections because of 500 Error.,High
+Security alert: SQL injection detected. Potential dropping connections.,High
+Emergency: 500 Error is causing completely unresponsive for all users.,High
+System is crashing production because of Database timeout.,High
+Security alert: Database timeout detected. Potential crashing production.,High
+Emergency: Memory leak is causing leaking credentials for all users.,High
+Emergency: 500 Error is causing completely unresponsive for all users.,High
+Immediate attention required: Payment Module unresponsive.,High
+Immediate attention required: Payment Module off-center.,High
+Emergency: Deadlock is causing dropping connections for all users.,High
+Critical Deadlock in React Store preventing syncing logs.,High
+Critical Auth bypass in Prisma Layer preventing uploading files.,High
+System is leaking credentials because of SQL injection.,High
+Critical SQL injection in API Gateway preventing verifying JWT.,High
+Immediate attention required: React Store failing.,High
+Critical Auth bypass in Payment Module preventing syncing logs.,High
+Emergency: Auth bypass is causing crashing production for all users.,High
+Emergency: Auth bypass is causing dropping connections for all users.,High
+Immediate attention required: React Store off-center.,High
+Security alert: Database timeout detected. Potential crashing production.,High
+Security alert: Database timeout detected. Potential crashing production.,High
+System is leaking credentials because of Auth bypass.,High
+System is leaking credentials because of Memory leak.,High
+Emergency: Database timeout is causing completely unresponsive for all users.,High
+Security alert: Memory leak detected. Potential leaking credentials.,High
+Critical Database timeout in API Gateway preventing processing checkout.,High
+Security alert: 500 Error detected. Potential leaking credentials.,High
+System is crashing production because of Database timeout.,High
+Critical SQL injection in Payment Module preventing fetching user data.,High
+System is completely unresponsive because of Auth bypass.,High
+Emergency: Deadlock is causing crashing production for all users.,High
+Emergency: Deadlock is causing completely unresponsive for all users.,High
+Immediate attention required: S3 Bucket failing.,High
+Security alert: 500 Error detected. Potential dropping connections.,High
+Critical Database timeout in React Store preventing verifying JWT.,High
+System is crashing production because of Auth bypass.,High
+Emergency: Database timeout is causing dropping connections for all users.,High
+System is dropping connections because of Database timeout.,High
+Critical Deadlock in React Store preventing processing checkout.,High
+Emergency: SQL injection is causing crashing production for all users.,High
+Emergency: Auth bypass is causing completely unresponsive for all users.,High
+Security alert: Deadlock detected. Potential completely unresponsive.,High
+Immediate attention required: Prisma Layer broken.,High
+System is crashing production because of Auth bypass.,High
+Emergency: Deadlock is causing completely unresponsive for all users.,High
+Emergency: Deadlock is causing leaking credentials for all users.,High
+Critical Auth bypass in React Store preventing uploading files.,High
+Critical 500 Error in React Store preventing syncing logs.,High
+System is completely unresponsive because of Auth bypass.,High
+Critical SQL injection in S3 Bucket preventing uploading files.,High
+Security alert: Memory leak detected. Potential crashing production.,High
+Immediate attention required: Payment Module lagging.,High
+System is leaking credentials because of 500 Error.,High
+Emergency: Database timeout is causing crashing production for all users.,High
+System is completely unresponsive because of Deadlock.,High
+Security alert: Deadlock detected. Potential crashing production.,High
+Critical Deadlock in React Store preventing verifying JWT.,High
+Emergency: Database timeout is causing leaking credentials for all users.,High
+Security alert: Memory leak detected. Potential completely unresponsive.,High
+Critical 500 Error in Auth Service preventing syncing logs.,High
+System is dropping connections because of 500 Error.,High
+Immediate attention required: React Store lagging.,High
+System is completely unresponsive because of Auth bypass.,High
+Immediate attention required: Auth Service failing.,High
+Emergency: Auth bypass is causing crashing production for all users.,High
+Emergency: Memory leak is causing crashing production for all users.,High
+Security alert: Deadlock detected. Potential completely unresponsive.,High
+Immediate attention required: Payment Module off-center.,High
+Emergency: Memory leak is causing completely unresponsive for all users.,High
+System is leaking credentials because of Memory leak.,High
+Emergency: 500 Error is causing dropping connections for all users.,High
+Emergency: Auth bypass is causing completely unresponsive for all users.,High
+Immediate attention required: Auth Service broken.,High
+System is completely unresponsive because of Deadlock.,High
+Immediate attention required: Prisma Layer off-center.,High
+System is crashing production because of SQL injection.,High
+Immediate attention required: React Store lagging.,High
+Emergency: Memory leak is causing completely unresponsive for all users.,High
+Critical Deadlock in S3 Bucket preventing syncing logs.,High
+Critical Memory leak in S3 Bucket preventing verifying JWT.,High
+System is dropping connections because of Database timeout.,High
+Immediate attention required: Prisma Layer failing.,High
+Emergency: Auth bypass is causing leaking credentials for all users.,High
+Security alert: SQL injection detected. Potential crashing production.,High
+Immediate attention required: API Gateway unresponsive.,High
+Immediate attention required: Prisma Layer lagging.,High
+Immediate attention required: API Gateway lagging.,High
+Emergency: Memory leak is causing completely unresponsive for all users.,High
+Critical Memory leak in Auth Service preventing processing checkout.,High
+System is leaking credentials because of Auth bypass.,High
+Immediate attention required: Auth Service broken.,High
+Critical SQL injection in API Gateway preventing uploading files.,High
+Immediate attention required: Payment Module unresponsive.,High
+Critical Deadlock in Prisma Layer preventing processing checkout.,High
+System is dropping connections because of 500 Error.,High
+Emergency: 500 Error is causing dropping connections for all users.,High
+System is completely unresponsive because of Auth bypass.,High
+Emergency: Auth bypass is causing dropping connections for all users.,High
+Immediate attention required: API Gateway unresponsive.,High
+System is leaking credentials because of Memory leak.,High
+System is leaking credentials because of SQL injection.,High
+System is dropping connections because of Auth bypass.,High
+Emergency: 500 Error is causing crashing production for all users.,High
+System is dropping connections because of Database timeout.,High
+System is completely unresponsive because of SQL injection.,High
+Critical Auth bypass in S3 Bucket preventing uploading files.,High
+Security alert: Memory leak detected. Potential dropping connections.,High
+Security alert: 500 Error detected. Potential dropping connections.,High
+System is leaking credentials because of Database timeout.,High
+Immediate attention required: Prisma Layer failing.,High
+System is crashing production because of Memory leak.,High
+Critical Memory leak in API Gateway preventing fetching user data.,High
+System is leaking credentials because of Deadlock.,High
+Immediate attention required: React Store lagging.,High
+Critical SQL injection in API Gateway preventing fetching user data.,High
+System is dropping connections because of 500 Error.,High
+Emergency: Auth bypass is causing leaking credentials for all users.,High
+Emergency: Auth bypass is causing crashing production for all users.,High
+Immediate attention required: Prisma Layer broken.,High
+System is completely unresponsive because of Deadlock.,High
+Immediate attention required: API Gateway unresponsive.,High
+Security alert: Auth bypass detected. Potential dropping connections.,High
+Emergency: Memory leak is causing crashing production for all users.,High
+Immediate attention required: S3 Bucket missing.,High
+Immediate attention required: Payment Module lagging.,High
+Critical Deadlock in React Store preventing processing checkout.,High
+Immediate attention required: Prisma Layer broken.,High
+Security alert: 500 Error detected. Potential completely unresponsive.,High
+System is leaking credentials because of Memory leak.,High
+Security alert: Memory leak detected. Potential completely unresponsive.,High
+Emergency: SQL injection is causing completely unresponsive for all users.,High
+System is dropping connections because of 500 Error.,High
+Security alert: Deadlock detected. Potential completely unresponsive.,High
+Security alert: Memory leak detected. Potential dropping connections.,High
+Security alert: Deadlock detected. Potential dropping connections.,High
+System is dropping connections because of SQL injection.,High
+Security alert: SQL injection detected. Potential dropping connections.,High
+System is completely unresponsive because of SQL injection.,High
+Emergency: Database timeout is causing dropping connections for all users.,High
+Security alert: Auth bypass detected. Potential leaking credentials.,High
+System is leaking credentials because of SQL injection.,High
+System is dropping connections because of Deadlock.,High
+Security alert: 500 Error detected. Potential dropping connections.,High
+Immediate attention required: React Store failing.,High
+Security alert: Database timeout detected. Potential leaking credentials.,High
+Emergency: Deadlock is causing crashing production for all users.,High
+Emergency: SQL injection is causing leaking credentials for all users.,High
+System is dropping connections because of SQL injection.,High
+Emergency: Database timeout is causing crashing production for all users.,High
+System is leaking credentials because of 500 Error.,High
+Immediate attention required: Auth Service lagging.,High
+Emergency: 500 Error is causing completely unresponsive for all users.,High
+Security alert: SQL injection detected. Potential dropping connections.,High
+Emergency: 500 Error is causing crashing production for all users.,High
+Immediate attention required: API Gateway lagging.,High
+Emergency: 500 Error is causing completely unresponsive for all users.,High
+Critical Memory leak in Prisma Layer preventing processing checkout.,High
+Immediate attention required: Payment Module broken.,High
+System is completely unresponsive because of 500 Error.,High
+System is dropping connections because of 500 Error.,High
+Security alert: 500 Error detected. Potential dropping connections.,High
+Emergency: Deadlock is causing leaking credentials for all users.,High
+Emergency: SQL injection is causing crashing production for all users.,High
+Immediate attention required: React Store broken.,High
+Critical Deadlock in Payment Module preventing syncing logs.,High
+System is completely unresponsive because of Deadlock.,High
+Security alert: 500 Error detected. Potential crashing production.,High
+Critical Memory leak in S3 Bucket preventing uploading files.,High
+System is dropping connections because of SQL injection.,High
+System is completely unresponsive because of Auth bypass.,High
+Security alert: Database timeout detected. Potential dropping connections.,High
+Security alert: Deadlock detected. Potential dropping connections.,High
+Emergency: Auth bypass is causing leaking credentials for all users.,High
+Emergency: Deadlock is causing leaking credentials for all users.,High
+System is crashing production because of Auth bypass.,High
+System is crashing production because of SQL injection.,High
+Emergency: SQL injection is causing completely unresponsive for all users.,High
+Immediate attention required: S3 Bucket unresponsive.,High
+Security alert: Deadlock detected. Potential dropping connections.,High
+Security alert: Database timeout detected. Potential leaking credentials.,High
+System is dropping connections because of Database timeout.,High
+Security alert: Auth bypass detected. Potential crashing production.,High
+Immediate attention required: Auth Service broken.,High
+System is crashing production because of 500 Error.,High
+Critical SQL injection in S3 Bucket preventing uploading files.,High
+Security alert: Memory leak detected. Potential dropping connections.,High
+System is crashing production because of 500 Error.,High
+System is completely unresponsive because of 500 Error.,High
+Security alert: SQL injection detected. Potential completely unresponsive.,High
+Immediate attention required: Payment Module lagging.,High
+Security alert: Auth bypass detected. Potential crashing production.,High
+System is dropping connections because of Deadlock.,High
+Emergency: SQL injection is causing dropping connections for all users.,High
+Emergency: Memory leak is causing dropping connections for all users.,High
+Immediate attention required: S3 Bucket broken.,High
+System is completely unresponsive because of Auth bypass.,High
+System is completely unresponsive because of Database timeout.,High
+Security alert: Auth bypass detected. Potential leaking credentials.,High
+Emergency: Memory leak is causing completely unresponsive for all users.,High
+Emergency: Database timeout is causing dropping connections for all users.,High
+Security alert: SQL injection detected. Potential completely unresponsive.,High
+Security alert: Deadlock detected. Potential crashing production.,High
+Security alert: Database timeout detected. Potential crashing production.,High
+Immediate attention required: Prisma Layer failing.,High
+Immediate attention required: Payment Module missing.,High
+Critical Database timeout in React Store preventing uploading files.,High
+Critical Database timeout in Prisma Layer preventing processing checkout.,High
+System is completely unresponsive because of 500 Error.,High
+Emergency: Deadlock is causing dropping connections for all users.,High
+Critical Memory leak in Payment Module preventing processing checkout.,High
+Security alert: Deadlock detected. Potential completely unresponsive.,High
+Security alert: 500 Error detected. Potential dropping connections.,High
+Security alert: 500 Error detected. Potential completely unresponsive.,High
+Immediate attention required: S3 Bucket off-center.,High
+Immediate attention required: S3 Bucket missing.,High
+Critical Database timeout in Auth Service preventing syncing logs.,High
+System is completely unresponsive because of Memory leak.,High
+Emergency: Memory leak is causing completely unresponsive for all users.,High
+Critical Deadlock in Auth Service preventing fetching user data.,High
+System is completely unresponsive because of Auth bypass.,High
+Emergency: Memory leak is causing crashing production for all users.,High
+Emergency: Memory leak is causing dropping connections for all users.,High
+Emergency: Memory leak is causing completely unresponsive for all users.,High
+Emergency: Deadlock is causing leaking credentials for all users.,High
+Emergency: Auth bypass is causing crashing production for all users.,High
+System is crashing production because of Database timeout.,High
+System is completely unresponsive because of Auth bypass.,High
+System is crashing production because of 500 Error.,High
+System is crashing production because of Database timeout.,High
+Critical Memory leak in S3 Bucket preventing processing checkout.,High
+Emergency: Auth bypass is causing dropping connections for all users.,High
+Security alert: Deadlock detected. Potential crashing production.,High
+Critical SQL injection in Payment Module preventing uploading files.,High
+Immediate attention required: S3 Bucket failing.,High
+Immediate attention required: API Gateway broken.,High
+System is completely unresponsive because of SQL injection.,High
+Emergency: Auth bypass is causing crashing production for all users.,High
+Security alert: 500 Error detected. Potential dropping connections.,High
+Security alert: SQL injection detected. Potential crashing production.,High
+System is completely unresponsive because of Memory leak.,High
+Critical Auth bypass in API Gateway preventing syncing logs.,High
+System is dropping connections because of SQL injection.,High
+Critical Deadlock in Prisma Layer preventing verifying JWT.,High
+Immediate attention required: S3 Bucket off-center.,High
+Security alert: SQL injection detected. Potential leaking credentials.,High
+Immediate attention required: Auth Service failing.,High
+Security alert: Deadlock detected. Potential crashing production.,High
+System is dropping connections because of SQL injection.,High
+Emergency: Auth bypass is causing leaking credentials for all users.,High
+System is crashing production because of Deadlock.,High
+Emergency: Deadlock is causing crashing production for all users.,High
+Critical Auth bypass in API Gateway preventing verifying JWT.,High
+Critical Database timeout in S3 Bucket preventing syncing logs.,High
+System is crashing production because of Auth bypass.,High
+Security alert: SQL injection detected. Potential leaking credentials.,High
+Critical Memory leak in API Gateway preventing syncing logs.,High
+Critical SQL injection in API Gateway preventing processing checkout.,High
+Security alert: Deadlock detected. Potential dropping connections.,High
+Immediate attention required: Prisma Layer failing.,High
+Emergency: Auth bypass is causing crashing production for all users.,High
+Emergency: Memory leak is causing crashing production for all users.,High
+Immediate attention required: S3 Bucket lagging.,High
+Emergency: SQL injection is causing crashing production for all users.,High
+Immediate attention required: API Gateway failing.,High
+Immediate attention required: API Gateway lagging.,High
+Immediate attention required: React Store lagging.,High
+Immediate attention required: Prisma Layer unresponsive.,High
+Immediate attention required: S3 Bucket missing.,High
+Immediate attention required: Auth Service broken.,High
+System is completely unresponsive because of SQL injection.,High
+Emergency: SQL injection is causing crashing production for all users.,High
+Immediate attention required: API Gateway failing.,High
+Emergency: Auth bypass is causing completely unresponsive for all users.,High
+Security alert: SQL injection detected. Potential completely unresponsive.,High
+Immediate attention required: Auth Service off-center.,High
+Emergency: Deadlock is causing completely unresponsive for all users.,High
+Security alert: 500 Error detected. Potential leaking credentials.,High
+System is dropping connections because of 500 Error.,High
+Immediate attention required: API Gateway failing.,High
+Security alert: SQL injection detected. Potential leaking credentials.,High
+System is completely unresponsive because of SQL injection.,High
+System is leaking credentials because of Auth bypass.,High
+Immediate attention required: React Store broken.,High
+System is dropping connections because of Database timeout.,High
+Emergency: 500 Error is causing completely unresponsive for all users.,High
+Emergency: 500 Error is causing leaking credentials for all users.,High
+Critical Deadlock in Auth Service preventing syncing logs.,High
+Immediate attention required: Payment Module lagging.,High
+Critical 500 Error in Prisma Layer preventing uploading files.,High
+Immediate attention required: React Store off-center.,High
+Emergency: SQL injection is causing crashing production for all users.,High
+Security alert: SQL injection detected. Potential crashing production.,High
+Critical 500 Error in S3 Bucket preventing verifying JWT.,High
+Emergency: Deadlock is causing completely unresponsive for all users.,High
+Security alert: 500 Error detected. Potential crashing production.,High
+System is dropping connections because of SQL injection.,High
+Emergency: SQL injection is causing crashing production for all users.,High
+Security alert: Database timeout detected. Potential dropping connections.,High
+Immediate attention required: Payment Module lagging.,High
+Critical Memory leak in S3 Bucket preventing verifying JWT.,High
+Security alert: Memory leak detected. Potential dropping connections.,High
+Security alert: SQL injection detected. Potential completely unresponsive.,High
+System is leaking credentials because of Database timeout.,High
+Critical 500 Error in API Gateway preventing verifying JWT.,High
+Security alert: SQL injection detected. Potential leaking credentials.,High
+Security alert: Database timeout detected. Potential crashing production.,High
+Security alert: Auth bypass detected. Potential dropping connections.,High
+Emergency: Auth bypass is causing dropping connections for all users.,High
+Emergency: SQL injection is causing completely unresponsive for all users.,High
+Security alert: SQL injection detected. Potential leaking credentials.,High
+System is leaking credentials because of Memory leak.,High
+Security alert: 500 Error detected. Potential crashing production.,High
+Security alert: SQL injection detected. Potential leaking credentials.,High
+Emergency: Deadlock is causing leaking credentials for all users.,High
+Critical Database timeout in Payment Module preventing processing checkout.,High
+Emergency: SQL injection is causing crashing production for all users.,High
+Immediate attention required: API Gateway lagging.,High
+Immediate attention required: Auth Service failing.,High
+Immediate attention required: Auth Service unresponsive.,High
+Emergency: Database timeout is causing crashing production for all users.,High
+Immediate attention required: API Gateway off-center.,High
+Immediate attention required: React Store missing.,High
+Security alert: SQL injection detected. Potential leaking credentials.,High
+Immediate attention required: Prisma Layer failing.,High
+Immediate attention required: React Store unresponsive.,High
+Critical Database timeout in API Gateway preventing processing checkout.,High
+System is crashing production because of 500 Error.,High
+Critical Database timeout in Prisma Layer preventing fetching user data.,High
+Security alert: Database timeout detected. Potential completely unresponsive.,High
+Critical 500 Error in Prisma Layer preventing fetching user data.,High
+Critical SQL injection in React Store preventing syncing logs.,High
+Immediate attention required: Auth Service missing.,High
+Security alert: Deadlock detected. Potential dropping connections.,High
+Security alert: Memory leak detected. Potential dropping connections.,High
+System is completely unresponsive because of 500 Error.,High
+Security alert: SQL injection detected. Potential leaking credentials.,High
+Emergency: SQL injection is causing completely unresponsive for all users.,High
+Critical SQL injection in Payment Module preventing uploading files.,High
+Emergency: Memory leak is causing leaking credentials for all users.,High
+Security alert: Memory leak detected. Potential crashing production.,High
+System is completely unresponsive because of Memory leak.,High
+System is completely unresponsive because of Auth bypass.,High
+Immediate attention required: Auth Service broken.,High
+Emergency: SQL injection is causing completely unresponsive for all users.,High
+Security alert: 500 Error detected. Potential crashing production.,High
+System is dropping connections because of Database timeout.,High
+Immediate attention required: React Store off-center.,High
+Emergency: Memory leak is causing completely unresponsive for all users.,High
+Critical Database timeout in API Gateway preventing processing checkout.,High
+System is dropping connections because of SQL injection.,High
+System is crashing production because of Deadlock.,High
+Critical Auth bypass in Prisma Layer preventing uploading files.,High
+Critical 500 Error in Auth Service preventing processing checkout.,High
+System is dropping connections because of Deadlock.,High
+System is crashing production because of 500 Error.,High
+Security alert: Memory leak detected. Potential dropping connections.,High
+Security alert: Memory leak detected. Potential crashing production.,High
+Immediate attention required: Payment Module lagging.,High
+Critical 500 Error in S3 Bucket preventing syncing logs.,High
+Security alert: Deadlock detected. Potential crashing production.,High
+System is completely unresponsive because of SQL injection.,High
+Critical Deadlock in API Gateway preventing uploading files.,High
+System is crashing production because of 500 Error.,High
+System is dropping connections because of Auth bypass.,High
+Security alert: SQL injection detected. Potential leaking credentials.,High
+Emergency: Memory leak is causing dropping connections for all users.,High
+Critical Deadlock in S3 Bucket preventing fetching user data.,High
+Emergency: SQL injection is causing dropping connections for all users.,High
+Security alert: Deadlock detected. Potential leaking credentials.,High
+Immediate attention required: React Store off-center.,High
+Security alert: Database timeout detected. Potential completely unresponsive.,High
+Immediate attention required: Auth Service broken.,High
+Emergency: Memory leak is causing dropping connections for all users.,High
+Immediate attention required: API Gateway broken.,High
+System is dropping connections because of Deadlock.,High
+Immediate attention required: S3 Bucket failing.,High
+Security alert: Deadlock detected. Potential leaking credentials.,High
+Immediate attention required: Prisma Layer off-center.,High
+Emergency: Memory leak is causing completely unresponsive for all users.,High
+Critical Database timeout in Auth Service preventing fetching user data.,High
+Immediate attention required: React Store unresponsive.,High
+Emergency: 500 Error is causing leaking credentials for all users.,High
+System is completely unresponsive because of Database timeout.,High
+Immediate attention required: React Store off-center.,High
+Security alert: Auth bypass detected. Potential dropping connections.,High
+Emergency: Database timeout is causing leaking credentials for all users.,High
+Immediate attention required: React Store failing.,High
+Security alert: Database timeout detected. Potential completely unresponsive.,High
+Emergency: Deadlock is causing completely unresponsive for all users.,High
+Security alert: Memory leak detected. Potential leaking credentials.,High
+System is leaking credentials because of Deadlock.,High
+Standard issue: fetching user data doesn't work as expected in Auth Service.,Normal
+Standard issue: fetching user data doesn't work as expected in Prisma Layer.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+The Avatar upload is failing when uploading files.,Normal
+Standard issue: processing checkout doesn't work as expected in S3 Bucket.,Normal
+Standard issue: syncing logs doesn't work as expected in Payment Module.,Normal
+Logic error in Auth Service while uploading files.,Normal
+Functional bug: processing checkout in Auth Service is failing.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+The Submit button is failing when verifying JWT.,Normal
+Logic error in Payment Module while uploading files.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Functional bug: processing checkout in React Store is off-center.,Normal
+The Footer is unresponsive when verifying JWT.,Normal
+Standard issue: verifying JWT doesn't work as expected in Payment Module.,Normal
+Logic error in React Store while fetching user data.,Normal
+Logic error in Prisma Layer while fetching user data.,Normal
+Standard issue: processing checkout doesn't work as expected in Prisma Layer.,Normal
+Standard issue: uploading files doesn't work as expected in Auth Service.,Normal
+The Navbar is lagging when fetching user data.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Standard issue: fetching user data doesn't work as expected in S3 Bucket.,Normal
+Functional bug: processing checkout in Payment Module is missing.,Normal
+Logic error in API Gateway while fetching user data.,Normal
+Logic error in API Gateway while processing checkout.,Normal
+Functional bug: processing checkout in API Gateway is off-center.,Normal
+The Avatar upload is failing when uploading files.,Normal
+The Footer is missing when uploading files.,Normal
+Functional bug: uploading files in S3 Bucket is lagging.,Normal
+Logic error in Payment Module while verifying JWT.,Normal
+Standard issue: verifying JWT doesn't work as expected in Auth Service.,Normal
+Logic error in API Gateway while syncing logs.,Normal
+Standard issue: uploading files doesn't work as expected in Prisma Layer.,Normal
+Functional bug: syncing logs in API Gateway is lagging.,Normal
+Functional bug: fetching user data in Prisma Layer is failing.,Normal
+Standard issue: syncing logs doesn't work as expected in React Store.,Normal
+Functional bug: uploading files in Payment Module is failing.,Normal
+The Dashboard card is unresponsive when fetching user data.,Normal
+Standard issue: uploading files doesn't work as expected in React Store.,Normal
+Logic error in React Store while verifying JWT.,Normal
+The Submit button is unresponsive when verifying JWT.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+The Avatar upload is failing when uploading files.,Normal
+Logic error in API Gateway while fetching user data.,Normal
+Logic error in S3 Bucket while fetching user data.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+The Avatar upload is lagging when syncing logs.,Normal
+Standard issue: fetching user data doesn't work as expected in S3 Bucket.,Normal
+Standard issue: processing checkout doesn't work as expected in API Gateway.,Normal
+Functional bug: processing checkout in React Store is failing.,Normal
+The Navbar is broken when processing checkout.,Normal
+The Submit button is failing when uploading files.,Normal
+Standard issue: processing checkout doesn't work as expected in S3 Bucket.,Normal
+The Footer is broken when fetching user data.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Standard issue: verifying JWT doesn't work as expected in Payment Module.,Normal
+The Navbar is missing when fetching user data.,Normal
+Standard issue: verifying JWT doesn't work as expected in S3 Bucket.,Normal
+The Avatar upload is failing when uploading files.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+The Submit button is missing when processing checkout.,Normal
+Logic error in Payment Module while processing checkout.,Normal
+Logic error in Auth Service while processing checkout.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Standard issue: fetching user data doesn't work as expected in API Gateway.,Normal
+The Dashboard card is off-center when processing checkout.,Normal
+Standard issue: fetching user data doesn't work as expected in Payment Module.,Normal
+Logic error in Prisma Layer while verifying JWT.,Normal
+Logic error in Prisma Layer while fetching user data.,Normal
+The Submit button is broken when fetching user data.,Normal
+Standard issue: processing checkout doesn't work as expected in API Gateway.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Logic error in API Gateway while processing checkout.,Normal
+Logic error in S3 Bucket while verifying JWT.,Normal
+Standard issue: fetching user data doesn't work as expected in Payment Module.,Normal
+Logic error in Auth Service while fetching user data.,Normal
+Functional bug: verifying JWT in Auth Service is missing.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Functional bug: uploading files in Auth Service is off-center.,Normal
+Standard issue: uploading files doesn't work as expected in S3 Bucket.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Standard issue: syncing logs doesn't work as expected in Payment Module.,Normal
+The Footer is broken when processing checkout.,Normal
+Logic error in Auth Service while processing checkout.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Logic error in API Gateway while uploading files.,Normal
+Standard issue: fetching user data doesn't work as expected in Prisma Layer.,Normal
+Functional bug: syncing logs in React Store is off-center.,Normal
+Functional bug: fetching user data in Prisma Layer is missing.,Normal
+Logic error in React Store while fetching user data.,Normal
+The Submit button is failing when processing checkout.,Normal
+Logic error in API Gateway while processing checkout.,Normal
+Logic error in S3 Bucket while syncing logs.,Normal
+Standard issue: fetching user data doesn't work as expected in S3 Bucket.,Normal
+Functional bug: processing checkout in React Store is unresponsive.,Normal
+Functional bug: fetching user data in S3 Bucket is unresponsive.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Logic error in Payment Module while verifying JWT.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Standard issue: processing checkout doesn't work as expected in React Store.,Normal
+Functional bug: uploading files in API Gateway is missing.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Functional bug: processing checkout in Payment Module is missing.,Normal
+Standard issue: processing checkout doesn't work as expected in React Store.,Normal
+The Dashboard card is lagging when uploading files.,Normal
+Functional bug: fetching user data in Auth Service is broken.,Normal
+The Navbar is unresponsive when processing checkout.,Normal
+Logic error in Payment Module while uploading files.,Normal
+The Submit button is unresponsive when syncing logs.,Normal
+Functional bug: syncing logs in API Gateway is failing.,Normal
+Standard issue: processing checkout doesn't work as expected in React Store.,Normal
+Logic error in React Store while processing checkout.,Normal
+Logic error in Payment Module while syncing logs.,Normal
+The Footer is unresponsive when fetching user data.,Normal
+Logic error in Prisma Layer while syncing logs.,Normal
+Logic error in API Gateway while processing checkout.,Normal
+The Avatar upload is unresponsive when verifying JWT.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Logic error in Auth Service while uploading files.,Normal
+The Dashboard card is unresponsive when syncing logs.,Normal
+Standard issue: processing checkout doesn't work as expected in Prisma Layer.,Normal
+The Submit button is broken when verifying JWT.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+The Dashboard card is lagging when uploading files.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Logic error in API Gateway while syncing logs.,Normal
+Functional bug: processing checkout in Payment Module is off-center.,Normal
+Logic error in React Store while fetching user data.,Normal
+The Dashboard card is unresponsive when fetching user data.,Normal
+Functional bug: fetching user data in S3 Bucket is missing.,Normal
+Logic error in Payment Module while processing checkout.,Normal
+Standard issue: processing checkout doesn't work as expected in Payment Module.,Normal
+Functional bug: processing checkout in React Store is failing.,Normal
+Functional bug: fetching user data in S3 Bucket is missing.,Normal
+Standard issue: processing checkout doesn't work as expected in React Store.,Normal
+Standard issue: fetching user data doesn't work as expected in Auth Service.,Normal
+Logic error in Auth Service while syncing logs.,Normal
+Standard issue: fetching user data doesn't work as expected in Payment Module.,Normal
+The Submit button is off-center when verifying JWT.,Normal
+The Submit button is failing when processing checkout.,Normal
+Logic error in Payment Module while syncing logs.,Normal
+Logic error in API Gateway while uploading files.,Normal
+Functional bug: uploading files in Auth Service is failing.,Normal
+Standard issue: syncing logs doesn't work as expected in React Store.,Normal
+Logic error in S3 Bucket while verifying JWT.,Normal
+The Dashboard card is broken when processing checkout.,Normal
+Logic error in Auth Service while fetching user data.,Normal
+Functional bug: uploading files in API Gateway is off-center.,Normal
+Standard issue: verifying JWT doesn't work as expected in React Store.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Standard issue: fetching user data doesn't work as expected in S3 Bucket.,Normal
+Standard issue: syncing logs doesn't work as expected in Payment Module.,Normal
+Functional bug: verifying JWT in React Store is lagging.,Normal
+Functional bug: verifying JWT in Prisma Layer is off-center.,Normal
+Standard issue: fetching user data doesn't work as expected in S3 Bucket.,Normal
+Standard issue: verifying JWT doesn't work as expected in Payment Module.,Normal
+Logic error in React Store while fetching user data.,Normal
+The Footer is failing when verifying JWT.,Normal
+The Submit button is missing when processing checkout.,Normal
+The Submit button is lagging when uploading files.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Logic error in Auth Service while processing checkout.,Normal
+Standard issue: fetching user data doesn't work as expected in Prisma Layer.,Normal
+Standard issue: syncing logs doesn't work as expected in API Gateway.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+The Submit button is lagging when verifying JWT.,Normal
+Standard issue: fetching user data doesn't work as expected in Prisma Layer.,Normal
+Standard issue: verifying JWT doesn't work as expected in Auth Service.,Normal
+Functional bug: uploading files in S3 Bucket is unresponsive.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+Standard issue: syncing logs doesn't work as expected in React Store.,Normal
+The Dashboard card is off-center when uploading files.,Normal
+Logic error in Auth Service while fetching user data.,Normal
+Functional bug: syncing logs in React Store is off-center.,Normal
+Standard issue: syncing logs doesn't work as expected in Payment Module.,Normal
+Standard issue: syncing logs doesn't work as expected in S3 Bucket.,Normal
+Standard issue: verifying JWT doesn't work as expected in Prisma Layer.,Normal
+Logic error in API Gateway while syncing logs.,Normal
+The Footer is broken when uploading files.,Normal
+Logic error in Prisma Layer while processing checkout.,Normal
+Logic error in S3 Bucket while verifying JWT.,Normal
+Functional bug: syncing logs in React Store is failing.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Functional bug: processing checkout in React Store is off-center.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+Functional bug: fetching user data in S3 Bucket is lagging.,Normal
+Standard issue: syncing logs doesn't work as expected in Prisma Layer.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+Functional bug: verifying JWT in React Store is failing.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Functional bug: verifying JWT in S3 Bucket is failing.,Normal
+Logic error in S3 Bucket while processing checkout.,Normal
+Functional bug: fetching user data in Prisma Layer is missing.,Normal
+Functional bug: uploading files in Payment Module is lagging.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Logic error in Auth Service while uploading files.,Normal
+The Avatar upload is missing when verifying JWT.,Normal
+Functional bug: verifying JWT in Auth Service is lagging.,Normal
+Standard issue: processing checkout doesn't work as expected in API Gateway.,Normal
+The Footer is failing when processing checkout.,Normal
+The Dashboard card is lagging when uploading files.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Logic error in React Store while processing checkout.,Normal
+Functional bug: uploading files in API Gateway is off-center.,Normal
+Logic error in Payment Module while processing checkout.,Normal
+The Footer is off-center when verifying JWT.,Normal
+Standard issue: fetching user data doesn't work as expected in API Gateway.,Normal
+Logic error in API Gateway while fetching user data.,Normal
+Standard issue: verifying JWT doesn't work as expected in S3 Bucket.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Logic error in Auth Service while fetching user data.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Functional bug: fetching user data in Payment Module is failing.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Logic error in Payment Module while processing checkout.,Normal
+Standard issue: processing checkout doesn't work as expected in Prisma Layer.,Normal
+Logic error in Auth Service while processing checkout.,Normal
+The Navbar is off-center when syncing logs.,Normal
+Functional bug: verifying JWT in React Store is failing.,Normal
+Standard issue: fetching user data doesn't work as expected in Prisma Layer.,Normal
+Standard issue: fetching user data doesn't work as expected in API Gateway.,Normal
+Functional bug: verifying JWT in React Store is unresponsive.,Normal
+Standard issue: syncing logs doesn't work as expected in Payment Module.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+Logic error in S3 Bucket while fetching user data.,Normal
+Logic error in React Store while uploading files.,Normal
+Functional bug: fetching user data in S3 Bucket is broken.,Normal
+Standard issue: verifying JWT doesn't work as expected in Auth Service.,Normal
+The Navbar is lagging when uploading files.,Normal
+Functional bug: processing checkout in React Store is off-center.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+The Dashboard card is failing when uploading files.,Normal
+Logic error in API Gateway while processing checkout.,Normal
+Standard issue: processing checkout doesn't work as expected in API Gateway.,Normal
+Logic error in React Store while verifying JWT.,Normal
+Logic error in API Gateway while fetching user data.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Functional bug: syncing logs in Prisma Layer is failing.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Functional bug: verifying JWT in Payment Module is missing.,Normal
+The Dashboard card is missing when fetching user data.,Normal
+Functional bug: uploading files in Payment Module is failing.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Standard issue: syncing logs doesn't work as expected in Auth Service.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Standard issue: verifying JWT doesn't work as expected in Auth Service.,Normal
+Functional bug: verifying JWT in Auth Service is missing.,Normal
+Logic error in S3 Bucket while syncing logs.,Normal
+The Navbar is failing when uploading files.,Normal
+Logic error in Payment Module while uploading files.,Normal
+Functional bug: uploading files in S3 Bucket is unresponsive.,Normal
+Standard issue: verifying JWT doesn't work as expected in S3 Bucket.,Normal
+Functional bug: fetching user data in Auth Service is failing.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+Logic error in S3 Bucket while syncing logs.,Normal
+The Submit button is failing when syncing logs.,Normal
+The Dashboard card is lagging when syncing logs.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+The Submit button is failing when fetching user data.,Normal
+The Navbar is lagging when syncing logs.,Normal
+Logic error in Payment Module while processing checkout.,Normal
+Functional bug: fetching user data in Auth Service is failing.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Functional bug: fetching user data in API Gateway is lagging.,Normal
+Functional bug: verifying JWT in S3 Bucket is off-center.,Normal
+The Footer is lagging when fetching user data.,Normal
+The Navbar is off-center when uploading files.,Normal
+Functional bug: verifying JWT in Payment Module is missing.,Normal
+Functional bug: uploading files in Auth Service is missing.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+The Footer is off-center when verifying JWT.,Normal
+Logic error in Prisma Layer while uploading files.,Normal
+Standard issue: verifying JWT doesn't work as expected in React Store.,Normal
+Logic error in S3 Bucket while processing checkout.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Standard issue: uploading files doesn't work as expected in Prisma Layer.,Normal
+Logic error in Prisma Layer while processing checkout.,Normal
+Standard issue: uploading files doesn't work as expected in Prisma Layer.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+The Navbar is lagging when syncing logs.,Normal
+Standard issue: uploading files doesn't work as expected in Prisma Layer.,Normal
+The Avatar upload is off-center when verifying JWT.,Normal
+Logic error in Payment Module while verifying JWT.,Normal
+Functional bug: processing checkout in React Store is lagging.,Normal
+Functional bug: uploading files in Payment Module is off-center.,Normal
+Functional bug: syncing logs in React Store is lagging.,Normal
+The Navbar is unresponsive when verifying JWT.,Normal
+Logic error in React Store while processing checkout.,Normal
+Standard issue: verifying JWT doesn't work as expected in API Gateway.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Standard issue: uploading files doesn't work as expected in API Gateway.,Normal
+Standard issue: uploading files doesn't work as expected in Auth Service.,Normal
+Functional bug: processing checkout in Auth Service is off-center.,Normal
+Functional bug: fetching user data in API Gateway is unresponsive.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Standard issue: uploading files doesn't work as expected in API Gateway.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Functional bug: fetching user data in Prisma Layer is lagging.,Normal
+Standard issue: uploading files doesn't work as expected in Prisma Layer.,Normal
+Functional bug: fetching user data in Prisma Layer is off-center.,Normal
+Functional bug: processing checkout in API Gateway is unresponsive.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Logic error in Payment Module while syncing logs.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+The Avatar upload is failing when processing checkout.,Normal
+Logic error in Payment Module while fetching user data.,Normal
+Standard issue: fetching user data doesn't work as expected in API Gateway.,Normal
+Logic error in API Gateway while syncing logs.,Normal
+The Navbar is broken when processing checkout.,Normal
+Logic error in S3 Bucket while processing checkout.,Normal
+Logic error in Payment Module while processing checkout.,Normal
+Logic error in Payment Module while fetching user data.,Normal
+Functional bug: syncing logs in API Gateway is failing.,Normal
+The Submit button is failing when processing checkout.,Normal
+Logic error in Prisma Layer while uploading files.,Normal
+The Dashboard card is failing when processing checkout.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+Logic error in API Gateway while uploading files.,Normal
+Logic error in API Gateway while uploading files.,Normal
+Logic error in API Gateway while uploading files.,Normal
+The Dashboard card is broken when verifying JWT.,Normal
+Standard issue: fetching user data doesn't work as expected in Prisma Layer.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Standard issue: syncing logs doesn't work as expected in React Store.,Normal
+The Footer is lagging when verifying JWT.,Normal
+Standard issue: processing checkout doesn't work as expected in API Gateway.,Normal
+Logic error in Payment Module while verifying JWT.,Normal
+Standard issue: uploading files doesn't work as expected in S3 Bucket.,Normal
+The Footer is broken when uploading files.,Normal
+Standard issue: fetching user data doesn't work as expected in React Store.,Normal
+Functional bug: uploading files in Auth Service is unresponsive.,Normal
+Functional bug: fetching user data in Prisma Layer is failing.,Normal
+Standard issue: verifying JWT doesn't work as expected in Auth Service.,Normal
+The Submit button is lagging when fetching user data.,Normal
+Logic error in API Gateway while processing checkout.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Functional bug: syncing logs in Payment Module is unresponsive.,Normal
+Functional bug: uploading files in API Gateway is failing.,Normal
+Logic error in S3 Bucket while uploading files.,Normal
+Logic error in Auth Service while processing checkout.,Normal
+Logic error in S3 Bucket while fetching user data.,Normal
+Functional bug: processing checkout in React Store is missing.,Normal
+The Navbar is lagging when verifying JWT.,Normal
+Logic error in Prisma Layer while processing checkout.,Normal
+Functional bug: uploading files in Prisma Layer is failing.,Normal
+Logic error in React Store while uploading files.,Normal
+Functional bug: uploading files in API Gateway is failing.,Normal
+Logic error in Prisma Layer while fetching user data.,Normal
+The Navbar is broken when processing checkout.,Normal
+Functional bug: processing checkout in Payment Module is broken.,Normal
+Logic error in Auth Service while fetching user data.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Logic error in Payment Module while verifying JWT.,Normal
+The Submit button is missing when uploading files.,Normal
+The Dashboard card is lagging when uploading files.,Normal
+Standard issue: processing checkout doesn't work as expected in S3 Bucket.,Normal
+Functional bug: uploading files in API Gateway is lagging.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Functional bug: syncing logs in Payment Module is broken.,Normal
+Logic error in API Gateway while fetching user data.,Normal
+Functional bug: syncing logs in API Gateway is failing.,Normal
+Logic error in Prisma Layer while verifying JWT.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+The Dashboard card is failing when syncing logs.,Normal
+Standard issue: processing checkout doesn't work as expected in Prisma Layer.,Normal
+Functional bug: syncing logs in React Store is failing.,Normal
+Functional bug: fetching user data in API Gateway is unresponsive.,Normal
+Functional bug: processing checkout in API Gateway is lagging.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Functional bug: processing checkout in S3 Bucket is off-center.,Normal
+Functional bug: uploading files in API Gateway is broken.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+Functional bug: syncing logs in Prisma Layer is lagging.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Logic error in React Store while processing checkout.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Logic error in Auth Service while fetching user data.,Normal
+Logic error in Payment Module while uploading files.,Normal
+Logic error in S3 Bucket while syncing logs.,Normal
+The Navbar is missing when verifying JWT.,Normal
+The Dashboard card is unresponsive when fetching user data.,Normal
+Logic error in Auth Service while processing checkout.,Normal
+Standard issue: uploading files doesn't work as expected in React Store.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Standard issue: fetching user data doesn't work as expected in Prisma Layer.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Logic error in Prisma Layer while verifying JWT.,Normal
+Logic error in Payment Module while processing checkout.,Normal
+The Navbar is off-center when processing checkout.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+Logic error in React Store while fetching user data.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Functional bug: uploading files in Auth Service is unresponsive.,Normal
+Logic error in Prisma Layer while processing checkout.,Normal
+Logic error in S3 Bucket while verifying JWT.,Normal
+The Submit button is broken when uploading files.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Standard issue: verifying JWT doesn't work as expected in S3 Bucket.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Functional bug: uploading files in S3 Bucket is lagging.,Normal
+Standard issue: verifying JWT doesn't work as expected in Auth Service.,Normal
+The Footer is broken when fetching user data.,Normal
+The Dashboard card is missing when fetching user data.,Normal
+The Navbar is broken when verifying JWT.,Normal
+Logic error in Payment Module while uploading files.,Normal
+Logic error in S3 Bucket while processing checkout.,Normal
+Logic error in API Gateway while syncing logs.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Standard issue: processing checkout doesn't work as expected in Payment Module.,Normal
+Functional bug: fetching user data in S3 Bucket is broken.,Normal
+Logic error in Prisma Layer while verifying JWT.,Normal
+Functional bug: verifying JWT in React Store is unresponsive.,Normal
+The Dashboard card is lagging when fetching user data.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Standard issue: syncing logs doesn't work as expected in S3 Bucket.,Normal
+The Submit button is broken when fetching user data.,Normal
+Standard issue: fetching user data doesn't work as expected in Payment Module.,Normal
+Standard issue: verifying JWT doesn't work as expected in React Store.,Normal
+Functional bug: fetching user data in React Store is unresponsive.,Normal
+Logic error in React Store while fetching user data.,Normal
+Interface error: Navbar overlaps with Navbar.,Normal
+Logic error in React Store while verifying JWT.,Normal
+Logic error in API Gateway while syncing logs.,Normal
+Logic error in Payment Module while processing checkout.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Functional bug: syncing logs in Auth Service is off-center.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+The Submit button is off-center when processing checkout.,Normal
+Standard issue: verifying JWT doesn't work as expected in S3 Bucket.,Normal
+Standard issue: uploading files doesn't work as expected in Auth Service.,Normal
+Functional bug: verifying JWT in React Store is failing.,Normal
+Standard issue: processing checkout doesn't work as expected in API Gateway.,Normal
+Logic error in Payment Module while syncing logs.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Functional bug: verifying JWT in API Gateway is missing.,Normal
+Standard issue: syncing logs doesn't work as expected in S3 Bucket.,Normal
+Logic error in API Gateway while syncing logs.,Normal
+Logic error in Payment Module while syncing logs.,Normal
+The Navbar is missing when uploading files.,Normal
+Functional bug: fetching user data in Payment Module is lagging.,Normal
+The Footer is broken when syncing logs.,Normal
+Logic error in S3 Bucket while syncing logs.,Normal
+The Navbar is missing when syncing logs.,Normal
+Logic error in React Store while fetching user data.,Normal
+Functional bug: verifying JWT in Auth Service is broken.,Normal
+Standard issue: syncing logs doesn't work as expected in Prisma Layer.,Normal
+Standard issue: uploading files doesn't work as expected in Payment Module.,Normal
+The Navbar is failing when fetching user data.,Normal
+Logic error in React Store while syncing logs.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+Functional bug: fetching user data in Prisma Layer is unresponsive.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Standard issue: processing checkout doesn't work as expected in React Store.,Normal
+Standard issue: verifying JWT doesn't work as expected in Prisma Layer.,Normal
+Interface error: Submit button overlaps with Submit button.,Normal
+Logic error in Payment Module while verifying JWT.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+Standard issue: verifying JWT doesn't work as expected in S3 Bucket.,Normal
+The Footer is missing when uploading files.,Normal
+Logic error in S3 Bucket while fetching user data.,Normal
+The Dashboard card is lagging when processing checkout.,Normal
+Logic error in Payment Module while fetching user data.,Normal
+Standard issue: fetching user data doesn't work as expected in API Gateway.,Normal
+Interface error: Footer overlaps with Footer.,Normal
+Functional bug: processing checkout in S3 Bucket is unresponsive.,Normal
+Logic error in Prisma Layer while uploading files.,Normal
+The Footer is lagging when fetching user data.,Normal
+Functional bug: fetching user data in API Gateway is broken.,Normal
+Interface error: Dashboard card overlaps with Dashboard card.,Normal
+The Dashboard card is lagging when processing checkout.,Normal
+The Navbar is unresponsive when syncing logs.,Normal
+Logic error in Payment Module while verifying JWT.,Normal
+Logic error in Auth Service while syncing logs.,Normal
+The Submit button is lagging when uploading files.,Normal
+Standard issue: uploading files doesn't work as expected in Auth Service.,Normal
+Functional bug: syncing logs in Prisma Layer is unresponsive.,Normal
+The Navbar is broken when processing checkout.,Normal
+Standard issue: processing checkout doesn't work as expected in S3 Bucket.,Normal
+Functional bug: syncing logs in Payment Module is unresponsive.,Normal
+Interface error: Avatar upload overlaps with Avatar upload.,Normal
+The Avatar upload is failing when syncing logs.,Normal
+The Submit button is unresponsive when syncing logs.,Normal
+Logic error in Auth Service while verifying JWT.,Normal
+Standard issue: fetching user data doesn't work as expected in API Gateway.,Normal
+Cosmetic: Typo in React Store - 'Recieve' should be 'Login'.,Low
+Cosmetic: Typo in Payment Module - 'Loggin' should be 'Receive'.,Low
+Request: Could we update the Navbar to be more leaking credentials?,Low
+Styling: Navbar padding is slightly missing.,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Request: Could we update the Navbar to be more completely unresponsive?,Low
+Request: Could we update the Navbar to be more leaking credentials?,Low
+Minor Navbar misalignment in the S3 Bucket view.,Low
+Minor Submit button misalignment in the React Store view.,Low
+Text correction: Found 'Proccess' instead of 'Login' in the footer.,Low
+Text correction: Found 'Proccess' instead of 'Process' in the footer.,Low
+Minor Submit button misalignment in the React Store view.,Low
+Cosmetic: Typo in Payment Module - 'Comit' should be 'Commit'.,Low
+Cosmetic: Typo in Prisma Layer - 'Loggin' should be 'Login'.,Low
+Styling: Navbar padding is slightly unresponsive.,Low
+Text correction: Found 'Loggin' instead of 'Commit' in the footer.,Low
+Minor Footer misalignment in the Prisma Layer view.,Low
+Text correction: Found 'Proccess' instead of 'Commit' in the footer.,Low
+Minor Dashboard card misalignment in the Auth Service view.,Low
+Cosmetic: Typo in React Store - 'Proccess' should be 'Process'.,Low
+Styling: Dashboard card padding is slightly lagging.,Low
+Minor Submit button misalignment in the React Store view.,Low
+Minor Submit button misalignment in the API Gateway view.,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Cosmetic: Typo in S3 Bucket - 'Comit' should be 'Process'.,Low
+Minor Submit button misalignment in the S3 Bucket view.,Low
+Styling: Submit button padding is slightly off-center.,Low
+Text correction: Found 'Proccess' instead of 'Process' in the footer.,Low
+Request: Could we update the Navbar to be more dropping connections?,Low
+Text correction: Found 'Proccess' instead of 'Login' in the footer.,Low
+Styling: Dashboard card padding is slightly lagging.,Low
+Cosmetic: Typo in Payment Module - 'Recieve' should be 'Login'.,Low
+Text correction: Found 'Comit' instead of 'Login' in the footer.,Low
+Styling: Dashboard card padding is slightly unresponsive.,Low
+Minor Dashboard card misalignment in the React Store view.,Low
+Text correction: Found 'Comit' instead of 'Login' in the footer.,Low
+Styling: Submit button padding is slightly broken.,Low
+Request: Could we update the Navbar to be more leaking credentials?,Low
+Text correction: Found 'Proccess' instead of 'Login' in the footer.,Low
+Cosmetic: Typo in Payment Module - 'Recieve' should be 'Receive'.,Low
+Minor Navbar misalignment in the Prisma Layer view.,Low
+Minor Submit button misalignment in the API Gateway view.,Low
+Text correction: Found 'Proccess' instead of 'Commit' in the footer.,Low
+Cosmetic: Typo in Auth Service - 'Proccess' should be 'Receive'.,Low
+Styling: Navbar padding is slightly off-center.,Low
+Cosmetic: Typo in API Gateway - 'Loggin' should be 'Login'.,Low
+Styling: Avatar upload padding is slightly broken.,Low
+Text correction: Found 'Comit' instead of 'Process' in the footer.,Low
+Cosmetic: Typo in Prisma Layer - 'Loggin' should be 'Process'.,Low
+Request: Could we update the Footer to be more leaking credentials?,Low
+Request: Could we update the Avatar upload to be more dropping connections?,Low
+Request: Could we update the Navbar to be more leaking credentials?,Low
+Text correction: Found 'Loggin' instead of 'Commit' in the footer.,Low
+Text correction: Found 'Proccess' instead of 'Process' in the footer.,Low
+Request: Could we update the Footer to be more crashing production?,Low
+Request: Could we update the Dashboard card to be more dropping connections?,Low
+Cosmetic: Typo in API Gateway - 'Loggin' should be 'Commit'.,Low
+Text correction: Found 'Comit' instead of 'Login' in the footer.,Low
+Minor Navbar misalignment in the Prisma Layer view.,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Cosmetic: Typo in React Store - 'Recieve' should be 'Process'.,Low
+Text correction: Found 'Proccess' instead of 'Login' in the footer.,Low
+Styling: Footer padding is slightly failing.,Low
+Minor Avatar upload misalignment in the React Store view.,Low
+Styling: Dashboard card padding is slightly missing.,Low
+Cosmetic: Typo in Auth Service - 'Recieve' should be 'Process'.,Low
+Text correction: Found 'Loggin' instead of 'Receive' in the footer.,Low
+Request: Could we update the Footer to be more dropping connections?,Low
+Request: Could we update the Avatar upload to be more crashing production?,Low
+Cosmetic: Typo in React Store - 'Loggin' should be 'Receive'.,Low
+Minor Submit button misalignment in the Prisma Layer view.,Low
+Styling: Submit button padding is slightly broken.,Low
+Minor Navbar misalignment in the React Store view.,Low
+Styling: Dashboard card padding is slightly off-center.,Low
+Text correction: Found 'Comit' instead of 'Commit' in the footer.,Low
+Cosmetic: Typo in Payment Module - 'Recieve' should be 'Commit'.,Low
+Request: Could we update the Submit button to be more leaking credentials?,Low
+Request: Could we update the Navbar to be more crashing production?,Low
+Minor Avatar upload misalignment in the Payment Module view.,Low
+Styling: Footer padding is slightly lagging.,Low
+Styling: Avatar upload padding is slightly broken.,Low
+Text correction: Found 'Loggin' instead of 'Login' in the footer.,Low
+Styling: Avatar upload padding is slightly failing.,Low
+Minor Avatar upload misalignment in the Payment Module view.,Low
+Styling: Footer padding is slightly lagging.,Low
+Cosmetic: Typo in Auth Service - 'Comit' should be 'Login'.,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Request: Could we update the Navbar to be more crashing production?,Low
+Styling: Footer padding is slightly off-center.,Low
+Text correction: Found 'Proccess' instead of 'Commit' in the footer.,Low
+Minor Submit button misalignment in the API Gateway view.,Low
+Cosmetic: Typo in S3 Bucket - 'Recieve' should be 'Commit'.,Low
+Styling: Avatar upload padding is slightly missing.,Low
+Styling: Submit button padding is slightly lagging.,Low
+Cosmetic: Typo in Prisma Layer - 'Comit' should be 'Process'.,Low
+Request: Could we update the Navbar to be more crashing production?,Low
+Cosmetic: Typo in React Store - 'Proccess' should be 'Login'.,Low
+Text correction: Found 'Proccess' instead of 'Process' in the footer.,Low
+Request: Could we update the Dashboard card to be more dropping connections?,Low
+Minor Avatar upload misalignment in the Prisma Layer view.,Low
+Minor Avatar upload misalignment in the React Store view.,Low
+Cosmetic: Typo in Auth Service - 'Proccess' should be 'Process'.,Low
+Styling: Avatar upload padding is slightly broken.,Low
+Request: Could we update the Dashboard card to be more completely unresponsive?,Low
+Styling: Footer padding is slightly broken.,Low
+Styling: Footer padding is slightly off-center.,Low
+Request: Could we update the Footer to be more dropping connections?,Low
+Request: Could we update the Dashboard card to be more dropping connections?,Low
+Cosmetic: Typo in Payment Module - 'Comit' should be 'Login'.,Low
+Cosmetic: Typo in Prisma Layer - 'Loggin' should be 'Login'.,Low
+Minor Avatar upload misalignment in the API Gateway view.,Low
+Cosmetic: Typo in Payment Module - 'Loggin' should be 'Process'.,Low
+Request: Could we update the Navbar to be more leaking credentials?,Low
+Cosmetic: Typo in Auth Service - 'Loggin' should be 'Login'.,Low
+Request: Could we update the Navbar to be more crashing production?,Low
+Minor Dashboard card misalignment in the React Store view.,Low
+Text correction: Found 'Comit' instead of 'Process' in the footer.,Low
+Minor Avatar upload misalignment in the API Gateway view.,Low
+Minor Navbar misalignment in the S3 Bucket view.,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Text correction: Found 'Comit' instead of 'Login' in the footer.,Low
+Text correction: Found 'Loggin' instead of 'Process' in the footer.,Low
+Styling: Navbar padding is slightly lagging.,Low
+Text correction: Found 'Recieve' instead of 'Commit' in the footer.,Low
+Minor Avatar upload misalignment in the Payment Module view.,Low
+Request: Could we update the Avatar upload to be more dropping connections?,Low
+Request: Could we update the Avatar upload to be more completely unresponsive?,Low
+Request: Could we update the Navbar to be more leaking credentials?,Low
+Text correction: Found 'Comit' instead of 'Login' in the footer.,Low
+Request: Could we update the Avatar upload to be more dropping connections?,Low
+Styling: Avatar upload padding is slightly lagging.,Low
+Cosmetic: Typo in Payment Module - 'Loggin' should be 'Commit'.,Low
+Cosmetic: Typo in S3 Bucket - 'Comit' should be 'Login'.,Low
+Cosmetic: Typo in Auth Service - 'Comit' should be 'Process'.,Low
+Minor Navbar misalignment in the S3 Bucket view.,Low
+Minor Submit button misalignment in the S3 Bucket view.,Low
+Styling: Footer padding is slightly unresponsive.,Low
+Text correction: Found 'Proccess' instead of 'Process' in the footer.,Low
+Styling: Avatar upload padding is slightly off-center.,Low
+Minor Footer misalignment in the Payment Module view.,Low
+Request: Could we update the Avatar upload to be more dropping connections?,Low
+Cosmetic: Typo in React Store - 'Loggin' should be 'Commit'.,Low
+Request: Could we update the Footer to be more leaking credentials?,Low
+Minor Footer misalignment in the Auth Service view.,Low
+Request: Could we update the Footer to be more dropping connections?,Low
+Styling: Submit button padding is slightly broken.,Low
+Styling: Navbar padding is slightly missing.,Low
+Request: Could we update the Dashboard card to be more dropping connections?,Low
+Styling: Footer padding is slightly missing.,Low
+Cosmetic: Typo in Prisma Layer - 'Proccess' should be 'Receive'.,Low
+Styling: Navbar padding is slightly broken.,Low
+Request: Could we update the Avatar upload to be more crashing production?,Low
+Styling: Dashboard card padding is slightly off-center.,Low
+Cosmetic: Typo in Payment Module - 'Proccess' should be 'Login'.,Low
+Text correction: Found 'Proccess' instead of 'Receive' in the footer.,Low
+Text correction: Found 'Proccess' instead of 'Login' in the footer.,Low
+Minor Navbar misalignment in the Auth Service view.,Low
+Text correction: Found 'Proccess' instead of 'Commit' in the footer.,Low
+Text correction: Found 'Loggin' instead of 'Process' in the footer.,Low
+Styling: Navbar padding is slightly failing.,Low
+Request: Could we update the Footer to be more dropping connections?,Low
+Text correction: Found 'Proccess' instead of 'Commit' in the footer.,Low
+Cosmetic: Typo in Payment Module - 'Recieve' should be 'Process'.,Low
+Text correction: Found 'Proccess' instead of 'Process' in the footer.,Low
+Styling: Navbar padding is slightly broken.,Low
+Request: Could we update the Footer to be more dropping connections?,Low
+Text correction: Found 'Loggin' instead of 'Login' in the footer.,Low
+Styling: Dashboard card padding is slightly off-center.,Low
+Minor Navbar misalignment in the S3 Bucket view.,Low
+Cosmetic: Typo in Auth Service - 'Comit' should be 'Process'.,Low
+Styling: Footer padding is slightly failing.,Low
+Minor Footer misalignment in the S3 Bucket view.,Low
+Styling: Navbar padding is slightly unresponsive.,Low
+Text correction: Found 'Proccess' instead of 'Receive' in the footer.,Low
+Styling: Submit button padding is slightly unresponsive.,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Request: Could we update the Dashboard card to be more crashing production?,Low
+Styling: Footer padding is slightly missing.,Low
+Text correction: Found 'Comit' instead of 'Receive' in the footer.,Low
+Text correction: Found 'Proccess' instead of 'Process' in the footer.,Low
+Styling: Avatar upload padding is slightly broken.,Low
+Cosmetic: Typo in Payment Module - 'Recieve' should be 'Login'.,Low
+Text correction: Found 'Recieve' instead of 'Commit' in the footer.,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Text correction: Found 'Comit' instead of 'Login' in the footer.,Low
+Minor Navbar misalignment in the Auth Service view.,Low
+Minor Submit button misalignment in the API Gateway view.,Low
+Minor Footer misalignment in the API Gateway view.,Low
+Cosmetic: Typo in Auth Service - 'Recieve' should be 'Login'.,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Minor Dashboard card misalignment in the API Gateway view.,Low
+Styling: Submit button padding is slightly failing.,Low
+Styling: Navbar padding is slightly failing.,Low
+Minor Navbar misalignment in the API Gateway view.,Low
+Text correction: Found 'Loggin' instead of 'Commit' in the footer.,Low
+Request: Could we update the Avatar upload to be more crashing production?,Low
+Request: Could we update the Footer to be more dropping connections?,Low
+Styling: Dashboard card padding is slightly lagging.,Low
+Request: Could we update the Avatar upload to be more leaking credentials?,Low
+Request: Could we update the Submit button to be more crashing production?,Low
+Request: Could we update the Footer to be more leaking credentials?,Low
+Minor Avatar upload misalignment in the Auth Service view.,Low
+Cosmetic: Typo in API Gateway - 'Proccess' should be 'Receive'.,Low
+Request: Could we update the Navbar to be more dropping connections?,Low
+Minor Navbar misalignment in the Prisma Layer view.,Low
+Text correction: Found 'Proccess' instead of 'Login' in the footer.,Low
+Styling: Navbar padding is slightly missing.,Low
+Cosmetic: Typo in API Gateway - 'Recieve' should be 'Receive'.,Low
+Cosmetic: Typo in React Store - 'Loggin' should be 'Process'.,Low
+Request: Could we update the Avatar upload to be more leaking credentials?,Low
+Minor Navbar misalignment in the API Gateway view.,Low
+Cosmetic: Typo in Auth Service - 'Comit' should be 'Commit'.,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Cosmetic: Typo in S3 Bucket - 'Proccess' should be 'Login'.,Low
+Styling: Footer padding is slightly missing.,Low
+Request: Could we update the Footer to be more leaking credentials?,Low
+Minor Footer misalignment in the Auth Service view.,Low
+Styling: Navbar padding is slightly failing.,Low
+Request: Could we update the Footer to be more dropping connections?,Low
+Minor Avatar upload misalignment in the Payment Module view.,Low
+Styling: Dashboard card padding is slightly broken.,Low
+Styling: Avatar upload padding is slightly off-center.,Low
+Styling: Navbar padding is slightly failing.,Low
+Text correction: Found 'Comit' instead of 'Login' in the footer.,Low
+Cosmetic: Typo in React Store - 'Proccess' should be 'Process'.,Low
+Request: Could we update the Dashboard card to be more crashing production?,Low
+Minor Dashboard card misalignment in the Auth Service view.,Low
+Request: Could we update the Navbar to be more completely unresponsive?,Low
+Request: Could we update the Navbar to be more crashing production?,Low
+Minor Submit button misalignment in the API Gateway view.,Low
+Text correction: Found 'Loggin' instead of 'Process' in the footer.,Low
+Cosmetic: Typo in API Gateway - 'Loggin' should be 'Login'.,Low
+Text correction: Found 'Proccess' instead of 'Receive' in the footer.,Low
+Styling: Avatar upload padding is slightly broken.,Low
+Styling: Dashboard card padding is slightly unresponsive.,Low
+Cosmetic: Typo in Payment Module - 'Loggin' should be 'Receive'.,Low
+Request: Could we update the Submit button to be more dropping connections?,Low
+Request: Could we update the Navbar to be more crashing production?,Low
+Request: Could we update the Avatar upload to be more leaking credentials?,Low
+Request: Could we update the Dashboard card to be more dropping connections?,Low
+Cosmetic: Typo in S3 Bucket - 'Proccess' should be 'Receive'.,Low
+Minor Submit button misalignment in the API Gateway view.,Low
+Styling: Avatar upload padding is slightly off-center.,Low
+Minor Footer misalignment in the Payment Module view.,Low
+Request: Could we update the Dashboard card to be more completely unresponsive?,Low
+Styling: Submit button padding is slightly missing.,Low
+Minor Avatar upload misalignment in the Prisma Layer view.,Low
+Request: Could we update the Avatar upload to be more dropping connections?,Low
+Styling: Avatar upload padding is slightly off-center.,Low
+Minor Footer misalignment in the React Store view.,Low
+Cosmetic: Typo in Auth Service - 'Comit' should be 'Commit'.,Low
+Cosmetic: Typo in Auth Service - 'Loggin' should be 'Login'.,Low
+Styling: Avatar upload padding is slightly failing.,Low
+Styling: Submit button padding is slightly off-center.,Low
+Minor Footer misalignment in the Payment Module view.,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Styling: Footer padding is slightly missing.,Low
+Styling: Submit button padding is slightly failing.,Low
+Request: Could we update the Avatar upload to be more dropping connections?,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Cosmetic: Typo in S3 Bucket - 'Recieve' should be 'Process'.,Low
+Text correction: Found 'Proccess' instead of 'Commit' in the footer.,Low
+Text correction: Found 'Recieve' instead of 'Login' in the footer.,Low
+Text correction: Found 'Proccess' instead of 'Process' in the footer.,Low
+Cosmetic: Typo in React Store - 'Loggin' should be 'Receive'.,Low
+Cosmetic: Typo in S3 Bucket - 'Recieve' should be 'Commit'.,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Styling: Submit button padding is slightly missing.,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Styling: Submit button padding is slightly failing.,Low
+Minor Footer misalignment in the Auth Service view.,Low
+Request: Could we update the Avatar upload to be more crashing production?,Low
+Styling: Submit button padding is slightly unresponsive.,Low
+Cosmetic: Typo in React Store - 'Loggin' should be 'Login'.,Low
+Request: Could we update the Submit button to be more dropping connections?,Low
+Styling: Submit button padding is slightly missing.,Low
+Request: Could we update the Dashboard card to be more completely unresponsive?,Low
+Cosmetic: Typo in Prisma Layer - 'Recieve' should be 'Login'.,Low
+Cosmetic: Typo in Auth Service - 'Comit' should be 'Commit'.,Low
+Request: Could we update the Submit button to be more dropping connections?,Low
+Styling: Dashboard card padding is slightly broken.,Low
+Request: Could we update the Navbar to be more completely unresponsive?,Low
+Request: Could we update the Dashboard card to be more leaking credentials?,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Minor Avatar upload misalignment in the Auth Service view.,Low
+Minor Dashboard card misalignment in the Payment Module view.,Low
+Cosmetic: Typo in Payment Module - 'Loggin' should be 'Commit'.,Low
+Styling: Dashboard card padding is slightly failing.,Low
+Minor Dashboard card misalignment in the S3 Bucket view.,Low
+Cosmetic: Typo in Payment Module - 'Proccess' should be 'Commit'.,Low
+Text correction: Found 'Loggin' instead of 'Commit' in the footer.,Low
+Minor Avatar upload misalignment in the Prisma Layer view.,Low
+Styling: Dashboard card padding is slightly missing.,Low
+Request: Could we update the Navbar to be more completely unresponsive?,Low
+Request: Could we update the Dashboard card to be more leaking credentials?,Low
+Text correction: Found 'Loggin' instead of 'Login' in the footer.,Low
+Cosmetic: Typo in API Gateway - 'Proccess' should be 'Login'.,Low
+Cosmetic: Typo in Prisma Layer - 'Loggin' should be 'Login'.,Low
+Cosmetic: Typo in Auth Service - 'Comit' should be 'Commit'.,Low
+Cosmetic: Typo in React Store - 'Recieve' should be 'Process'.,Low
+Cosmetic: Typo in Prisma Layer - 'Comit' should be 'Process'.,Low
+Text correction: Found 'Proccess' instead of 'Commit' in the footer.,Low
+Styling: Footer padding is slightly off-center.,Low
+Styling: Submit button padding is slightly broken.,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Request: Could we update the Navbar to be more leaking credentials?,Low
+Minor Avatar upload misalignment in the API Gateway view.,Low
+Cosmetic: Typo in API Gateway - 'Loggin' should be 'Login'.,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Request: Could we update the Submit button to be more crashing production?,Low
+Request: Could we update the Submit button to be more crashing production?,Low
+Minor Dashboard card misalignment in the API Gateway view.,Low
+Minor Submit button misalignment in the Payment Module view.,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Text correction: Found 'Comit' instead of 'Process' in the footer.,Low
+Request: Could we update the Navbar to be more crashing production?,Low
+Request: Could we update the Dashboard card to be more crashing production?,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Request: Could we update the Submit button to be more leaking credentials?,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Text correction: Found 'Recieve' instead of 'Receive' in the footer.,Low
+Request: Could we update the Navbar to be more crashing production?,Low
+Minor Submit button misalignment in the React Store view.,Low
+Text correction: Found 'Proccess' instead of 'Receive' in the footer.,Low
+Minor Avatar upload misalignment in the Prisma Layer view.,Low
+Request: Could we update the Submit button to be more completely unresponsive?,Low
+Text correction: Found 'Recieve' instead of 'Receive' in the footer.,Low
+Styling: Avatar upload padding is slightly missing.,Low
+Minor Avatar upload misalignment in the Auth Service view.,Low
+Minor Submit button misalignment in the Prisma Layer view.,Low
+Cosmetic: Typo in React Store - 'Comit' should be 'Login'.,Low
+Text correction: Found 'Loggin' instead of 'Login' in the footer.,Low
+Styling: Footer padding is slightly missing.,Low
+Minor Avatar upload misalignment in the S3 Bucket view.,Low
+Request: Could we update the Submit button to be more completely unresponsive?,Low
+Styling: Submit button padding is slightly unresponsive.,Low
+Styling: Footer padding is slightly lagging.,Low
+Cosmetic: Typo in Prisma Layer - 'Loggin' should be 'Receive'.,Low
+Cosmetic: Typo in Payment Module - 'Recieve' should be 'Login'.,Low
+Text correction: Found 'Loggin' instead of 'Receive' in the footer.,Low
+Cosmetic: Typo in Prisma Layer - 'Proccess' should be 'Commit'.,Low
+Styling: Navbar padding is slightly lagging.,Low
+Request: Could we update the Navbar to be more leaking credentials?,Low
+Styling: Submit button padding is slightly off-center.,Low
+Request: Could we update the Submit button to be more completely unresponsive?,Low
+Minor Dashboard card misalignment in the S3 Bucket view.,Low
+Text correction: Found 'Comit' instead of 'Receive' in the footer.,Low
+Minor Submit button misalignment in the Payment Module view.,Low
+Text correction: Found 'Loggin' instead of 'Commit' in the footer.,Low
+Cosmetic: Typo in Payment Module - 'Recieve' should be 'Commit'.,Low
+Request: Could we update the Navbar to be more completely unresponsive?,Low
+Styling: Navbar padding is slightly off-center.,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Styling: Navbar padding is slightly off-center.,Low
+Request: Could we update the Dashboard card to be more leaking credentials?,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Styling: Footer padding is slightly off-center.,Low
+Request: Could we update the Avatar upload to be more crashing production?,Low
+Styling: Dashboard card padding is slightly unresponsive.,Low
+Text correction: Found 'Proccess' instead of 'Commit' in the footer.,Low
+Cosmetic: Typo in React Store - 'Proccess' should be 'Commit'.,Low
+Cosmetic: Typo in S3 Bucket - 'Loggin' should be 'Process'.,Low
+Request: Could we update the Footer to be more dropping connections?,Low
+Cosmetic: Typo in S3 Bucket - 'Loggin' should be 'Commit'.,Low
+Minor Footer misalignment in the S3 Bucket view.,Low
+Request: Could we update the Avatar upload to be more crashing production?,Low
+Request: Could we update the Avatar upload to be more completely unresponsive?,Low
+Styling: Submit button padding is slightly lagging.,Low
+Request: Could we update the Dashboard card to be more completely unresponsive?,Low
+Styling: Navbar padding is slightly off-center.,Low
+Minor Submit button misalignment in the API Gateway view.,Low
+Styling: Avatar upload padding is slightly lagging.,Low
+Styling: Dashboard card padding is slightly lagging.,Low
+Cosmetic: Typo in S3 Bucket - 'Recieve' should be 'Process'.,Low
+Minor Avatar upload misalignment in the API Gateway view.,Low
+Cosmetic: Typo in React Store - 'Proccess' should be 'Process'.,Low
+Styling: Avatar upload padding is slightly lagging.,Low
+Cosmetic: Typo in Payment Module - 'Proccess' should be 'Process'.,Low
+Text correction: Found 'Loggin' instead of 'Process' in the footer.,Low
+Cosmetic: Typo in Payment Module - 'Comit' should be 'Process'.,Low
+Minor Navbar misalignment in the Payment Module view.,Low
+Minor Submit button misalignment in the S3 Bucket view.,Low
+Cosmetic: Typo in React Store - 'Comit' should be 'Commit'.,Low
+Minor Submit button misalignment in the React Store view.,Low
+Cosmetic: Typo in S3 Bucket - 'Recieve' should be 'Login'.,Low
+Request: Could we update the Footer to be more crashing production?,Low
+Styling: Avatar upload padding is slightly missing.,Low
+Text correction: Found 'Loggin' instead of 'Login' in the footer.,Low
+Styling: Dashboard card padding is slightly unresponsive.,Low
+Request: Could we update the Submit button to be more dropping connections?,Low
+Minor Dashboard card misalignment in the Prisma Layer view.,Low
+Text correction: Found 'Loggin' instead of 'Receive' in the footer.,Low
+Cosmetic: Typo in API Gateway - 'Proccess' should be 'Process'.,Low
+Request: Could we update the Submit button to be more leaking credentials?,Low
+Text correction: Found 'Comit' instead of 'Process' in the footer.,Low
+Cosmetic: Typo in S3 Bucket - 'Recieve' should be 'Receive'.,Low
+Cosmetic: Typo in React Store - 'Loggin' should be 'Commit'.,Low
+Text correction: Found 'Loggin' instead of 'Receive' in the footer.,Low
+Minor Dashboard card misalignment in the API Gateway view.,Low
+Request: Could we update the Avatar upload to be more dropping connections?,Low
+Minor Dashboard card misalignment in the S3 Bucket view.,Low
+Minor Footer misalignment in the Auth Service view.,Low
+Minor Footer misalignment in the React Store view.,Low
+Text correction: Found 'Recieve' instead of 'Commit' in the footer.,Low
+Styling: Footer padding is slightly broken.,Low
+Request: Could we update the Footer to be more leaking credentials?,Low
+Cosmetic: Typo in S3 Bucket - 'Comit' should be 'Receive'.,Low
+Cosmetic: Typo in React Store - 'Loggin' should be 'Receive'.,Low
+Text correction: Found 'Proccess' instead of 'Commit' in the footer.,Low
+Text correction: Found 'Comit' instead of 'Receive' in the footer.,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Text correction: Found 'Recieve' instead of 'Login' in the footer.,Low
+Text correction: Found 'Comit' instead of 'Process' in the footer.,Low
+Styling: Navbar padding is slightly off-center.,Low
+Minor Footer misalignment in the API Gateway view.,Low
+Cosmetic: Typo in Payment Module - 'Loggin' should be 'Receive'.,Low
+Minor Navbar misalignment in the Prisma Layer view.,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Minor Dashboard card misalignment in the Prisma Layer view.,Low
+Request: Could we update the Footer to be more completely unresponsive?,Low
+Text correction: Found 'Proccess' instead of 'Receive' in the footer.,Low
+Cosmetic: Typo in Payment Module - 'Loggin' should be 'Receive'.,Low
+Minor Navbar misalignment in the Prisma Layer view.,Low
+Styling: Navbar padding is slightly unresponsive.,Low
+Request: Could we update the Dashboard card to be more completely unresponsive?,Low
+Cosmetic: Typo in Auth Service - 'Proccess' should be 'Commit'.,Low
+Minor Submit button misalignment in the Prisma Layer view.,Low
+Styling: Dashboard card padding is slightly lagging.,Low
+Request: Could we update the Navbar to be more crashing production?,Low
+Cosmetic: Typo in API Gateway - 'Proccess' should be 'Commit'.,Low
+Minor Dashboard card misalignment in the API Gateway view.,Low
+Request: Could we update the Navbar to be more dropping connections?,Low
+Text correction: Found 'Loggin' instead of 'Receive' in the footer.,Low
+Minor Dashboard card misalignment in the API Gateway view.,Low
+Styling: Footer padding is slightly missing.,Low
+Text correction: Found 'Comit' instead of 'Commit' in the footer.,Low
+Styling: Dashboard card padding is slightly failing.,Low
+Minor Dashboard card misalignment in the Payment Module view.,Low
+Styling: Dashboard card padding is slightly failing.,Low
+Minor Dashboard card misalignment in the S3 Bucket view.,Low
+Cosmetic: Typo in Auth Service - 'Loggin' should be 'Process'.,Low
+Request: Could we update the Dashboard card to be more leaking credentials?,Low
+Cosmetic: Typo in Prisma Layer - 'Loggin' should be 'Process'.,Low
+Styling: Footer padding is slightly failing.,Low
+Cosmetic: Typo in Auth Service - 'Proccess' should be 'Process'.,Low
+Minor Dashboard card misalignment in the React Store view.,Low
+Styling: Dashboard card padding is slightly broken.,Low
+Cosmetic: Typo in Prisma Layer - 'Proccess' should be 'Login'.,Low
+Styling: Avatar upload padding is slightly lagging.,Low
+Minor Dashboard card misalignment in the API Gateway view.,Low
+Styling: Navbar padding is slightly unresponsive.,Low
+Text correction: Found 'Recieve' instead of 'Receive' in the footer.,Low
+Text correction: Found 'Comit' instead of 'Receive' in the footer.,Low
+Styling: Dashboard card padding is slightly off-center.,Low
+Request: Could we update the Dashboard card to be more leaking credentials?,Low
+Cosmetic: Typo in React Store - 'Loggin' should be 'Login'.,Low
+Minor Footer misalignment in the React Store view.,Low
+Minor Submit button misalignment in the React Store view.,Low
+Cosmetic: Typo in API Gateway - 'Loggin' should be 'Receive'.,Low
+Request: Could we update the Navbar to be more completely unresponsive?,Low
+Styling: Footer padding is slightly lagging.,Low
+Styling: Avatar upload padding is slightly unresponsive.,Low
+Request: Could we update the Submit button to be more dropping connections?,Low
+Cosmetic: Typo in S3 Bucket - 'Loggin' should be 'Login'.,Low
+Cosmetic: Typo in React Store - 'Recieve' should be 'Login'.,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Text correction: Found 'Loggin' instead of 'Commit' in the footer.,Low
+Request: Could we update the Dashboard card to be more dropping connections?,Low
+Minor Avatar upload misalignment in the Prisma Layer view.,Low
+Request: Could we update the Navbar to be more leaking credentials?,Low
+Cosmetic: Typo in Prisma Layer - 'Recieve' should be 'Receive'.,Low
+Minor Footer misalignment in the S3 Bucket view.,Low
+Request: Could we update the Navbar to be more dropping connections?,Low
+Text correction: Found 'Proccess' instead of 'Login' in the footer.,Low
+Cosmetic: Typo in S3 Bucket - 'Loggin' should be 'Login'.,Low
+Styling: Footer padding is slightly unresponsive.,Low
+Cosmetic: Typo in React Store - 'Loggin' should be 'Login'.,Low
+Cosmetic: Typo in React Store - 'Loggin' should be 'Receive'.,Low
+Request: Could we update the Avatar upload to be more leaking credentials?,Low
+Text correction: Found 'Proccess' instead of 'Commit' in the footer.,Low
+Cosmetic: Typo in Auth Service - 'Comit' should be 'Commit'.,Low
+Styling: Avatar upload padding is slightly failing.,Low
+Styling: Footer padding is slightly unresponsive.,Low
+Minor Dashboard card misalignment in the React Store view.,Low
+Styling: Submit button padding is slightly broken.,Low
+Cosmetic: Typo in Prisma Layer - 'Recieve' should be 'Login'.,Low
+Cosmetic: Typo in React Store - 'Proccess' should be 'Login'.,Low
+Minor Footer misalignment in the Prisma Layer view.,Low
+Cosmetic: Typo in Payment Module - 'Recieve' should be 'Commit'.,Low
+Cosmetic: Typo in Payment Module - 'Recieve' should be 'Login'.,Low
+Request: Could we update the Footer to be more crashing production?,Low
+Text correction: Found 'Recieve' instead of 'Process' in the footer.,Low
+Request: Could we update the Avatar upload to be more completely unresponsive?,Low
+Text correction: Found 'Comit' instead of 'Login' in the footer.,Low
+Minor Avatar upload misalignment in the Payment Module view.,Low
+Styling: Navbar padding is slightly failing.,Low
+Minor Submit button misalignment in the Prisma Layer view.,Low
+Request: Could we update the Footer to be more dropping connections?,Low
+Request: Could we update the Dashboard card to be more completely unresponsive?,Low
+Text correction: Found 'Loggin' instead of 'Receive' in the footer.,Low

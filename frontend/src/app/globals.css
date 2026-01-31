@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+@theme {
+  --color-background: #EAEFEF;
+  --color-secondary: #BFC9D1;
+  --color-primary: #25343F;
+  --color-accent: #FF9B51;
+  
+  /* Semantic Tones */
+  --color-danger: #EF4444;
+  --color-warning: #F59E0B;
+  --color-success: #10B981;
+  --color-info: #3B82F6;
+}
+
+body {
+  background: radial-gradient(circle at top left, #EAEFEF, #DEE7E7);
+  color: var(--color-primary);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+}

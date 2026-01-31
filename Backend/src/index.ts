@@ -226,6 +226,32 @@ app.patch('/bugs/:id/resolve', authenticateToken, async (req: Request, res: Resp
   }
 });
 
+// DELETE BUG ROUTE
+app.delete('/bugs/:id', authenticateToken, async (req: Request, res: Response) => {
+  try {
+    await prisma.bug.delete({
+      where: { id: req.params.id as string }
+    });
+    res.json({ message: "Bug deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete bug" });
+  }
+});
+
+// GET SINGLE DASHBOARD DETAILS
+app.get('/dashboards/:id', authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const dashboard = await prisma.dashboard.findUnique({
+      where: { id: req.params.id as string }
+    });
+    res.json(dashboard);
+  } catch (error) {
+    res.status(500).json({ error: "Could not fetch dashboard" });
+  }
+});
+
+
+
 app.listen(PORT, () => {
   console.log(`🚀 Server ready at http://localhost:${PORT}`);
 });

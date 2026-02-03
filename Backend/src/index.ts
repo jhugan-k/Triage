@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 4001;
 // --- MIDDLEWARE ---
 // Configure CORS to allow your local environment and your future Vercel URL
 app.use(cors({
-  origin: "*", // Temporarily allow everything to test if it's a CORS issue
+  origin: process.env.FRONTEND_URL, // Temporarily allow everything to test if it's a CORS issue
   credentials: true
 }));
 

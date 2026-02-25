@@ -1,9 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { api } from "@/lib/api";
+import { api, setAuthToken } from "@/lib/api"; // Added setAuthToken
 import { 
-  Plus, LayoutDashboard, Key, ArrowRight, 
-  Activity, Trash2, Box, ExternalLink 
+  Plus, Key, ArrowRight, Activity, Trash2, Box, LogOut 
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -24,6 +23,12 @@ export default function DashboardPage() {
       .catch(err => console.error(err))
       .finally(() => setLoading(false));
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setAuthToken(""); 
+    window.location.href = "/"; // Force refresh to clear state
+  };
 
   const handleDeleteProject = async (e: React.MouseEvent, id: string) => {
     e.preventDefault();
@@ -49,6 +54,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen pb-24">
+      {/* NAVIGATION BLOCK */}
       <nav className="bg-primary p-8 shadow-2xl border-b border-white/5 sticky top-0 z-50 backdrop-blur-md bg-primary/90">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-4">
@@ -60,9 +66,21 @@ export default function DashboardPage() {
               <span className="text-[9px] font-bold text-secondary uppercase tracking-[0.3em]">Neural Hub</span>
             </div>
           </div>
-          <Link href="/dashboard/new" className="bg-accent text-primary px-8 py-3 rounded-full font-black text-xs uppercase tracking-widest shadow-xl shadow-accent/20 hover:scale-105 transition-all flex items-center gap-2">
-            <Plus className="w-4 h-4" /> New Workspace
-          </Link>
+
+          <div className="flex items-center gap-8">
+            {/* LOGOUT BUTTON */}
+            <button 
+              onClick={handleLogout}
+              className="text-secondary hover:text-white flex items-center gap-2 transition-all group"
+            >
+              <LogOut className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              <span className="text-[10px] font-black uppercase tracking-widest">Logout</span>
+            </button>
+
+            <Link href="/dashboard/new" className="bg-accent text-primary px-8 py-3 rounded-full font-black text-xs uppercase tracking-widest shadow-xl shadow-accent/20 hover:scale-105 transition-all flex items-center gap-2">
+              <Plus className="w-4 h-4" /> New Workspace
+            </Link>
+          </div>
         </div>
       </nav>
 
@@ -84,7 +102,6 @@ export default function DashboardPage() {
                 whileHover={{ y: -8 }}
               >
                 <Link href={`/dashboard/${db.id}`} className="group relative block bg-white rounded-[2.5rem] p-10 shadow-2xl shadow-primary/5 border border-secondary/20 overflow-hidden transition-all hover:border-accent/40">
-                  {/* Decorative Glow */}
                   <div className="absolute top-0 right-0 w-40 h-40 bg-accent/5 rounded-bl-full group-hover:bg-accent/10 transition-colors" />
                   
                   <div className="flex justify-between items-start mb-8 relative z-10">

@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState, useMemo } from "react";
 import { useParams } from "next/navigation";
-import { api } from "@/lib/api";
+import { api, setAuthToken } from "@/lib/api"; // Added setAuthToken
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   AlertOctagon, AlertTriangle, Info, CheckCircle2, 
-  Trash2, ArrowLeft, ShieldAlert, Clock, Activity, Fingerprint, Search 
+  Trash2, ArrowLeft, ShieldAlert, Clock, Activity, Fingerprint, Search, LogOut 
 } from "lucide-react";
 import Link from "next/link";
 
@@ -46,6 +46,12 @@ export default function BugBoard() {
     loadData();
   }, [id]);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setAuthToken("");
+    window.location.href = "/";
+  };
+
   const activeBugs = useMemo(() => 
     bugs.filter(b => b.status === 'OPEN' && b.title.toLowerCase().includes(search.toLowerCase())), 
     [bugs, search]
@@ -73,6 +79,7 @@ export default function BugBoard() {
 
   return (
     <div className="min-h-screen pb-24">
+      {/* HEADER BLOCK */}
       <header className="sticky top-0 z-50 bg-primary/95 backdrop-blur-xl border-b border-white/5 px-10 py-6 shadow-2xl">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-8">
@@ -87,7 +94,7 @@ export default function BugBoard() {
             </div>
           </div>
           
-          <div className="flex items-center gap-4 w-full md:w-auto">
+          <div className="flex items-center gap-6 w-full md:w-auto">
             <div className="relative flex-grow md:w-64">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary/40" />
               <input 
@@ -96,6 +103,16 @@ export default function BugBoard() {
                 onChange={(e) => setSearch(e.target.value)}
               />
             </div>
+
+            {/* LOGOUT BUTTON */}
+            <button 
+              onClick={handleLogout}
+              className="text-secondary hover:text-white flex items-center gap-2 transition-all group"
+            >
+              <LogOut className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              <span className="text-[10px] font-black uppercase tracking-widest">Logout</span>
+            </button>
+
             <Link href={`/dashboard/${id}/report`} className="bg-accent text-primary px-8 py-3.5 rounded-full font-black text-xs uppercase tracking-widest shadow-2xl shadow-accent/30 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 whitespace-nowrap">
               <ShieldAlert className="w-4 h-4" /> New Log
             </Link>
@@ -194,7 +211,7 @@ function BugCard({ bug, onResolve, onDelete }: { bug: Bug, onResolve: () => void
                   <Clock className="w-3 h-3" /> {new Date(bug.createdAt).toLocaleTimeString()}
                 </div>
                 <div className="flex items-center gap-2 text-[9px] font-black text-secondary/50 uppercase tracking-widest">
-                  <Fingerprint className="w-3 h-3" /> NODE_{bug.id.split('-')[0]}
+                  <Fingerprint className="w-3 h-3" /> NODE_{bug.id?.split('-')[0] || 'UNK'}
                 </div>
               </div>
             </div>

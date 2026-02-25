@@ -82,7 +82,7 @@ export default function BugBoard() {
             <div className="space-y-1">
               <h1 className="text-white font-black text-4xl tracking-tighter uppercase italic">{dashboard?.name}</h1>
               <div className="flex items-center gap-3 text-[10px] font-black text-accent tracking-[0.4em]">
-                <Activity className="w-3 h-3 animate-pulse" /> LIVE_MONITORING: {id.slice(0,8)}
+                <Activity className="w-3 h-3 animate-pulse" /> LIVE_MONITORING: {id?.toString().slice(0, 8)}
               </div>
             </div>
           </div>

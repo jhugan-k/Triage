@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { api, setAuthToken } from "@/lib/api";
 import { 
-  Plus, Key, ArrowRight, Activity, Trash2, Box, LogOut 
+  Plus, Key, ArrowRight, Activity, Trash2, Box, LogOut, TrendingUp 
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -25,6 +25,7 @@ export default function DashboardPage() {
   }, []);
 
   const handleLogout = () => {
+    console.log("System: Purging session...");
     localStorage.removeItem("token");
     setAuthToken(""); 
     window.location.href = "/"; 
@@ -33,7 +34,7 @@ export default function DashboardPage() {
   const handleDeleteProject = async (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!confirm("CRITICAL: Permanent purge?")) return;
+    if (!confirm("CRITICAL: Permanent purge of this workspace?")) return;
     try {
       await api.delete(`/purge-workspace/${id}`);
       setDashboards(prev => prev.filter(db => db.id !== id));
@@ -48,11 +49,14 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen pb-24">
-      {/* NAVIGATION BAR */}
-      <nav className="bg-[#25343F] p-8 shadow-2xl border-b border-white/5 sticky top-0 z-50 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+      {/* 
+          NAVBAR BLOCK 
+          We are using a fixed height and flex-row to ensure nothing is hidden.
+      */}
+      <nav className="bg-[#25343F] border-b border-white/10 sticky top-0 z-50 shadow-2xl">
+        <div className="max-w-7xl mx-auto px-8 h-24 flex justify-between items-center">
           
-          {/* Left: Logo */}
+          {/* Left Side: Brand */}
           <div className="flex items-center gap-4">
             <div className="bg-[#FF9B51]/10 p-2.5 rounded-xl border border-[#FF9B51]/20">
               <Box className="text-[#FF9B51] w-6 h-6" />
@@ -63,21 +67,27 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Right: Actions */}
+          {/* Right Side: Navigation Actions */}
           <div className="flex items-center gap-6">
+            
+            {/* LOGOUT BUTTON - Explicitly styled for visibility */}
             <button 
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 text-[#BFC9D1] hover:text-white hover:bg-white/5 transition-all group"
+              className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/20 text-white hover:bg-white/10 transition-all group cursor-pointer"
             >
-              <LogOut className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-              <span className="text-[10px] font-black uppercase tracking-widest">Logout</span>
+              <LogOut className="w-4 h-4 text-[#FF9B51]" />
+              <span className="text-[10px] font-black uppercase tracking-[0.2em]">Logout</span>
             </button>
 
-            <Link href="/dashboard/new" className="bg-[#FF9B51] text-[#25343F] px-8 py-3 rounded-full font-black text-xs uppercase tracking-widest shadow-xl shadow-[#FF9B51]/20 hover:scale-105 transition-all flex items-center gap-2">
+            {/* NEW PROJECT BUTTON */}
+            <Link 
+              href="/dashboard/new" 
+              className="bg-[#FF9B51] text-[#25343F] px-8 py-3 rounded-full font-black text-xs uppercase tracking-widest shadow-lg hover:scale-105 transition-all flex items-center gap-2"
+            >
               <Plus className="w-4 h-4" /> New Project
             </Link>
+            
           </div>
-
         </div>
       </nav>
 
@@ -90,21 +100,41 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <AnimatePresence>
             {dashboards.map((db) => (
-              <motion.div key={db.id} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} whileHover={{ y: -8 }}>
+              <motion.div
+                key={db.id}
+                layout
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                whileHover={{ y: -8 }}
+              >
                 <Link href={`/dashboard/${db.id}`} className="group relative block bg-white rounded-[2.5rem] p-10 shadow-2xl border border-[#BFC9D1]/20 overflow-hidden transition-all hover:border-[#FF9B51]/40">
                   <div className="absolute top-0 right-0 w-40 h-40 bg-[#FF9B51]/5 rounded-bl-full" />
+                  
                   <div className="flex justify-between items-start mb-8 relative z-10">
-                    <h3 className="text-3xl font-black text-[#25343F] tracking-tighter uppercase italic leading-none group-hover:text-[#FF9B51] transition-colors">{db.name}</h3>
-                    <button onClick={(e) => handleDeleteProject(e, db.id)} className="p-3 text-[#BFC9D1]/30 hover:text-red-500 hover:bg-red-50 rounded-2xl transition-all">
-                      <Trash2 className="w-5 h-5" />
-                    </button>
+                    <h3 className="text-3xl font-black text-[#25343F] tracking-tighter uppercase italic leading-none group-hover:text-[#FF9B51] transition-colors">
+                      {db.name}
+                    </h3>
+                    <div className="flex gap-2">
+                       <button 
+                        onClick={(e) => handleDeleteProject(e, db.id)}
+                        className="p-3 bg-white shadow-sm border border-[#BFC9D1]/20 rounded-xl text-[#BFC9D1] hover:text-white hover:bg-red-500 transition-all"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                      <div className="p-3 bg-[#FF9B51]/10 rounded-xl border border-[#FF9B51]/20">
+                        <TrendingUp className="w-4 h-4 text-[#FF9B51]" />
+                      </div>
+                    </div>
                   </div>
+
                   <div className="flex items-center gap-3 bg-[#EAEFEF]/50 px-4 py-2.5 rounded-xl border border-[#BFC9D1]/20 w-fit mb-10">
                     <Key className="w-3 h-3 text-[#BFC9D1]" />
                     <span className="text-[10px] font-black text-[#BFC9D1] tracking-widest uppercase">{db.accessKey}</span>
                   </div>
-                  <div className="flex items-center justify-between text-[#25343F] font-black text-[10px] tracking-[0.2em]">
-                    <span>INITIALIZE BOARD</span>
+
+                  <div className="flex items-center justify-between text-[#25343F] font-black text-[10px] tracking-[0.2em] relative z-10">
+                    <span>OPEN BOARD</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                   </div>
                 </Link>

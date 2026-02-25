@@ -8,8 +8,8 @@ app = FastAPI()
 # 1. CONFIGURATION
 HF_TOKEN = os.getenv("HF_TOKEN")
 
-# UPDATED URL: Using the NEW Router domain AND the DeBERTa model
-API_URL = "https://router.huggingface.co/models/MoritzLaurer/DeBERTa-v3-base-mnli-xnli"
+# FIX: Added missing /hf-inference/ path segment to the Router URL
+API_URL = "https://router.huggingface.co/hf-inference/models/MoritzLaurer/DeBERTa-v3-base-mnli-xnli"
 headers = {"Authorization": f"Bearer {HF_TOKEN}"}
 
 class BugPayload(BaseModel):
@@ -56,6 +56,12 @@ def classify(payload: BugPayload):
     except requests.exceptions.Timeout:
         print("HF API Timeout - model took too long to load")
         raise HTTPException(status_code=504, detail="Hugging Face timed out")
+    except HTTPException:
+        # FIX: Let intentional HTTP errors pass through unchanged
+        # Previously, HTTPExceptions raised above (503, 500) were being caught
+        # by the broad Exception handler below, wrapping them in a new 500 error
+        # and printing misleading [AI SERVICE CRASH] logs.
+        raise
     except Exception as e:
         print(f"[AI SERVICE CRASH]: {str(e)}")
         # Triggers Backend 'Benefit of the Doubt' (High) logic

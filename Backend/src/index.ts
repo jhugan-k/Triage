@@ -205,13 +205,18 @@ app.post('/bugs', authenticateToken, async (req: Request, res: Response) => {
       return res.status(403).json({ error: "Unauthorized access to dashboard" });
     }
 
-    let severity = "Normal";
+    let severity = "High"; // Fallback changed to High (Benefit of doubt)
     try {
       const AI_URL = process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000/classify';
-      const aiRes = await axios.post(AI_URL, { title, description });
+      console.log(`[AI ATTEMPT]: Calling ${AI_URL}...`);
+      
+      // Increased timeout to 60 seconds for Render spin-up
+      const aiRes = await axios.post(AI_URL, { title, description }, { timeout: 60000 }); 
       severity = aiRes.data.severity;
-    } catch (err) {
-      console.error("[AI ERROR]: Service offline, using fallback.");
+      console.log(`[AI SUCCESS]: Categorized as ${severity}`);
+    } catch (err: any) {
+      console.error("[AI ERROR/TIMEOUT]:", err.response?.data || err.message);
+      console.log("[AI FALLBACK]: Marking as High Priority per safety protocol.");
     }
 
     const bug = await prisma.bug.create({
@@ -222,6 +227,7 @@ app.post('/bugs', authenticateToken, async (req: Request, res: Response) => {
         dashboardId
       }
     });
+
 
     await logActivity(dashboardId, `New bug reported: ${title} (${severity})`, "BUG_CREATED");
     return res.json({ message: "Bug reported", bug });

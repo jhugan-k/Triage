@@ -6,11 +6,19 @@
   --color-primary: #25343F;
   --color-accent: #FF9B51;
   
-  /* Semantic Tones */
   --color-danger: #EF4444;
   --color-warning: #F59E0B;
   --color-success: #10B981;
   --color-info: #3B82F6;
+}
+
+/* Dark Mode Variables */
+.dark {
+  --color-background: #1A2228;
+  --color-secondary: #37474F;
+  --color-primary: #ECEFF1;
+  background: #12181C;
+  color: #ECEFF1;
 }
 
 body {
@@ -18,4 +26,14 @@ body {
   color: var(--color-primary);
   font-family: 'Inter', sans-serif;
   min-height: 100vh;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background: radial-gradient(circle at top left, #1A2228, #12181C);
+}
+
+/* Kanban Column Styling */
+.kanban-column {
+  @apply bg-white/40 dark:bg-black/20 backdrop-blur-sm rounded-3xl p-4 min-h-[500px] border border-white/20;
 }

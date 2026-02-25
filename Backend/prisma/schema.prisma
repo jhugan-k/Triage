@@ -7,8 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// --- MODELS ---
-
 model User {
   id        String      @id @default(uuid())
   email     String      @unique
@@ -18,6 +16,7 @@ model User {
   createdAt DateTime    @default(now())
   
   dashboards Dashboard[]
+  comments   Comment[]
 }
 
 model Dashboard {
@@ -27,14 +26,15 @@ model Dashboard {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  members   User[]
-  bugs      Bug[]
+  members    User[]
+  bugs       Bug[]
+  activities Activity[]
 }
 
 model Bug {
   id          String    @id @default(uuid())
   title       String
-  description String
+  description String    // Supports Markdown
   
   severity    Severity
   status      BugStatus @default(OPEN)
@@ -44,9 +44,30 @@ model Bug {
 
   dashboardId String
   dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
+  comments    Comment[]
 }
 
-// --- ENUMS ---
+model Activity {
+  id          String    @id @default(uuid())
+  text        String
+  type        String    // e.g., "BUG_CREATED", "BUG_RESOLVED"
+  createdAt   DateTime  @default(now())
+
+  dashboardId String
+  dashboard   Dashboard @relation(fields: [dashboardId], references: [id])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  text      String
+  createdAt DateTime @default(now())
+
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  bugId     String
+  bug       Bug      @relation(fields: [bugId], references: [id])
+}
 
 enum Severity {
   High

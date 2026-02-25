@@ -23,8 +23,7 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -37,6 +36,13 @@ app.use(cors({
 
 app.use(express.json());
 
+// --- HELPERS ---
+const logActivity = async (dashboardId: string, text: string, type: string) => {
+  await prisma.activity.create({
+    data: { dashboardId, text, type }
+  });
+};
+
 // ==========================================
 // 1. AUTHENTICATION
 // ==========================================
@@ -45,8 +51,7 @@ app.post('/auth/login', async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    res.status(400).json({ error: "Email and password are required" });
-    return;
+    return res.status(400).json({ error: "Email and password are required" });
   }
 
   try {
@@ -58,8 +63,7 @@ app.post('/auth/login', async (req: Request, res: Response) => {
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        res.status(401).json({ error: "Invalid credentials" });
-        return;
+        return res.status(401).json({ error: "Invalid credentials" });
       }
     } else {
       isNewUser = true;
@@ -80,10 +84,10 @@ app.post('/auth/login', async (req: Request, res: Response) => {
       { expiresIn: "7d" }
     );
 
-    res.json({ message: "Login successful", user, token, newUser: isNewUser });
+    return res.json({ message: "Login successful", user, token, newUser: isNewUser });
   } catch (error) {
     console.error("[AUTH ERROR]:", error);
-    res.status(500).json({ error: "Authentication failed" });
+    return res.status(500).json({ error: "Authentication failed" });
   }
 });
 
@@ -98,28 +102,36 @@ app.get('/dashboards', authenticateToken, async (req: Request, res: Response) =>
       where: { id: userId },
       include: { dashboards: true }
     });
-    res.json(data?.dashboards || []);
+    return res.json(data?.dashboards || []);
   } catch (error) {
-    res.status(500).json({ error: "Fetch failed" });
+    return res.status(500).json({ error: "Fetch failed" });
   }
 });
 
 app.get('/dashboards/:id', authenticateToken, async (req: Request, res: Response) => {
-  const id = req.params.id as string; // FIXED: Explicit cast
+  const id = req.params.id as string;
   try {
     const dashboard = await prisma.dashboard.findUnique({
-      where: { id: id }
+      where: { id: id },
+      include: { 
+        members: { select: { id: true, name: true, avatarUrl: true, email: true } },
+        activities: { take: 15, orderBy: { createdAt: 'desc' } }
+      }
     });
-    res.json(dashboard);
+    return res.json(dashboard);
   } catch (error) {
-    res.status(500).json({ error: "Could not fetch dashboard" });
+    return res.status(500).json({ error: "Could not fetch dashboard" });
   }
 });
 
 app.post('/dashboards', authenticateToken, async (req: Request, res: Response) => {
   const { name } = req.body;
   const userId = (req as AuthRequest).user?.id;
-  if (!name || !userId) return;
+
+  if (!name || !userId) {
+    return res.status(400).json({ error: "Name and User ID required" });
+  }
+
   try {
     const accessKey = crypto.randomBytes(3).toString('hex').toUpperCase();
     const dashboard = await prisma.dashboard.create({
@@ -129,40 +141,47 @@ app.post('/dashboards', authenticateToken, async (req: Request, res: Response) =
         members: { connect: { id: userId } }
       }
     });
-    res.json({ message: "Dashboard created!", dashboard });
+    await logActivity(dashboard.id, `Workspace "${name}" initialized.`, "SYSTEM_INIT");
+    return res.json({ message: "Dashboard created!", dashboard });
   } catch (error) {
-    res.status(500).json({ error: "Failed to create dashboard" });
+    return res.status(500).json({ error: "Failed to create dashboard" });
   }
 });
 
 app.post('/dashboards/join', authenticateToken, async (req: Request, res: Response) => {
   const { accessKey } = req.body;
   const userId = (req as AuthRequest).user?.id;
-  if (!accessKey || !userId) return;
+  const userEmail = (req as AuthRequest).user?.email;
+
+  if (!accessKey || !userId) {
+    return res.status(400).json({ error: "Access Key required" });
+  }
+
   try {
-    const dashboard = await prisma.dashboard.findUnique({ where: { accessKey } });
+    const dashboard = await prisma.dashboard.findUnique({ where: { accessKey: accessKey } });
     if (!dashboard) {
-      res.status(404).json({ error: "Invalid Access Key" });
-      return;
+      return res.status(404).json({ error: "Invalid Access Key" });
     }
     await prisma.dashboard.update({
       where: { id: dashboard.id },
       data: { members: { connect: { id: userId } } }
     });
-    res.json({ message: `Joined ${dashboard.name}`, dashboardId: dashboard.id });
+    await logActivity(dashboard.id, `${userEmail} joined the workspace.`, "USER_JOIN");
+    return res.json({ message: `Joined ${dashboard.name}`, dashboardId: dashboard.id });
   } catch (error) {
-    res.status(500).json({ error: "Failed to join" });
+    return res.status(500).json({ error: "Failed to join" });
   }
 });
 
 app.delete('/purge-workspace/:id', authenticateToken, async (req: Request, res: Response) => {
-  const id = req.params.id as string; // FIXED: Explicit cast
+  const id = req.params.id as string;
   try {
+    await prisma.activity.deleteMany({ where: { dashboardId: id } });
     await prisma.bug.deleteMany({ where: { dashboardId: id } });
     await prisma.dashboard.delete({ where: { id: id } });
-    res.json({ message: "Purged" });
+    return res.json({ message: "Purged" });
   } catch (e) {
-    res.status(500).json({ error: "Purge failed" });
+    return res.status(500).json({ error: "Purge failed" });
   }
 });
 
@@ -173,71 +192,106 @@ app.delete('/purge-workspace/:id', authenticateToken, async (req: Request, res: 
 app.post('/bugs', authenticateToken, async (req: Request, res: Response) => {
   const { title, description, dashboardId } = req.body;
   const userId = (req as AuthRequest).user?.id;
+
   if (!title || !description || !dashboardId) {
-    res.status(400).json({ error: "Missing fields" });
-    return;
+    return res.status(400).json({ error: "Missing fields" });
   }
+
   try {
     const isMember = await prisma.dashboard.findFirst({
       where: { id: dashboardId, members: { some: { id: userId } } }
     });
     if (!isMember) {
-      res.status(403).json({ error: "Unauthorized access to dashboard" });
-      return;
+      return res.status(403).json({ error: "Unauthorized access to dashboard" });
     }
+
     let severity = "Normal";
     try {
       const AI_URL = process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000/classify';
       const aiRes = await axios.post(AI_URL, { title, description });
       severity = aiRes.data.severity;
     } catch (err) {
-      console.error("[AI ERROR]: Service offline");
+      console.error("[AI ERROR]: Service offline, using fallback.");
     }
+
     const bug = await prisma.bug.create({
-      data: { title, description, severity: severity as any, dashboardId }
+      data: {
+        title,
+        description,
+        severity: severity as any,
+        dashboardId
+      }
     });
-    res.json({ message: "Bug reported", bug });
+
+    await logActivity(dashboardId, `New bug reported: ${title} (${severity})`, "BUG_CREATED");
+    return res.json({ message: "Bug reported", bug });
   } catch (error) {
-    res.status(500).json({ error: "Failed to create bug" });
+    return res.status(500).json({ error: "Failed to create bug" });
   }
 });
 
 app.get('/dashboards/:id/bugs', authenticateToken, async (req: Request, res: Response) => {
-  const id = req.params.id as string; // FIXED: Explicit cast
+  const id = req.params.id as string;
   try {
     const bugs = await prisma.bug.findMany({
       where: { dashboardId: id },
+      include: { comments: { include: { user: { select: { name: true, avatarUrl: true } } } } },
       orderBy: { createdAt: 'desc' }
     });
-    res.json(bugs);
+    return res.json(bugs);
   } catch (error) {
-    res.status(500).json({ error: "Fetch failed" });
+    return res.status(500).json({ error: "Fetch failed" });
   }
 });
 
 app.patch('/bugs/:id/resolve', authenticateToken, async (req: Request, res: Response) => {
-  const id = req.params.id as string; // FIXED: Explicit cast
+  const id = req.params.id as string;
   try {
     const bug = await prisma.bug.update({
       where: { id: id },
       data: { status: 'RESOLVED' }
     });
-    res.json(bug);
+    await logActivity(bug.dashboardId, `Bug resolved: ${bug.title}`, "BUG_RESOLVED");
+    return res.json(bug);
   } catch (error) {
-    res.status(500).json({ error: "Resolution failed" });
+    return res.status(500).json({ error: "Resolution failed" });
+  }
+});
+
+app.post('/bugs/:id/comments', authenticateToken, async (req: Request, res: Response) => {
+  const { text } = req.body;
+  const userId = (req as AuthRequest).user?.id;
+  const bugId = req.params.id as string;
+
+  if (!text || !userId) {
+    return res.status(400).json({ error: "Comment text required" });
+  }
+
+  try {
+    const comment = await prisma.comment.create({
+      data: { text, bugId: bugId, userId: userId }
+    });
+    return res.json(comment);
+  } catch (error) {
+    return res.status(500).json({ error: "Comment failed" });
   }
 });
 
 app.delete('/bugs/:id', authenticateToken, async (req: Request, res: Response) => {
-  const id = req.params.id as string; // FIXED: Explicit cast
+  const id = req.params.id as string;
   try {
     await prisma.bug.delete({ where: { id: id } });
-    res.json({ message: "Bug deleted" });
+    return res.json({ message: "Bug deleted" });
   } catch (error) {
-    res.status(500).json({ error: "Delete failed" });
+    return res.status(500).json({ error: "Delete failed" });
   }
 });
 
+// --- SYSTEM ROUTES ---
+app.get('/', (req: Request, res: Response) => { 
+  res.json({ status: "Triage Backend Online" });
+});
+
 app.listen(PORT, () => {
-  console.log(`🚀 DEPLOYED: Triage Backend at http://localhost:${PORT}`);
+  console.log(`🚀 DEPLOYED: Triage Backend is listening at http://localhost:${PORT}`);
 });

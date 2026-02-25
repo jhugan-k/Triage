@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { api, logout } from "@/lib/api";
-import { Plus, LayoutDashboard, Key, ArrowRight, TrendingUp, Activity, Trash2, LogOut } from "lucide-react";
+import { Plus, LayoutDashboard, Key, ArrowRight, TrendingUp, Activity, Trash2, LogOut, LogIn, X } from "lucide-react";
 import Link from "next/link";
 
 interface Dashboard {
@@ -13,6 +13,11 @@ interface Dashboard {
 export default function DashboardPage() {
   const [dashboards, setDashboards] = useState<Dashboard[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  // New state for Join Project
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [accessKeyInput, setAccessKeyInput] = useState("");
+  const [joinLoading, setJoinLoading] = useState(false);
 
   const fetchDashboards = async () => {
     try {
@@ -47,6 +52,22 @@ export default function DashboardPage() {
   const handleLogout = () => {
     if (confirm("Terminate session and return to login?")) {
       logout();
+    }
+  };
+
+  // New function to handle joining
+  const handleJoinProject = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setJoinLoading(true);
+    try {
+      await api.post("/dashboards/join", { accessKey: accessKeyInput });
+      setAccessKeyInput("");
+      setIsJoinModalOpen(false);
+      fetchDashboards(); // Refresh list
+    } catch (err: any) {
+      alert(err.response?.data?.error || "Failed to join project. Check the key.");
+    } finally {
+      setJoinLoading(false);
     }
   };
 
@@ -100,6 +121,14 @@ export default function DashboardPage() {
               </div>
             </div>
             <div className="flex items-center gap-3 w-full sm:w-auto">
+              {/* JOIN PROJECT BUTTON */}
+              <button 
+                onClick={() => setIsJoinModalOpen(true)}
+                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 transition-all tracking-widest"
+              >
+                <LogIn className="w-4 h-4" /> JOIN PROJECT
+              </button>
+
               <Link href="/dashboard/new" className="bg-gradient-to-r from-[#FF6E40] to-[#FF5252] text-white px-8 py-3 rounded-full font-bold text-sm flex items-center gap-2 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-[#FF6E40]/30 flex-1 sm:flex-none justify-center tracking-widest">
                 <Plus className="w-5 h-5" /> NEW PROJECT
               </Link>
@@ -115,6 +144,36 @@ export default function DashboardPage() {
           </div>
         </nav>
 
+        {/* JOIN MODAL */}
+        {isJoinModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-[#37474F]/80 backdrop-blur-sm">
+            <div className="bg-white rounded-3xl p-10 max-w-md w-full shadow-2xl relative border border-white/20">
+              <button onClick={() => setIsJoinModalOpen(false)} className="absolute top-6 right-6 text-[#546E7A] hover:text-[#FF6E40]"><X /></button>
+              <h2 className="text-2xl font-black text-[#37474F] tracking-tighter mb-2">Join Workspace</h2>
+              <p className="text-[#546E7A] text-xs font-bold uppercase tracking-widest mb-8">Enter the unique access key</p>
+              <form onSubmit={handleJoinProject} className="space-y-6">
+                <div className="relative">
+                  <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#FF6E40]" />
+                  <input
+                    type="text"
+                    placeholder="e.g. D9F1D4"
+                    className="w-full p-4 pl-12 rounded-xl border-2 border-[#ECEFF1] focus:border-[#FF6E40] outline-none font-bold text-center tracking-[0.3em] uppercase"
+                    value={accessKeyInput}
+                    onChange={(e) => setAccessKeyInput(e.target.value)}
+                    required
+                  />
+                </div>
+                <button
+                  disabled={joinLoading}
+                  className="w-full bg-[#37474F] text-white py-4 rounded-xl font-black uppercase tracking-widest text-sm hover:bg-[#FF6E40] transition-all"
+                >
+                  {joinLoading ? "Verifying..." : "Access Workspace"}
+                </button>
+              </form>
+            </div>
+          </div>
+        )}
+
         <main className="max-w-7xl mx-auto p-8 md:p-10">
           <div className="mb-10">
             <div className="flex items-center gap-3">
@@ -126,9 +185,10 @@ export default function DashboardPage() {
           {dashboards.length === 0 ? (
             <div className="text-center py-32 bg-white/80 backdrop-blur-md rounded-3xl border-2 border-dashed border-[#546E7A]/30 shadow-xl">
               <p className="font-black uppercase tracking-[0.3em] text-[#546E7A] text-sm mb-2">NO PROJECTS YET</p>
-              <Link href="/dashboard/new" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF6E40] to-[#FF5252] text-white px-8 py-3 rounded-full font-bold text-sm mt-4">
-                <Plus className="w-5 h-5" /> CREATE PROJECT
-              </Link>
+              <div className="flex justify-center gap-4 mt-4">
+                <button onClick={() => setIsJoinModalOpen(true)} className="bg-white border-2 border-[#FF6E40] text-[#FF6E40] px-8 py-3 rounded-full font-bold text-sm">JOIN EXISTING</button>
+                <Link href="/dashboard/new" className="bg-gradient-to-r from-[#FF6E40] to-[#FF5252] text-white px-8 py-3 rounded-full font-bold text-sm">CREATE NEW</Link>
+              </div>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

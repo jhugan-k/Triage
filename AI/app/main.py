@@ -51,8 +51,16 @@ def classify(payload: BugPayload):
         if isinstance(result, dict) and "error" in result:
             raise HTTPException(status_code=500, detail=result["error"])
 
-        # SUCCESS: Result format is {'labels': ['High', ...], 'scores': [...]}
-        prediction = result['labels'][0]
+        # SUCCESS: Handle dynamic response formats
+        # Format A (List): [{'label': 'High', 'score': ...}, ...]
+        # Format B (Dict): {'labels': ['High', ...], 'scores': [...]}
+        if isinstance(result, list):
+            prediction = result[0]['label']
+        elif isinstance(result, dict) and 'labels' in result:
+            prediction = result['labels'][0]
+        else:
+            raise Exception("Unknown response format from HF")
+
         return {"severity": prediction}
 
     except requests.exceptions.Timeout:
@@ -60,9 +68,6 @@ def classify(payload: BugPayload):
         raise HTTPException(status_code=504, detail="Hugging Face timed out")
     except HTTPException:
         # FIX: Let intentional HTTP errors pass through unchanged
-        # Previously, HTTPExceptions raised above (503, 500) were being caught
-        # by the broad Exception handler below, wrapping them in a new 500 error
-        # and printing misleading [AI SERVICE CRASH] logs.
         raise
     except Exception as e:
         print(f"[AI SERVICE CRASH]: {str(e)}")

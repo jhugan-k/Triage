@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import requests
 import os
@@ -6,9 +6,8 @@ import os
 app = FastAPI()
 
 # 1. CONFIGURATION
-# Set these in your Render Environment Variables later
 HF_TOKEN = os.getenv("HF_TOKEN")
-# We use a powerful DeBERTa model for high accuracy
+# We use BART Large MNLI for zero-shot classification
 API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
 headers = {"Authorization": f"Bearer {HF_TOKEN}"}
 
@@ -19,8 +18,6 @@ class BugPayload(BaseModel):
 @app.post("/classify")
 def classify(payload: BugPayload):
     text = f"{payload.title}: {payload.description}"
-    
-    # These are the categories the AI will choose from
     candidate_labels = ["High", "Normal", "Low"]
 
     # 2. CALL HUGGING FACE
@@ -29,13 +26,22 @@ def classify(payload: BugPayload):
         "parameters": {"candidate_labels": candidate_labels}
     })
 
-    # 3. PARSE THE RESULT
+    result = response.json()
+
+    # 3. DEBUGGING: Print the actual response to Render logs
+    print(f"[HF RAW RESPONSE]: {result}")
+
+    # 4. HANDLE ERRORS
+    if "error" in result:
+        # If the model is loading, HF returns a 503-style error
+        # We raise an exception so the Backend knows the AI failed
+        raise HTTPException(status_code=500, detail=result["error"])
+
     try:
-        result = response.json()
-        # The first label in 'labels' is the one with the highest score
+        # The first label in 'labels' is the highest score
         prediction = result['labels'][0]
         return {"severity": prediction}
-    except Exception as e:
-        # Fallback if the API is busy or fails
-        print(f"HF Error: {e}")
-        return {"severity": "Normal"}
+    except KeyError:
+        # This is where your 'labels' error was happening
+        print(f"Critical Failure: Response format unexpected: {result}")
+        raise HTTPException(status_code=500, detail="Unexpected AI response format")

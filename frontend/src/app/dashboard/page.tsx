@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { api, logout } from "@/lib/api";
-import { Plus, LayoutDashboard, Key, ArrowRight, TrendingUp, Activity, Trash2, LogOut, LogIn, X } from "lucide-react";
+import { Plus, LayoutDashboard, Key, ArrowRight, TrendingUp, Activity, Trash2, LogOut, LogIn, X, User } from "lucide-react";
 import Link from "next/link";
 
 interface Dashboard {
@@ -13,49 +13,44 @@ interface Dashboard {
 export default function DashboardPage() {
   const [dashboards, setDashboards] = useState<Dashboard[]>([]);
   const [loading, setLoading] = useState(true);
+  const [userEmail, setUserEmail] = useState("");
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   
-  // New state for Join Project
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const [accessKeyInput, setAccessKeyInput] = useState("");
   const [joinLoading, setJoinLoading] = useState(false);
 
-  const fetchDashboards = async () => {
-    try {
-      const res = await api.get<Dashboard[]>("/dashboards");
-      setDashboards(res.data);
-      setLoading(false);
-    } catch (err) {
-      console.error("Failed to load dashboards", err);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchDashboards = async () => {
+      try {
+        const res = await api.get<Dashboard[]>("/dashboards");
+        setDashboards(res.data);
+        // Attempt to get user info from local storage or a quick check
+        const token = localStorage.getItem('token');
+        if (token) {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          setUserEmail(payload.email);
+        }
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+      }
+    };
     fetchDashboards();
   }, []);
 
   const handleDeleteProject = async (e: React.MouseEvent, id: string) => {
     e.preventDefault();
     e.stopPropagation();
-
-    if (!confirm("CRITICAL ACTION: This will permanently purge the project and all associated bug logs. Continue?")) return;
-
+    if (!confirm("CRITICAL ACTION: Purge project?")) return;
     try {
       await api.delete(`/purge-workspace/${id}`);
       setDashboards(prev => prev.filter(db => db.id !== id));
-    } catch (err: any) {
-      console.error("Purge Error Detail:", err.response?.data || err.message);
-      alert("Purge sequence failed. Check backend connectivity.");
+    } catch (err) {
+      alert("Purge failed.");
     }
   };
 
-  const handleLogout = () => {
-    if (confirm("Terminate session and return to login?")) {
-      logout();
-    }
-  };
-
-  // New function to handle joining
   const handleJoinProject = async (e: React.FormEvent) => {
     e.preventDefault();
     setJoinLoading(true);
@@ -63,165 +58,113 @@ export default function DashboardPage() {
       await api.post("/dashboards/join", { accessKey: accessKeyInput });
       setAccessKeyInput("");
       setIsJoinModalOpen(false);
-      fetchDashboards(); // Refresh list
+      const res = await api.get<Dashboard[]>("/dashboards");
+      setDashboards(res.data);
     } catch (err: any) {
-      alert(err.response?.data?.error || "Failed to join project. Check the key.");
+      alert(err.response?.data?.error || "Failed to join.");
     } finally {
       setJoinLoading(false);
     }
   };
 
-  if (loading) return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#37474F] via-[#455A64] to-[#546E7A] relative overflow-hidden">
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-20 left-20 w-64 h-64 bg-[#FF6E40]/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-[#4FC3F7]/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      </div>
-      <div className="flex flex-col items-center gap-4 relative z-10">
-        <div className="w-12 h-12 border-4 border-[#FF6E40] border-t-transparent rounded-full animate-spin"></div>
-        <p className="font-bold text-white tracking-[0.2em] text-sm uppercase">Loading Workspaces...</p>
-      </div>
-    </div>
-  );
+  if (loading) return <div className="min-h-screen flex items-center justify-center bg-[#37474F] text-white font-black">LOADING...</div>;
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      {/* Animated Background with Tech Shapes */}
-      <div className="fixed inset-0 bg-gradient-to-br from-[#ECEFF1] via-[#CFD8DC] to-[#B0BEC5]">
-        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-[#FF6E40]/10 to-[#FF5252]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
-        <div className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-gradient-to-br from-[#4FC3F7]/10 to-[#81D4FA]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
+    <div className="min-h-screen relative overflow-hidden bg-[#ECEFF1]">
+      <nav className="bg-gradient-to-r from-[#37474F] via-[#455A64] to-[#546E7A] p-6 shadow-2xl relative z-20">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <LayoutDashboard className="text-[#FF6E40] w-7 h-7" />
+            <h1 className="text-white font-black text-3xl tracking-wide">TRIAGE</h1>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={() => setIsJoinModalOpen(true)}
+              className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 transition-all"
+            >
+              <LogIn className="w-4 h-4" /> JOIN PROJECT
+            </button>
 
-        <div className="absolute top-20 left-[15%] opacity-10">
-          <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
-            <circle cx="20" cy="20" r="8" fill="#FF6E40" />
-            <circle cx="100" cy="20" r="8" fill="#FF6E40" />
-            <line x1="20" y1="20" x2="100" y2="20" stroke="#FF6E40" strokeWidth="3" />
-            <circle cx="60" cy="60" r="12" fill="#FF6E40" />
-          </svg>
+            {/* PROFILE ICON & DROPDOWN */}
+            <div className="relative">
+              <button 
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#37474F] hover:scale-105 transition-all shadow-lg"
+              >
+                <User size={24} />
+              </button>
+              
+              {isProfileOpen && (
+                <div className="absolute right-0 mt-3 w-64 bg-white rounded-2xl shadow-2xl p-4 border border-secondary/20 z-50">
+                  <p className="text-[10px] font-black uppercase text-secondary tracking-widest mb-1">Authenticated As</p>
+                  <p className="font-bold text-[#37474F] truncate mb-4">{userEmail}</p>
+                  <button 
+                    onClick={logout}
+                    className="w-full flex items-center justify-between bg-danger/10 hover:bg-danger hover:text-white text-danger p-3 rounded-xl transition-all font-black text-xs uppercase tracking-widest"
+                  >
+                    Terminate Session <LogOut size={16} />
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* FIXED NEW PROJECT BUTTON - BOTTOM RIGHT */}
+      <Link 
+        href="/dashboard/new" 
+        className="fixed bottom-10 right-10 z-[100] bg-gradient-to-r from-[#FF6E40] to-[#FF5252] text-white px-8 py-5 rounded-full font-black text-sm flex items-center gap-3 hover:scale-110 active:scale-95 transition-all shadow-2xl shadow-[#FF6E40]/40 uppercase tracking-widest"
+      >
+        <Plus className="w-6 h-6" /> New Project
+      </Link>
+
+      <main className="max-w-7xl mx-auto p-10">
+        <div className="flex items-center gap-3 mb-10">
+          <Activity className="w-5 h-5 text-[#FF6E40]" />
+          <h2 className="text-[#546E7A] text-xs font-bold uppercase tracking-[0.25em]">ACTIVE WORKSPACES</h2>
         </div>
 
-        <div className="absolute inset-0 opacity-[0.015]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat',
-          backgroundSize: '200px 200px'
-        }}></div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        <nav className="bg-gradient-to-r from-[#37474F] via-[#455A64] to-[#546E7A] p-6 shadow-2xl border-b border-[#FF6E40]/20">
-          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-3">
-              <div className="bg-[#FF6E40]/10 p-2 rounded-xl border-2 border-[#FF6E40]/30">
-                <LayoutDashboard className="text-[#FF6E40] w-7 h-7" />
-              </div>
-              <div>
-                <h1 className="text-white font-black text-3xl tracking-wide uppercase">TRIAGE</h1>
-                <p className="text-[#FF6E40] text-[9px] font-bold tracking-[0.25em] uppercase">BUG TRACKING SYSTEM</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 w-full sm:w-auto">
-              {/* JOIN PROJECT BUTTON */}
-              <button 
-                onClick={() => setIsJoinModalOpen(true)}
-                className="bg-white/10 hover:bg-white/20 text-white border border-white/20 px-6 py-3 rounded-full font-bold text-sm flex items-center gap-2 transition-all tracking-widest"
-              >
-                <LogIn className="w-4 h-4" /> JOIN PROJECT
-              </button>
-
-              <Link href="/dashboard/new" className="bg-gradient-to-r from-[#FF6E40] to-[#FF5252] text-white px-8 py-3 rounded-full font-bold text-sm flex items-center gap-2 hover:scale-105 active:scale-95 transition-all shadow-xl shadow-[#FF6E40]/30 flex-1 sm:flex-none justify-center tracking-widest">
-                <Plus className="w-5 h-5" /> NEW PROJECT
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {dashboards.map((db) => (
+            <div key={db.id} className="group relative">
+              <Link href={`/dashboard/${db.id}`} className="block bg-white rounded-2xl p-8 shadow-lg border border-white hover:shadow-2xl transition-all">
+                <div className="flex justify-between items-start mb-6">
+                  <div className="bg-[#FF6E40]/10 p-3 rounded-xl"><TrendingUp className="text-[#FF6E40]" /></div>
+                  <button onClick={(e) => handleDeleteProject(e, db.id)} className="text-secondary hover:text-danger"><Trash2 size={18} /></button>
+                </div>
+                <h3 className="font-black text-[#37474F] text-xl mb-2">{db.name}</h3>
+                <div className="flex items-center gap-2 text-secondary font-mono text-xs font-bold uppercase tracking-widest">
+                  <Key size={12} /> {db.accessKey}
+                </div>
+                <div className="mt-6 flex justify-end text-[#FF6E40]"><ArrowRight /></div>
               </Link>
-              <button
-                onClick={handleLogout}
-                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-5 py-3 rounded-full font-bold text-sm transition-all tracking-widest"
-                title="Logout"
-              >
-                <LogOut className="w-4 h-4" />
-                <span className="hidden sm:inline">LOGOUT</span>
+            </div>
+          ))}
+        </div>
+      </main>
+
+      {/* JOIN MODAL */}
+      {isJoinModalOpen && (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/60 backdrop-blur-sm">
+          <div className="bg-white rounded-[2.5rem] p-12 max-w-md w-full shadow-2xl relative">
+            <button onClick={() => setIsJoinModalOpen(false)} className="absolute top-8 right-8 text-secondary"><X /></button>
+            <h2 className="text-3xl font-black text-[#37474F] mb-8">Access Key</h2>
+            <form onSubmit={handleJoinProject} className="space-y-6">
+              <input
+                className="w-full p-5 rounded-2xl border-2 border-secondary/20 focus:border-[#FF6E40] outline-none font-black text-center text-2xl tracking-[0.3em] uppercase"
+                value={accessKeyInput}
+                onChange={(e) => setAccessKeyInput(e.target.value.toUpperCase())}
+                placeholder="000000"
+              />
+              <button disabled={joinLoading} className="w-full bg-[#37474F] text-white py-5 rounded-2xl font-black uppercase tracking-widest">
+                {joinLoading ? "Verifying..." : "Join Workspace"}
               </button>
-            </div>
+            </form>
           </div>
-        </nav>
-
-        {/* JOIN MODAL */}
-        {isJoinModalOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-[#37474F]/80 backdrop-blur-sm">
-            <div className="bg-white rounded-3xl p-10 max-w-md w-full shadow-2xl relative border border-white/20">
-              <button onClick={() => setIsJoinModalOpen(false)} className="absolute top-6 right-6 text-[#546E7A] hover:text-[#FF6E40]"><X /></button>
-              <h2 className="text-2xl font-black text-[#37474F] tracking-tighter mb-2">Join Workspace</h2>
-              <p className="text-[#546E7A] text-xs font-bold uppercase tracking-widest mb-8">Enter the unique access key</p>
-              <form onSubmit={handleJoinProject} className="space-y-6">
-                <div className="relative">
-                  <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#FF6E40]" />
-                  <input
-                    type="text"
-                    placeholder="e.g. D9F1D4"
-                    className="w-full p-4 pl-12 rounded-xl border-2 border-[#ECEFF1] focus:border-[#FF6E40] outline-none font-bold text-center tracking-[0.3em] uppercase"
-                    value={accessKeyInput}
-                    onChange={(e) => setAccessKeyInput(e.target.value)}
-                    required
-                  />
-                </div>
-                <button
-                  disabled={joinLoading}
-                  className="w-full bg-[#37474F] text-white py-4 rounded-xl font-black uppercase tracking-widest text-sm hover:bg-[#FF6E40] transition-all"
-                >
-                  {joinLoading ? "Verifying..." : "Access Workspace"}
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
-
-        <main className="max-w-7xl mx-auto p-8 md:p-10">
-          <div className="mb-10">
-            <div className="flex items-center gap-3">
-              <Activity className="w-5 h-5 text-[#FF6E40]" />
-              <h2 className="text-[#546E7A] text-xs font-bold uppercase tracking-[0.25em]">ACTIVE WORKSPACES</h2>
-            </div>
-          </div>
-
-          {dashboards.length === 0 ? (
-            <div className="text-center py-32 bg-white/80 backdrop-blur-md rounded-3xl border-2 border-dashed border-[#546E7A]/30 shadow-xl">
-              <p className="font-black uppercase tracking-[0.3em] text-[#546E7A] text-sm mb-2">NO PROJECTS YET</p>
-              <div className="flex justify-center gap-4 mt-4">
-                <button onClick={() => setIsJoinModalOpen(true)} className="bg-white border-2 border-[#FF6E40] text-[#FF6E40] px-8 py-3 rounded-full font-bold text-sm">JOIN EXISTING</button>
-                <Link href="/dashboard/new" className="bg-gradient-to-r from-[#FF6E40] to-[#FF5252] text-white px-8 py-3 rounded-full font-bold text-sm">CREATE NEW</Link>
-              </div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {dashboards.map((db) => (
-                <div key={db.id} className="group relative">
-                  <Link href={`/dashboard/${db.id}`} className="block bg-white/80 backdrop-blur-md rounded-2xl p-6 shadow-lg border border-white/50 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="bg-gradient-to-br from-[#FF6E40]/20 to-[#FF5252]/10 p-3 rounded-xl">
-                        <TrendingUp className="text-[#FF6E40] w-6 h-6" />
-                      </div>
-                      <button
-                        onClick={(e) => handleDeleteProject(e, db.id)}
-                        className="opacity-0 group-hover:opacity-100 p-2 text-[#B0BEC5] hover:text-[#FF5252] hover:bg-[#FF5252]/10 rounded-lg transition-all"
-                        aria-label="Delete project"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </div>
-                    <h3 className="font-black text-[#37474F] text-lg tracking-tight mb-2">{db.name}</h3>
-                    <div className="flex items-center gap-2 text-[#78909C]">
-                      <Key className="w-3 h-3" />
-                      <span className="text-xs font-mono font-bold tracking-widest">{db.accessKey}</span>
-                    </div>
-                    <div className="mt-4 flex items-center justify-end text-[#FF6E40]">
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </Link>
-                </div>
-              ))}
-            </div>
-          )}
-        </main>
-      </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -15,7 +15,8 @@
 /* Dark Mode Variables */
 .dark {
   --color-background: #1A2228;
-  --color-secondary: #37474F;
+  /* Brighter secondary for dark mode readability */
+  --color-secondary: #90A4AE; 
   --color-primary: #ECEFF1;
   background: #12181C;
   color: #ECEFF1;
@@ -36,4 +37,9 @@ body {
 /* Kanban Column Styling */
 .kanban-column {
   @apply bg-white/40 dark:bg-black/20 backdrop-blur-sm rounded-3xl p-4 min-h-[500px] border border-white/20;
+}
+
+/* Utility for the brighter dark mode text requested */
+.dark .text-secondary {
+  @apply text-slate-400;
 }

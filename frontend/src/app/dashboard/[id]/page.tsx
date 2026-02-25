@@ -12,8 +12,11 @@ import ReactMarkdown from 'react-markdown';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 
 interface Bug {
-  id: string; title: string; description: string; 
-  severity: "High" | "Normal" | "Low"; status: "OPEN" | "RESOLVED"; 
+  id: string; 
+  title: string; 
+  description: string; 
+  severity: "High" | "Normal" | "Low"; 
+  status: "OPEN" | "RESOLVED"; 
   comments: any[];
 }
 
@@ -26,7 +29,6 @@ export default function BugBoard() {
   const [userEmail, setUserEmail] = useState("");
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   
-  // DARK MODE PERSISTENCE
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('triage-theme') === 'dark';
@@ -81,6 +83,16 @@ export default function BugBoard() {
     setBugs(prev => prev.map(b => b.id === bugId ? { ...b, status: "RESOLVED" } : b));
   };
 
+  const handleDeleteBug = async (bugId: string) => {
+    if (!confirm("Delete this incident log permanently?")) return;
+    try {
+      await api.delete(`/bugs/${bugId}`);
+      setBugs(prev => prev.filter(b => b.id !== bugId));
+    } catch (err) {
+      alert("Delete failed.");
+    }
+  };
+
   const handleAddComment = async (bugId: string) => {
     if (!commentText.trim()) return;
     const res = await api.post(`/bugs/${bugId}/comments`, { text: commentText });
@@ -88,10 +100,18 @@ export default function BugBoard() {
     setCommentText("");
   };
 
-  const filteredBugs = bugs.filter(bug => 
-    bug.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-    (severityFilter === "all" || bug.severity === severityFilter)
-  );
+  // Filter and Sort: Open bugs first, then Resolved bugs
+  const filteredBugs = useMemo(() => {
+    return bugs
+      .filter(bug => 
+        bug.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+        (severityFilter === "all" || bug.severity === severityFilter)
+      )
+      .sort((a, b) => {
+        if (a.status === b.status) return 0;
+        return a.status === "OPEN" ? -1 : 1;
+      });
+  }, [bugs, searchQuery, severityFilter]);
 
   if (loading) return <div className="min-h-screen bg-primary flex items-center justify-center text-white font-black">INITIALIZING...</div>;
 
@@ -201,13 +221,15 @@ export default function BugBoard() {
           {view === 'list' ? (
             <div className="space-y-4">
               {filteredBugs.map(bug => (
-                <div key={bug.id} className={`bg-white dark:bg-[#1A2228] p-6 rounded-3xl shadow-sm border-l-4 border-l-accent flex justify-between items-start transition-all hover:shadow-xl ${bug.status === 'RESOLVED' ? 'opacity-50' : ''}`}>
+                <div key={bug.id} className={`bg-white dark:bg-[#1A2228] p-6 rounded-3xl shadow-sm border-l-4 border-l-accent flex justify-between items-start transition-all hover:shadow-xl ${bug.status === 'RESOLVED' ? 'opacity-40 grayscale-[0.5]' : ''}`}>
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
                        <span className={`px-3 py-1 rounded-full text-[9px] font-black text-white uppercase ${bug.severity === 'High' ? 'bg-danger' : bug.severity === 'Normal' ? 'bg-warning' : 'bg-info'}`}>{bug.severity}</span>
-                       <h3 className="font-bold text-lg dark:text-white">{bug.title}</h3>
+                       <h3 className={`font-bold text-lg dark:text-white ${bug.status === 'RESOLVED' ? 'line-through' : ''}`}>
+                        {bug.title}
+                       </h3>
                     </div>
-                    <div className="prose dark:prose-invert text-sm text-secondary dark:text-slate-400 line-clamp-2">
+                    <div className={`prose dark:prose-invert text-sm text-secondary dark:text-slate-400 line-clamp-2 ${bug.status === 'RESOLVED' ? 'line-through' : ''}`}>
                       <ReactMarkdown>{bug.description}</ReactMarkdown>
                     </div>
                     <button onClick={() => setActiveBugId(activeBugId === bug.id ? null : bug.id)} className="mt-4 flex items-center gap-2 text-[10px] font-bold text-accent uppercase tracking-widest">
@@ -231,9 +253,25 @@ export default function BugBoard() {
                       </div>
                     )}
                   </div>
-                  {bug.status === 'OPEN' && (
-                    <button onClick={() => handleResolve(bug.id)} className="p-3 bg-success/10 text-success rounded-xl hover:bg-success hover:text-white transition-all"><CheckCircle2 /></button>
-                  )}
+                  
+                  <div className="flex flex-col gap-2">
+                    {bug.status === 'OPEN' && (
+                      <button 
+                        onClick={() => handleResolve(bug.id)} 
+                        className="p-3 bg-success/10 text-success rounded-xl hover:bg-success hover:text-white transition-all"
+                        title="Resolve Bug"
+                      >
+                        <CheckCircle2 size={20}/>
+                      </button>
+                    )}
+                    <button 
+                      onClick={() => handleDeleteBug(bug.id)}
+                      className="p-3 bg-danger/10 text-danger rounded-xl hover:bg-danger hover:text-white transition-all"
+                      title="Delete Incident"
+                    >
+                      <Trash2 size={20} />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -244,9 +282,9 @@ export default function BugBoard() {
                   <h4 className="text-[10px] font-black uppercase tracking-[0.2em] mb-6 text-center opacity-50 dark:text-white">{sev} Priority</h4>
                   <div className="space-y-4">
                     {filteredBugs.filter(b => b.severity === sev).map(bug => (
-                      <div key={bug.id} className="bg-white dark:bg-[#1A2228] p-4 rounded-2xl shadow-sm cursor-pointer hover:scale-[1.02] transition-all">
-                        <p className="font-bold text-sm mb-2 dark:text-white">{bug.title}</p>
-                        <p className="text-[10px] text-secondary dark:text-slate-400 line-clamp-1">{bug.description}</p>
+                      <div key={bug.id} className={`bg-white dark:bg-[#1A2228] p-4 rounded-2xl shadow-sm cursor-pointer hover:scale-[1.02] transition-all ${bug.status === 'RESOLVED' ? 'opacity-40 grayscale' : ''}`}>
+                        <p className={`font-bold text-sm mb-2 dark:text-white ${bug.status === 'RESOLVED' ? 'line-through' : ''}`}>{bug.title}</p>
+                        <p className={`text-[10px] text-secondary dark:text-slate-400 line-clamp-1 ${bug.status === 'RESOLVED' ? 'line-through' : ''}`}>{bug.description}</p>
                       </div>
                     ))}
                   </div>

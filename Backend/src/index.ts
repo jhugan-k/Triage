@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import axios from 'axios';
+import bcrypt from 'bcrypt';
 import { authenticateToken, AuthRequest } from './middleware';
 
 // --- INITIALIZATION ---
@@ -51,24 +52,41 @@ console.log("-----------------------------------------");
 // ==========================================
 
 app.post('/auth/login', async (req: Request, res: Response) => {
-  const { email, name } = req.body;
+  const { email, password } = req.body;
 
-  if (!email) {
-    res.status(400).json({ error: "Email is required" });
+  if (!email || !password) {
+    res.status(400).json({ error: "Email and password are required" });
     return;
   }
 
   try {
-    const user = await prisma.user.upsert({
-      where: { email: email },
-      update: { name: name || "Anonymous" },
-      create: { 
-        email: email, 
-        name: name || "Anonymous",
-        avatarUrl: `https://ui-avatars.com/api/?name=${name || "User"}`
-      }
+    // 1. Check if user exists
+    let user = await prisma.user.findUnique({
+      where: { email: email }
     });
 
+    if (user) {
+      // 2. User exists, verify password
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        res.status(401).json({ error: "Invalid credentials" });
+        return;
+      }
+    } else {
+      // 3. User doesn't exist, create new account (Signup on first login)
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user = await prisma.user.create({
+        data: {
+          email: email,
+          password: hashedPassword,
+          name: email.split('@')[0], // Default name from email
+          avatarUrl: `https://ui-avatars.com/api/?name=${email}`
+        }
+      });
+      console.log(`[AUTH] New account created for: ${email}`);
+    }
+
+    // 4. Generate Token
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET || "default_secret",
@@ -80,7 +98,7 @@ app.post('/auth/login', async (req: Request, res: Response) => {
 
   } catch (error) {
     console.error("[AUTH ERROR]:", error);
-    res.status(500).json({ error: "Login failed" });
+    res.status(500).json({ error: "Authentication failed" });
   }
 });
 

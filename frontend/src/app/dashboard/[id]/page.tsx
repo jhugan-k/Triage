@@ -5,11 +5,13 @@ import { api, logout } from "@/lib/api";
 import { 
   AlertCircle, ArrowLeft, CheckCircle2, Trash2, ShieldAlert, 
   Search, LogOut, Moon, Sun, LayoutList, Columns, 
-  Activity as ActivityIcon, MessageSquare, Send, TrendingUp, User 
+  Activity as ActivityIcon, MessageSquare, Send, TrendingUp, User,
+  Ghost, Sparkles
 } from "lucide-react";
 import Link from "next/link";
 import ReactMarkdown from 'react-markdown';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { motion } from "framer-motion";
 
 interface Bug {
   id: string; 
@@ -100,7 +102,6 @@ export default function BugBoard() {
     setCommentText("");
   };
 
-  // Filter and Sort: Open bugs first, then Resolved bugs
   const filteredBugs = useMemo(() => {
     return bugs
       .filter(bug => 
@@ -113,7 +114,7 @@ export default function BugBoard() {
       });
   }, [bugs, searchQuery, severityFilter]);
 
-  if (loading) return <div className="min-h-screen bg-primary flex items-center justify-center text-white font-black">INITIALIZING...</div>;
+  if (loading) return <div className="min-h-screen bg-primary flex items-center justify-center text-white font-black uppercase tracking-widest">Initialising Link...</div>;
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'dark bg-[#12181C]' : 'bg-[#ECEFF1]'}`}>
@@ -145,19 +146,14 @@ export default function BugBoard() {
           <Link href={`/dashboard/${id}/report`} className="bg-accent text-primary px-6 py-3 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-accent/20">Report Bug</Link>
           
           <div className="relative ml-2">
-            <button 
-              onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="w-10 h-10 rounded-full bg-primary dark:bg-accent flex items-center justify-center text-white dark:text-primary hover:scale-105 transition-all shadow-lg"
-            >
+            <button onClick={() => setIsProfileOpen(!isProfileOpen)} className="w-10 h-10 rounded-full bg-primary dark:bg-accent flex items-center justify-center text-white dark:text-primary hover:scale-105 transition-all shadow-lg">
               <User size={20} />
             </button>
             {isProfileOpen && (
               <div className="absolute right-0 mt-3 w-64 bg-white dark:bg-[#1A2228] rounded-2xl shadow-2xl p-4 border border-secondary/20 dark:border-white/5 z-[60]">
                 <p className="text-[10px] font-black uppercase text-secondary tracking-widest mb-1">Authenticated As</p>
                 <p className="font-bold text-[#37474F] dark:text-white truncate mb-4">{userEmail}</p>
-                <button onClick={logout} className="w-full flex items-center justify-between bg-danger/10 text-danger p-3 rounded-xl transition-all font-black text-xs uppercase tracking-widest">
-                  Logout <LogOut size={16} />
-                </button>
+                <button onClick={logout} className="w-full flex items-center justify-between bg-danger/10 text-danger p-3 rounded-xl transition-all font-black text-xs uppercase tracking-widest">Logout <LogOut size={16} /></button>
               </div>
             )}
           </div>
@@ -218,79 +214,86 @@ export default function BugBoard() {
             </select>
           </div>
 
-          {view === 'list' ? (
-            <div className="space-y-4">
-              {filteredBugs.map(bug => (
-                <div key={bug.id} className={`bg-white dark:bg-[#1A2228] p-6 rounded-3xl shadow-sm border-l-4 border-l-accent flex justify-between items-start transition-all hover:shadow-xl ${bug.status === 'RESOLVED' ? 'opacity-40 grayscale-[0.5]' : ''}`}>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                       <span className={`px-3 py-1 rounded-full text-[9px] font-black text-white uppercase ${bug.severity === 'High' ? 'bg-danger' : bug.severity === 'Normal' ? 'bg-warning' : 'bg-info'}`}>{bug.severity}</span>
-                       <h3 className={`font-bold text-lg dark:text-white ${bug.status === 'RESOLVED' ? 'line-through' : ''}`}>
-                        {bug.title}
-                       </h3>
-                    </div>
-                    <div className={`prose dark:prose-invert text-sm text-secondary dark:text-slate-400 line-clamp-2 ${bug.status === 'RESOLVED' ? 'line-through' : ''}`}>
-                      <ReactMarkdown>{bug.description}</ReactMarkdown>
-                    </div>
-                    <button onClick={() => setActiveBugId(activeBugId === bug.id ? null : bug.id)} className="mt-4 flex items-center gap-2 text-[10px] font-bold text-accent uppercase tracking-widest">
-                      <MessageSquare size={14} /> {bug.comments.length} Comments
-                    </button>
-                    {activeBugId === bug.id && (
-                      <div className="mt-4 p-4 bg-background/50 dark:bg-black/20 rounded-2xl space-y-4">
-                        {bug.comments.map((c: any) => (
-                          <div key={c.id} className="flex gap-3 items-start">
-                            <img src={c.user.avatarUrl} className="w-6 h-6 rounded-full" />
-                            <div>
-                              <p className="text-xs font-black dark:text-white">{c.user.name}</p>
-                              <p className="text-xs text-secondary dark:text-slate-400">{c.text}</p>
-                            </div>
-                          </div>
-                        ))}
-                        <div className="flex gap-2">
-                          <input className="flex-1 bg-white dark:bg-[#1A2228] p-2 rounded-xl text-xs outline-none dark:text-white" placeholder="Add comment..." value={commentText} onChange={e => setCommentText(e.target.value)} />
-                          <button onClick={() => handleAddComment(bug.id)} className="p-2 bg-accent rounded-xl text-primary"><Send size={14} /></button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="flex flex-col gap-2">
-                    {bug.status === 'OPEN' && (
-                      <button 
-                        onClick={() => handleResolve(bug.id)} 
-                        className="p-3 bg-success/10 text-success rounded-xl hover:bg-success hover:text-white transition-all"
-                        title="Resolve Bug"
-                      >
-                        <CheckCircle2 size={20}/>
-                      </button>
-                    )}
-                    <button 
-                      onClick={() => handleDeleteBug(bug.id)}
-                      className="p-3 bg-danger/10 text-danger rounded-xl hover:bg-danger hover:text-white transition-all"
-                      title="Delete Incident"
-                    >
-                      <Trash2 size={20} />
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+          {bugs.length === 0 ? (
+            /* CHROME DINO EMPTY STATE */
+            <motion.div 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+              className="flex flex-col items-center justify-center py-24 select-none"
+            >
+               <div className="relative mb-8">
+                  <Ghost size={120} className="text-secondary/20 dark:text-white/10 animate-[bounce_2s_infinite_steps(4)]" />
+                  <div className="absolute -bottom-2 w-full h-1 bg-secondary/10 dark:bg-white/5 rounded-full blur-[2px]" />
+               </div>
+               <h3 className="text-4xl font-black text-primary/30 dark:text-white/20 tracking-tighter uppercase">No bugs yet?</h3>
+               <p className="text-[10px] font-black text-secondary/40 dark:text-white/10 uppercase tracking-[0.4em] mt-2">
+                 Report some to initialize triage engine
+               </p>
+               <Link href={`/dashboard/${id}/report`} className="mt-8 flex items-center gap-2 text-accent font-black text-[10px] uppercase tracking-widest hover:brightness-125 transition-all">
+                 <Sparkles size={14} /> Report First Incident
+               </Link>
+            </motion.div>
           ) : (
-            <div className="grid grid-cols-3 gap-6">
-              {['High', 'Normal', 'Low'].map(sev => (
-                <div key={sev} className="kanban-column">
-                  <h4 className="text-[10px] font-black uppercase tracking-[0.2em] mb-6 text-center opacity-50 dark:text-white">{sev} Priority</h4>
-                  <div className="space-y-4">
-                    {filteredBugs.filter(b => b.severity === sev).map(bug => (
-                      <div key={bug.id} className={`bg-white dark:bg-[#1A2228] p-4 rounded-2xl shadow-sm cursor-pointer hover:scale-[1.02] transition-all ${bug.status === 'RESOLVED' ? 'opacity-40 grayscale' : ''}`}>
-                        <p className={`font-bold text-sm mb-2 dark:text-white ${bug.status === 'RESOLVED' ? 'line-through' : ''}`}>{bug.title}</p>
-                        <p className={`text-[10px] text-secondary dark:text-slate-400 line-clamp-1 ${bug.status === 'RESOLVED' ? 'line-through' : ''}`}>{bug.description}</p>
+            view === 'list' ? (
+              <div className="space-y-4">
+                {filteredBugs.map(bug => (
+                  <div key={bug.id} className={`bg-white dark:bg-[#1A2228] p-6 rounded-3xl shadow-sm border-l-4 border-l-accent flex justify-between items-start transition-all hover:shadow-xl ${bug.status === 'RESOLVED' ? 'opacity-40 grayscale-[0.5]' : ''}`}>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                         <span className={`px-3 py-1 rounded-full text-[9px] font-black text-white uppercase ${bug.severity === 'High' ? 'bg-danger' : bug.severity === 'Normal' ? 'bg-warning' : 'bg-info'}`}>{bug.severity}</span>
+                         <h3 className={`font-bold text-lg dark:text-white ${bug.status === 'RESOLVED' ? 'line-through' : ''}`}>
+                          {bug.title}
+                         </h3>
                       </div>
-                    ))}
+                      <div className={`prose dark:prose-invert text-sm text-secondary dark:text-slate-400 line-clamp-2 ${bug.status === 'RESOLVED' ? 'line-through' : ''}`}>
+                        <ReactMarkdown>{bug.description}</ReactMarkdown>
+                      </div>
+                      <button onClick={() => setActiveBugId(activeBugId === bug.id ? null : bug.id)} className="mt-4 flex items-center gap-2 text-[10px] font-bold text-accent uppercase tracking-widest">
+                        <MessageSquare size={14} /> {bug.comments.length} Comments
+                      </button>
+                      {activeBugId === bug.id && (
+                        <div className="mt-4 p-4 bg-background/50 dark:bg-black/20 rounded-2xl space-y-4">
+                          {bug.comments.map((c: any) => (
+                            <div key={c.id} className="flex gap-3 items-start">
+                              <img src={c.user.avatarUrl} className="w-6 h-6 rounded-full" />
+                              <div>
+                                <p className="text-xs font-black dark:text-white">{c.user.name}</p>
+                                <p className="text-xs text-secondary dark:text-slate-400">{c.text}</p>
+                              </div>
+                            </div>
+                          ))}
+                          <div className="flex gap-2">
+                            <input className="flex-1 bg-white dark:bg-[#1A2228] p-2 rounded-xl text-xs outline-none dark:text-white" placeholder="Add comment..." value={commentText} onChange={e => setCommentText(e.target.value)} />
+                            <button onClick={() => handleAddComment(bug.id)} className="p-2 bg-accent rounded-xl text-primary"><Send size={14} /></button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      {bug.status === 'OPEN' && (
+                        <button onClick={() => handleResolve(bug.id)} className="p-3 bg-success/10 text-success rounded-xl hover:bg-success hover:text-white transition-all"><CheckCircle2 size={20}/></button>
+                      )}
+                      <button onClick={() => handleDeleteBug(bug.id)} className="p-3 bg-danger/10 text-danger rounded-xl hover:bg-danger hover:text-white transition-all"><Trash2 size={20} /></button>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-3 gap-6">
+                {['High', 'Normal', 'Low'].map(sev => (
+                  <div key={sev} className="kanban-column">
+                    <h4 className="text-[10px] font-black uppercase tracking-[0.2em] mb-6 text-center opacity-50 dark:text-white">{sev} Priority</h4>
+                    <div className="space-y-4">
+                      {filteredBugs.filter(b => b.severity === sev).map(bug => (
+                        <div key={bug.id} className={`bg-white dark:bg-[#1A2228] p-4 rounded-2xl shadow-sm cursor-pointer hover:scale-[1.02] transition-all ${bug.status === 'RESOLVED' ? 'opacity-40 grayscale' : ''}`}>
+                          <p className={`font-bold text-sm mb-2 dark:text-white ${bug.status === 'RESOLVED' ? 'line-through' : ''}`}>{bug.title}</p>
+                          <p className={`text-[10px] text-secondary dark:text-slate-400 line-clamp-1 ${bug.status === 'RESOLVED' ? 'line-through' : ''}`}>{bug.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )
           )}
         </div>
 
@@ -305,9 +308,7 @@ export default function BugBoard() {
                   <div key={act.id} className="relative pl-6 border-l-2 border-accent/20">
                     <div className="absolute -left-[5px] top-1 w-2 h-2 bg-accent rounded-full" />
                     <p className="text-[11px] font-medium text-secondary dark:text-slate-300 leading-tight">{act.text}</p>
-                    <span className="text-[8px] font-black uppercase text-secondary/50 dark:text-slate-500 mt-1 inline-block">
-                      {new Date(act.createdAt).toLocaleTimeString()}
-                    </span>
+                    <span className="text-[8px] font-black uppercase text-secondary/50 dark:text-slate-500 mt-1 inline-block">{new Date(act.createdAt).toLocaleTimeString()}</span>
                   </div>
                 ))}
              </div>

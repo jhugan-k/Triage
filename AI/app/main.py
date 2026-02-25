@@ -7,8 +7,10 @@ app = FastAPI()
 
 # 1. CONFIGURATION
 HF_TOKEN = os.getenv("HF_TOKEN")
-# MUST USE ROUTER DOMAIN: api-inference is officially unsupported for this model
-API_URL = "https://router.huggingface.co/models/facebook/bart-large-mnli"
+
+# SWITCHING TO DEBERTA: More modern, faster, and currently more stable on HF Inference API
+# Using the standard endpoint (api-inference) with this model
+API_URL = "https://api-inference.huggingface.co/models/MoritzLaurer/DeBERTa-v3-base-mnli-xnli"
 headers = {"Authorization": f"Bearer {HF_TOKEN}"}
 
 class BugPayload(BaseModel):
@@ -17,41 +19,38 @@ class BugPayload(BaseModel):
 
 @app.post("/classify")
 def classify(payload: BugPayload):
-    text = f"{payload.title}: {payload.description}"
+    # Combine title and description for better context understanding
+    text = f"Title: {payload.title}. Description: {payload.description}"
     candidate_labels = ["High", "Normal", "Low"]
 
     try:
-        # Calling the new router endpoint
         response = requests.post(
             API_URL, 
             headers=headers, 
             json={
                 "inputs": text,
-                "parameters": {"candidate_labels": candidate_labels}
+                "parameters": {"candidate_labels": candidate_labels},
+                "options": {"wait_for_model": True} # Tells HF to wait if model is loading
             },
-            timeout=25
+            timeout=30 # Increased timeout
         )
         
-        # DEBUGGING: Log status to verify 200 OK
         print(f"[HF STATUS]: {response.status_code}")
         
-        # Check if response is valid JSON
+        # Check if the response is actually JSON
         if "application/json" not in response.headers.get("Content-Type", ""):
-            print(f"[HF NON-JSON ERROR]: {response.text[:100]}")
-            raise HTTPException(status_code=503, detail="AI Service Busy or Waking Up")
+            print(f"[HF ERROR CONTENT]: {response.text[:100]}")
+            raise HTTPException(status_code=503, detail="AI Service Busy")
 
         result = response.json()
         print(f"[HF RAW RESPONSE]: {result}")
 
-        # Handle Hugging Face error objects
+        # Handle Hugging Face specific errors
         if isinstance(result, dict) and "error" in result:
-            # If model is loading, return 503 so Backend triggers fallback
-            if "currently loading" in str(result.get("error")):
-                 raise HTTPException(status_code=503, detail="Model Warming Up")
+            # If rate limited or loading, trigger fallback
             raise HTTPException(status_code=500, detail=result["error"])
 
-        # SUCCESS CASE
-        # Result format for zero-shot is usually {'labels': [...], 'scores': [...]}
+        # SUCCESS: DeBERTa returns the same format: {'labels': [...], 'scores': [...]}
         prediction = result['labels'][0]
         return {"severity": prediction}
 
@@ -60,5 +59,5 @@ def classify(payload: BugPayload):
         raise HTTPException(status_code=504, detail="Hugging Face timed out")
     except Exception as e:
         print(f"[AI SERVICE CRASH]: {str(e)}")
-        # Raise 500 to ensure Backend triggers its 'Benefit of the Doubt' (High) logic
+        # Return 500 to ensure Backend triggers "Benefit of the Doubt" (High) logic
         raise HTTPException(status_code=500, detail=str(e))

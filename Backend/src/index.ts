@@ -17,9 +17,27 @@ const PORT = process.env.PORT || 4001;
 
 // --- MIDDLEWARE ---
 // Configure CORS to allow your local environment and your future Vercel URL
+// --- FIXED CORS CONFIGURATION ---
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://triage-teal.vercel.app" // Your specific Vercel URL
+];
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL, // Temporarily allow everything to test if it's a CORS issue
-  credentials: true
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log("CORS Blocked Origin:", origin);
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());

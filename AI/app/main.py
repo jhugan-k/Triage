@@ -7,8 +7,8 @@ app = FastAPI()
 
 # 1. CONFIGURATION
 HF_TOKEN = os.getenv("HF_TOKEN")
-# Using the standard inference endpoint which is more stable for Zero-Shot
-API_URL = "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
+# MUST USE ROUTER DOMAIN: api-inference is officially unsupported for this model
+API_URL = "https://router.huggingface.co/models/facebook/bart-large-mnli"
 headers = {"Authorization": f"Bearer {HF_TOKEN}"}
 
 class BugPayload(BaseModel):
@@ -21,6 +21,7 @@ def classify(payload: BugPayload):
     candidate_labels = ["High", "Normal", "Low"]
 
     try:
+        # Calling the new router endpoint
         response = requests.post(
             API_URL, 
             headers=headers, 
@@ -31,22 +32,26 @@ def classify(payload: BugPayload):
             timeout=25
         )
         
-        # DEBUGGING: Log status and content type
+        # DEBUGGING: Log status to verify 200 OK
         print(f"[HF STATUS]: {response.status_code}")
         
-        # If the response is not JSON, it's likely a 503 HTML page
+        # Check if response is valid JSON
         if "application/json" not in response.headers.get("Content-Type", ""):
-            print(f"[HF NON-JSON ERROR]: {response.text[:100]}") # Log first 100 chars
+            print(f"[HF NON-JSON ERROR]: {response.text[:100]}")
             raise HTTPException(status_code=503, detail="AI Service Busy or Waking Up")
 
         result = response.json()
         print(f"[HF RAW RESPONSE]: {result}")
 
-        # Handle specific Hugging Face error objects
+        # Handle Hugging Face error objects
         if isinstance(result, dict) and "error" in result:
+            # If model is loading, return 503 so Backend triggers fallback
+            if "currently loading" in str(result.get("error")):
+                 raise HTTPException(status_code=503, detail="Model Warming Up")
             raise HTTPException(status_code=500, detail=result["error"])
 
-        # Success case
+        # SUCCESS CASE
+        # Result format for zero-shot is usually {'labels': [...], 'scores': [...]}
         prediction = result['labels'][0]
         return {"severity": prediction}
 
@@ -55,5 +60,5 @@ def classify(payload: BugPayload):
         raise HTTPException(status_code=504, detail="Hugging Face timed out")
     except Exception as e:
         print(f"[AI SERVICE CRASH]: {str(e)}")
-        # We raise a 500 so the Backend triggers its "Benefit of the Doubt" logic
+        # Raise 500 to ensure Backend triggers its 'Benefit of the Doubt' (High) logic
         raise HTTPException(status_code=500, detail=str(e))

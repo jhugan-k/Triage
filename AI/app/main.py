@@ -8,8 +8,10 @@ app = FastAPI()
 # 1. CONFIGURATION
 HF_TOKEN = os.getenv("HF_TOKEN")
 
-# FIX: Added missing /hf-inference/ path segment to the Router URL
-API_URL = "https://router.huggingface.co/hf-inference/models/MoritzLaurer/DeBERTa-v3-base-mnli-xnli"
+# FIX: Model name was "DeBERTa-v3-base-mnli-xnli" (does not exist on HF).
+# Correct model is "mDeBERTa-v3-base-mnli-xnli" (note the leading 'm' for multilingual).
+# This was the root cause of the persistent 404 — HF simply couldn't find the model.
+API_URL = "https://router.huggingface.co/hf-inference/models/MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
 headers = {"Authorization": f"Bearer {HF_TOKEN}"}
 
 class BugPayload(BaseModel):

@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { api } from "@/lib/api";
-import { AlertCircle, ArrowLeft, CheckCircle2, Ghost, Trash2, ShieldAlert, Filter, Search, X } from "lucide-react";
+import { api, logout } from "@/lib/api";
+import { AlertCircle, ArrowLeft, CheckCircle2, Ghost, Trash2, ShieldAlert, Filter, Search, X, LogOut } from "lucide-react";
 import Link from "next/link";
 
 interface Bug {
@@ -64,33 +64,39 @@ export default function BugBoard() {
     } catch (err) { alert("Delete failed"); }
   };
 
+  const handleLogout = () => {
+    if (confirm("Terminate session and return to login?")) {
+      logout();
+    }
+  };
+
   const getSevTheme = (s: string) => {
     switch (s) {
-      case "High": return { 
-        bg: "bg-gradient-to-br from-[#FF5252] to-[#E91E63]", 
-        text: "text-[#FF5252]", 
-        border: "border-[#FF5252]/30", 
+      case "High": return {
+        bg: "bg-gradient-to-br from-[#FF5252] to-[#E91E63]",
+        text: "text-[#FF5252]",
+        border: "border-[#FF5252]/30",
         glow: "shadow-[#FF5252]/20",
         lightBg: "bg-[#FF5252]/10"
       };
-      case "Normal": return { 
-        bg: "bg-gradient-to-br from-[#FFD740] to-[#FFA726]", 
-        text: "text-[#FFA726]", 
-        border: "border-[#FFD740]/30", 
+      case "Normal": return {
+        bg: "bg-gradient-to-br from-[#FFD740] to-[#FFA726]",
+        text: "text-[#FFA726]",
+        border: "border-[#FFD740]/30",
         glow: "shadow-[#FFD740]/20",
         lightBg: "bg-[#FFD740]/10"
       };
-      case "Low": return { 
-        bg: "bg-gradient-to-br from-[#81D4FA] to-[#4FC3F7]", 
-        text: "text-[#4FC3F7]", 
-        border: "border-[#81D4FA]/30", 
+      case "Low": return {
+        bg: "bg-gradient-to-br from-[#81D4FA] to-[#4FC3F7]",
+        text: "text-[#4FC3F7]",
+        border: "border-[#81D4FA]/30",
         glow: "shadow-[#81D4FA]/20",
         lightBg: "bg-[#81D4FA]/10"
       };
-      default: return { 
-        bg: "bg-gradient-to-br from-secondary to-secondary/70", 
-        text: "text-secondary", 
-        border: "border-secondary/30", 
+      default: return {
+        bg: "bg-gradient-to-br from-secondary to-secondary/70",
+        text: "text-secondary",
+        border: "border-secondary/30",
         glow: "shadow-secondary/20",
         lightBg: "bg-secondary/10"
       };
@@ -131,12 +137,10 @@ export default function BugBoard() {
     <div className="min-h-screen relative overflow-hidden pb-20">
       {/* Animated Background with Tech Shapes */}
       <div className="fixed inset-0 bg-gradient-to-br from-[#ECEFF1] via-[#CFD8DC] to-[#B0BEC5]">
-        {/* Animated gradient orbs */}
         <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-[#FF6E40]/10 to-[#FF5252]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '8s' }}></div>
         <div className="absolute bottom-0 right-0 w-[700px] h-[700px] bg-gradient-to-br from-[#4FC3F7]/10 to-[#81D4FA]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '10s', animationDelay: '2s' }}></div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-br from-[#66BB6A]/10 to-[#4CAF50]/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '12s', animationDelay: '4s' }}></div>
-        
-        {/* Tech-themed floating shapes */}
+
         {/* Circuit board patterns */}
         <div className="absolute top-20 left-[15%] opacity-10">
           <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
@@ -168,7 +172,6 @@ export default function BugBoard() {
           </svg>
         </div>
 
-        {/* Binary code patterns */}
         <div className="absolute top-1/3 right-[10%] opacity-5 font-mono text-[#37474F] text-xs rotate-12 animate-pulse" style={{ animationDuration: '10s' }}>
           <div>01001000 01100101</div>
           <div>01101100 01101100</div>
@@ -182,7 +185,6 @@ export default function BugBoard() {
           <div>10011100 01010111</div>
         </div>
 
-        {/* Hexagon tech patterns */}
         <div className="absolute top-40 right-[30%] opacity-8">
           <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
             <path d="M40 5 L70 20 L70 50 L40 65 L10 50 L10 20 Z" stroke="#66BB6A" strokeWidth="2.5" fill="none" />
@@ -198,7 +200,6 @@ export default function BugBoard() {
           </svg>
         </div>
 
-        {/* Data flow lines */}
         <div className="absolute top-[15%] left-[40%] opacity-6">
           <svg width="200" height="100" viewBox="0 0 200 100" fill="none">
             <path d="M0 50 Q50 20, 100 50 T200 50" stroke="#FF6E40" strokeWidth="2" strokeDasharray="5 5" fill="none" />
@@ -216,7 +217,6 @@ export default function BugBoard() {
           </svg>
         </div>
 
-        {/* Microchip illustrations */}
         <div className="absolute top-[60%] left-[8%] opacity-7">
           <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
             <rect x="20" y="20" width="30" height="30" stroke="#546E7A" strokeWidth="2.5" fill="none" />
@@ -230,7 +230,6 @@ export default function BugBoard() {
           </svg>
         </div>
 
-        {/* Network nodes */}
         <div className="absolute top-[45%] right-[35%] opacity-7 animate-pulse" style={{ animationDuration: '6s' }}>
           <svg width="90" height="90" viewBox="0 0 90 90" fill="none">
             <circle cx="45" cy="20" r="6" fill="#FF6E40" />
@@ -242,12 +241,10 @@ export default function BugBoard() {
           </svg>
         </div>
 
-        {/* Additional floating shapes for visual balance */}
         <div className="absolute top-32 right-1/4 w-20 h-20 border-4 border-[#FF6E40]/20 rounded-lg rotate-12 animate-pulse" style={{ animationDuration: '6s' }}></div>
         <div className="absolute bottom-40 left-1/4 w-16 h-16 border-4 border-[#4FC3F7]/20 rounded-full animate-pulse" style={{ animationDuration: '7s', animationDelay: '1s' }}></div>
         <div className="absolute top-1/2 right-1/3 w-12 h-12 border-4 border-[#66BB6A]/20 rounded-lg -rotate-12 animate-pulse" style={{ animationDuration: '9s', animationDelay: '3s' }}></div>
-        
-        {/* Noise Texture Overlay */}
+
         <div className="absolute inset-0 opacity-[0.015]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E")`,
           backgroundRepeat: 'repeat',
@@ -257,6 +254,7 @@ export default function BugBoard() {
 
       {/* Content */}
       <div className="relative z-10">
+        {/* ── HEADER ── */}
         <header className="sticky top-0 z-50 bg-gradient-to-r from-[#37474F] via-[#455A64] to-[#546E7A] backdrop-blur-md border-b border-[#FF6E40]/20 px-8 py-6 shadow-2xl">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div className="flex items-center gap-6 w-full md:w-auto">
@@ -272,11 +270,28 @@ export default function BugBoard() {
                 </p>
               </div>
             </div>
-            <Link href={`/dashboard/${id}/report`} className="group relative bg-gradient-to-r from-[#FF6E40] to-[#FF5252] text-white px-8 py-3.5 rounded-full font-black text-sm uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl shadow-[#FF6E40]/30 w-full md:w-auto text-center">
-              <span className="relative z-10 flex items-center justify-center gap-2">
-                <ShieldAlert className="w-4 h-4" /> REPORT NEW
-              </span>
-            </Link>
+
+            {/* Right-side action buttons */}
+            <div className="flex items-center gap-3 w-full md:w-auto">
+              <Link
+                href={`/dashboard/${id}/report`}
+                className="group relative bg-gradient-to-r from-[#FF6E40] to-[#FF5252] text-white px-8 py-3.5 rounded-full font-black text-sm uppercase tracking-widest overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl shadow-[#FF6E40]/30 flex-1 md:flex-none text-center"
+              >
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  <ShieldAlert className="w-4 h-4" /> REPORT NEW
+                </span>
+              </Link>
+
+              {/* Logout Button */}
+              <button
+                onClick={handleLogout}
+                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-5 py-3.5 rounded-full font-bold text-sm transition-all tracking-widest shrink-0"
+                title="Logout"
+              >
+                <LogOut className="w-4 h-4" />
+                <span className="hidden sm:inline">LOGOUT</span>
+              </button>
+            </div>
           </div>
         </header>
 
@@ -291,21 +306,21 @@ export default function BugBoard() {
                   <p className="text-[#37474F] text-3xl font-black leading-none">{stats.total}</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-3 bg-gradient-to-r from-[#FF6E40]/10 to-transparent px-4 py-2 rounded-xl border-l-4 border-[#FF6E40]">
                 <div>
                   <p className="text-[#FF6E40] text-[10px] font-bold tracking-wider uppercase">OPEN</p>
                   <p className="text-[#FF6E40] text-3xl font-black leading-none">{stats.open}</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-3 bg-gradient-to-r from-[#66BB6A]/10 to-transparent px-4 py-2 rounded-xl border-l-4 border-[#66BB6A]">
                 <div>
                   <p className="text-[#66BB6A] text-[10px] font-bold tracking-wider uppercase">RESOLVED</p>
                   <p className="text-[#66BB6A] text-3xl font-black leading-none">{stats.resolved}</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-3 bg-gradient-to-r from-[#FF5252]/10 to-transparent px-4 py-2 rounded-xl border-l-4 border-[#FF5252]">
                 <div>
                   <p className="text-[#FF5252] text-[10px] font-bold tracking-wider uppercase">HIGH PRIORITY</p>
@@ -316,7 +331,6 @@ export default function BugBoard() {
 
             {/* Search and Filters */}
             <div className="flex flex-col md:flex-row gap-3">
-              {/* Search */}
               <div className="relative flex-1">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#546E7A]/50" />
                 <input
@@ -336,7 +350,6 @@ export default function BugBoard() {
                 )}
               </div>
 
-              {/* Filters */}
               <div className="flex gap-3 items-center">
                 <Filter className="w-5 h-5 text-[#546E7A]/70" />
                 <select
@@ -361,33 +374,29 @@ export default function BugBoard() {
                 </select>
               </div>
             </div>
-            
+
             {/* Active Filters Display */}
             {(searchQuery || severityFilter !== "all" || statusFilter !== "all") && (
               <div className="mt-4 flex items-center gap-2 flex-wrap pt-4 border-t border-[#ECEFF1]">
                 <span className="text-xs text-[#546E7A] font-bold uppercase tracking-wider">ACTIVE FILTERS:</span>
                 {searchQuery && (
                   <span className="px-3 py-1.5 bg-[#FF6E40]/10 text-[#FF6E40] rounded-full text-xs font-bold border border-[#FF6E40]/20">
-                    SEARCH: "{searchQuery}"
+                    SEARCH: &quot;{searchQuery}&quot;
                   </span>
                 )}
                 {severityFilter !== "all" && (
-                  <span className="px-3 py-1.5 bg-[#4FC3F7]/10 text-[#4FC3F7] rounded-full text-xs font-bold border border-[#4FC3F7]/20">
+                  <span className="px-3 py-1.5 bg-[#FF6E40]/10 text-[#FF6E40] rounded-full text-xs font-bold border border-[#FF6E40]/20">
                     SEVERITY: {severityFilter.toUpperCase()}
                   </span>
                 )}
                 {statusFilter !== "all" && (
-                  <span className="px-3 py-1.5 bg-[#66BB6A]/10 text-[#66BB6A] rounded-full text-xs font-bold border border-[#66BB6A]/20">
+                  <span className="px-3 py-1.5 bg-[#FF6E40]/10 text-[#FF6E40] rounded-full text-xs font-bold border border-[#FF6E40]/20">
                     STATUS: {statusFilter}
                   </span>
                 )}
                 <button
-                  onClick={() => {
-                    setSearchQuery("");
-                    setSeverityFilter("all");
-                    setStatusFilter("all");
-                  }}
-                  className="text-xs text-[#546E7A] hover:text-[#37474F] font-bold uppercase tracking-wider underline"
+                  onClick={() => { setSearchQuery(""); setSeverityFilter("all"); setStatusFilter("all"); }}
+                  className="px-3 py-1.5 bg-[#546E7A]/10 text-[#546E7A] rounded-full text-xs font-bold border border-[#546E7A]/20 hover:bg-[#546E7A]/20 transition-colors"
                 >
                   CLEAR ALL
                 </button>
@@ -397,93 +406,76 @@ export default function BugBoard() {
         </div>
 
         {/* Bug List */}
-        <main className="max-w-7xl mx-auto px-8 mt-6">
-          <div className="space-y-5">
-            {filteredBugs.length === 0 ? (
-              <div className="text-center py-32 bg-white/80 backdrop-blur-md rounded-3xl border-2 border-dashed border-[#546E7A]/30 shadow-xl">
-                <Ghost className="w-16 h-16 text-[#546E7A]/30 mx-auto mb-4 animate-pulse" />
-                <p className="font-black uppercase tracking-[0.3em] text-[#546E7A] text-sm mb-2">
-                  {bugs.length === 0 ? "ZERO THREATS DETECTED" : "NO MATCHING BUGS FOUND"}
-                </p>
-                {bugs.length > 0 && (
-                  <button
-                    onClick={() => {
-                      setSearchQuery("");
-                      setSeverityFilter("all");
-                      setStatusFilter("all");
-                    }}
-                    className="mt-4 text-[#FF6E40] hover:text-[#FF5252] font-bold text-sm uppercase tracking-wider underline"
-                  >
-                    CLEAR FILTERS
-                  </button>
-                )}
-              </div>
-            ) : (
-              filteredBugs.map((bug) => {
-                const theme = getSevTheme(bug.severity);
-                const isResolved = bug.status === 'RESOLVED';
+        <main className="max-w-7xl mx-auto px-8 mt-6 space-y-4">
+          {filteredBugs.length === 0 ? (
+            <div className="text-center py-32 bg-white/80 backdrop-blur-md rounded-3xl border-2 border-dashed border-[#546E7A]/30 shadow-xl">
+              <Ghost className="w-12 h-12 text-[#B0BEC5] mx-auto mb-4" />
+              <p className="font-black uppercase tracking-[0.3em] text-[#546E7A] text-sm">
+                {bugs.length === 0 ? "NO BUGS LOGGED" : "NO RESULTS FOUND"}
+              </p>
+            </div>
+          ) : (
+            filteredBugs.map((bug) => {
+              const theme = getSevTheme(bug.severity);
+              const isResolved = bug.status === "RESOLVED";
 
-                return (
-                  <div 
-                    key={bug.id} 
-                    className={`group relative flex bg-white/95 backdrop-blur-md rounded-2xl overflow-hidden border-2 transition-all duration-300 ${
-                      isResolved 
-                        ? 'opacity-50 grayscale border-[#B0BEC5]/40' 
-                        : `hover:scale-[1.01] hover:shadow-2xl shadow-xl ${theme.border} hover:border-[#FF6E40]/50`
-                    }`}
-                  >
-                    <div className={`w-1.5 shrink-0 ${isResolved ? 'bg-[#B0BEC5]' : theme.bg} transition-all`} />
-                    
-                    <div className="p-6 w-full flex flex-col lg:flex-row justify-between items-start lg:items-center gap-5">
-                      <div className="flex gap-5 items-start flex-1">
-                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 border-2 transition-all duration-300 ${isResolved ? 'border-[#B0BEC5]/30 bg-[#ECEFF1]' : 'border-[#FF7043]/20 ' + theme.lightBg + ' group-hover:scale-110 group-hover:rotate-6'}`}>
-                          <AlertCircle className={`w-6 h-6 ${isResolved ? 'text-[#B0BEC5]' : 'text-[#FF7043]'}`} />
-                        </div>
-
-                        <div className="space-y-2 flex-1">
-                          <div className="flex items-center gap-3 flex-wrap">
-                            <h3 className={`text-xl md:text-2xl font-black text-[#37474F] tracking-tight ${isResolved ? 'line-through' : ''}`}>
-                              {bug.title}
-                            </h3>
-                            <span className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider shadow-sm ${isResolved ? 'bg-[#B0BEC5]/20 text-[#B0BEC5]' : theme.bg + ' text-white'}`}>
-                              {bug.severity}
-                            </span>
-                          </div>
-                          <p className="text-[#546E7A] text-sm font-medium leading-relaxed">
-                            {bug.description}
-                          </p>
-                        </div>
+              return (
+                <div
+                  key={bug.id}
+                  className={`bg-white/90 backdrop-blur-md rounded-2xl p-6 border-2 shadow-lg transition-all ${
+                    isResolved
+                      ? "border-[#B0BEC5]/30 opacity-60"
+                      : `${theme.border} hover:shadow-xl hover:shadow-${theme.glow}`
+                  }`}
+                >
+                  <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+                    <div className="flex items-start gap-4 flex-1 min-w-0">
+                      <div className={`p-3 rounded-xl shrink-0 ${isResolved ? "bg-[#B0BEC5]/20" : theme.lightBg}`}>
+                        <AlertCircle className={`w-5 h-5 ${isResolved ? "text-[#B0BEC5]" : theme.text}`} />
                       </div>
-                      
-                      <div className="flex items-center gap-3 shrink-0 w-full lg:w-auto justify-end">
-                        {!isResolved ? (
-                          <button 
-                            onClick={() => handleResolve(bug.id)} 
-                            className="bg-gradient-to-r from-[#37474F] to-[#455A64] text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:from-[#FF6E40] hover:to-[#FF5252] transition-all whitespace-nowrap shadow-md hover:shadow-xl transform hover:scale-105 active:scale-95"
-                          >
-                            MARK RESOLVED
-                          </button>
-                        ) : (
-                          <div className="flex items-center gap-2 bg-[#66BB6A]/10 px-4 py-2.5 rounded-xl border border-[#66BB6A]/30">
-                            <CheckCircle2 className="text-[#66BB6A] w-5 h-5" />
-                            <span className="text-[#66BB6A] text-xs font-bold uppercase tracking-wider">RESOLVED</span>
-                          </div>
-                        )}
-
-                        <button 
-                          onClick={() => handleDelete(bug.id)} 
-                          className="p-3 text-[#B0BEC5] hover:text-[#FF5252] hover:bg-[#FF5252]/10 rounded-xl transition-all border-2 border-transparent hover:border-[#FF5252]/20"
-                          aria-label="Delete bug"
-                        >
-                          <Trash2 className="w-5 h-5" />
-                        </button>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-3 mb-1 flex-wrap">
+                          <h3 className={`font-black text-base tracking-tight ${isResolved ? "text-[#B0BEC5] line-through" : "text-[#37474F]"}`}>
+                            {bug.title}
+                          </h3>
+                          <span className={`px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider shadow-sm ${isResolved ? 'bg-[#B0BEC5]/20 text-[#B0BEC5]' : theme.bg + ' text-white'}`}>
+                            {bug.severity}
+                          </span>
+                        </div>
+                        <p className="text-[#546E7A] text-sm font-medium leading-relaxed">
+                          {bug.description}
+                        </p>
                       </div>
                     </div>
+
+                    <div className="flex items-center gap-3 shrink-0 w-full lg:w-auto justify-end">
+                      {!isResolved ? (
+                        <button
+                          onClick={() => handleResolve(bug.id)}
+                          className="bg-gradient-to-r from-[#37474F] to-[#455A64] text-white px-6 py-3 rounded-xl font-bold text-xs uppercase tracking-wider hover:from-[#FF6E40] hover:to-[#FF5252] transition-all whitespace-nowrap shadow-md hover:shadow-xl transform hover:scale-105 active:scale-95"
+                        >
+                          MARK RESOLVED
+                        </button>
+                      ) : (
+                        <div className="flex items-center gap-2 bg-[#66BB6A]/10 px-4 py-2.5 rounded-xl border border-[#66BB6A]/30">
+                          <CheckCircle2 className="text-[#66BB6A] w-5 h-5" />
+                          <span className="text-[#66BB6A] text-xs font-bold uppercase tracking-wider">RESOLVED</span>
+                        </div>
+                      )}
+
+                      <button
+                        onClick={() => handleDelete(bug.id)}
+                        className="p-3 text-[#B0BEC5] hover:text-[#FF5252] hover:bg-[#FF5252]/10 rounded-xl transition-all border-2 border-transparent hover:border-[#FF5252]/20"
+                        aria-label="Delete bug"
+                      >
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </div>
                   </div>
-                );
-              })
-            )}
-          </div>
+                </div>
+              );
+            })
+          )}
         </main>
       </div>
     </div>

@@ -18,6 +18,13 @@ export const setAuthToken = (token: string) => {
   }
 };
 
+// Clears session and redirects to login
+export const logout = () => {
+  localStorage.removeItem('token');
+  delete api.defaults.headers.common['Authorization'];
+  window.location.href = '/';
+};
+
 // Initialize token from storage on app load (if it exists)
 if (typeof window !== 'undefined') {
   const token = localStorage.getItem('token');

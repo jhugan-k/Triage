@@ -8,7 +8,7 @@ app = FastAPI()
 # CONFIGURATION
 HF_TOKEN = os.getenv("HF_TOKEN")
 # Using the multilingual DeBERTa model
-API_URL = "https://router.huggingface.co/hf-inference/models/MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
+API_URL = "https://router.huggingface.co/hf-inference/models/facebook/bart-large-mnli"
 headers = {"Authorization": f"Bearer {HF_TOKEN}"}
 
 class BugPayload(BaseModel):

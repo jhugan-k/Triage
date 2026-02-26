@@ -1,8 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { api, setAuthToken } from "@/lib/api";
-import { ShieldCheck, Mail, Lock, CheckCircle, UserPlus, Sparkles, Zap, Target } from "lucide-react";
+import { ShieldCheck, Mail, Lock, CheckCircle, UserPlus, Sparkles, Zap, Target, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function LoginPage() {
@@ -11,10 +11,24 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showWakeupWarning, setShowWakeupWarning] = useState(false);
 
   const [flyer, setFlyer] = useState<{ show: boolean, type: 'returning' | 'new' }>({
     show: false, type: 'returning'
   });
+
+  // Handle the Render wakeup timer
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (loading) {
+      timer = setTimeout(() => {
+        setShowWakeupWarning(true);
+      }, 5000); // Appear after 5 seconds of waiting
+    } else {
+      setShowWakeupWarning(false);
+    }
+    return () => clearTimeout(timer);
+  }, [loading]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,12 +119,30 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <button
-              type="submit" disabled={loading}
-              className="w-full bg-accent text-primary font-black py-5 rounded-2xl hover:brightness-110 active:scale-[0.98] transition-all shadow-xl shadow-accent/20 uppercase tracking-[0.2em] text-sm disabled:opacity-50"
-            >
-              {loading ? "Authenticating..." : "Establish Link"}
-            </button>
+            <div className="space-y-4">
+              <button
+                type="submit" disabled={loading}
+                className="w-full bg-accent text-primary font-black py-5 rounded-2xl hover:brightness-110 active:scale-[0.98] transition-all shadow-xl shadow-accent/20 uppercase tracking-[0.2em] text-sm disabled:opacity-50 flex items-center justify-center gap-3"
+              >
+                {loading && <Loader2 className="animate-spin w-4 h-4" />}
+                {loading ? "Authenticating..." : "Establish Link"}
+              </button>
+
+              <AnimatePresence>
+                {showWakeupWarning && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-center"
+                  >
+                    <p className="text-[10px] font-black uppercase tracking-widest text-amber-600 dark:text-amber-500 leading-relaxed">
+                      Render may take ~50 seconds to wake up from inactivity.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </form>
         </div>
       </div>

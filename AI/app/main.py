@@ -15,6 +15,10 @@ class BugPayload(BaseModel):
     title: str
     description: str
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 @app.post("/classify")
 def classify(payload: BugPayload):
     text = f"Title: {payload.title}. Description: {payload.description}"

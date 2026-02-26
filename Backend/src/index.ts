@@ -282,6 +282,10 @@ app.delete('/bugs/:id', authenticateToken, async (req: Request, res: Response) =
 
 app.get('/', (req, res) => res.json({ status: "Online" }));
 
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
 app.listen(Number(PORT), '0.0.0.0', () => {
   console.log(`🚀 DEPLOYED: Triage Backend is listening on port ${PORT}`);
 });

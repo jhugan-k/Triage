@@ -283,6 +283,7 @@ app.delete('/bugs/:id', authenticateToken, async (req: Request, res: Response) =
 app.get('/', (req, res) => res.json({ status: "Online" }));
 
 app.get("/health", (req, res) => {
+  console.log("[HEALTH PING]: received at", new Date().toISOString());
   res.json({ status: "ok" });
 });
 

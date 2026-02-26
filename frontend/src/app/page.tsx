@@ -75,8 +75,8 @@ export default function LoginPage() {
 
            <div className="space-y-6">
               {[
-                { icon: <Target className="text-accent" />, text: "Automated Severity Prediction" },
-                { icon: <Sparkles className="text-accent" />, text: "Neural Content Analysis" }
+                { icon: <Target className="text-accent" />, text: "Easily report and manage Bugs" },
+                { icon: <Sparkles className="text-accent" />, text: "Predicts Bug Severity using AI" }
               ].map((f, i) => (
                 <div key={i} className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
                   {f.icon}
@@ -127,6 +127,10 @@ export default function LoginPage() {
                 {loading && <Loader2 className="animate-spin w-4 h-4" />}
                 {loading ? "Authenticating..." : "Establish Link"}
               </button>
+
+              <p className="text-center text-secondary text-xs font-medium">
+                New users are registered with first login.
+              </p>
 
               <AnimatePresence>
                 {showWakeupWarning && (

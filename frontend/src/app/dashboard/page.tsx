@@ -115,9 +115,10 @@ export default function DashboardPage() {
                   <Key size={14} /> {db.accessKey}
                 </div>
                 <div className="mt-10 flex justify-end">
-                   <div className="bg-background p-3 rounded-xl group-hover:bg-primary group-hover:text-white transition-all">
+                  <div className="flex items-center gap-2 bg-background px-4 py-3 rounded-xl group-hover:bg-primary group-hover:text-white transition-all">
+                    <span className="text-xs font-black uppercase tracking-widest">Go to Dashboard</span>
                     <ArrowRight size={20} />
-                   </div>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -127,12 +128,13 @@ export default function DashboardPage() {
 
       {/* Floating Action Button only if dashboards exist */}
       {dashboards.length > 0 && (
-        <Link href="/dashboard/new" className="fixed bottom-10 right-10 bg-accent text-primary p-6 rounded-full shadow-[0_20px_50px_rgba(255,155,81,0.4)] hover:scale-110 active:scale-95 transition-all z-[100]">
-           <Plus size={32} strokeWidth={3} />
+        <Link href="/dashboard/new" className="fixed bottom-10 right-10 bg-accent text-primary px-6 py-4 rounded-full shadow-[0_20px_50px_rgba(255,155,81,0.4)] hover:scale-110 active:scale-95 transition-all z-[100] flex items-center gap-3">
+          <span className="font-black uppercase tracking-widest text-sm">Create New Project</span>
+          <Plus size={24} strokeWidth={3} />
         </Link>
       )}
 
-      {/* Join Modal (Existing code) */}
+      {/* Join Modal */}
       {isJoinModalOpen && (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-primary/80 backdrop-blur-md">
           <div className="bg-white rounded-[3rem] p-12 max-w-md w-full shadow-2xl relative border border-white/20">

@@ -165,16 +165,17 @@ app.post('/bugs', authenticateToken, async (req: Request, res: Response) => {
     return res.status(400).json({ error: "Missing fields" });
   }
 
+  // 1. Permission Check
   const isMember = await prisma.dashboard.findFirst({
     where: { id: dashboardId, members: { some: { id: userId } } }
   });
   if (!isMember) return res.status(403).json({ error: "Forbidden" });
 
-  // AI Logic with Retry Loop
+  // 2. AI Logic with Aggressive Retry Loop
   let severity: "High" | "Normal" | "Low" = "High"; 
   const AI_URL = process.env.AI_SERVICE_URL || 'http://127.0.0.1:8000/classify';
   
-  const maxAttempts = 10; 
+  const maxAttempts = 12; // Try for ~60 seconds total
   let attempt = 0;
   let aiSuccess = false;
 
@@ -182,25 +183,44 @@ app.post('/bugs', authenticateToken, async (req: Request, res: Response) => {
     attempt++;
     try {
       console.log(`[AI ATTEMPT ${attempt}]: Calling ${AI_URL}...`);
-      const aiRes = await axios.post(AI_URL, { title, description }, { timeout: 45000 });
+      
+      const aiRes = await axios.post(AI_URL, { title, description }, { 
+        timeout: 45000,
+        headers: { 'Content-Type': 'application/json' }
+      });
       
       severity = aiRes.data.severity;
       aiSuccess = true;
       console.log(`[AI SUCCESS]: Result: ${severity}`);
+
     } catch (err: any) {
       const statusCode = err.response?.status;
-      const isWakingUp = statusCode === 503 || statusCode === 502 || err.code === 'ECONNREFUSED' || err.code === 'ECONNABORTED';
+      
+      // FIX: Added 429 and 504 to the "Waking Up" signals
+      const isRetryableError = 
+        [429, 502, 503, 504].includes(statusCode) || 
+        err.code === 'ECONNREFUSED' || 
+        err.code === 'ECONNABORTED' ||
+        err.code === 'ETIMEDOUT';
 
-      if (isWakingUp && attempt < maxAttempts) {
-        console.log(`[AI WAKING UP]: Service sleeping. Waiting 5s before retry...`);
-        await new Promise(r => setTimeout(r, 5000)); 
+      if (isRetryableError && attempt < maxAttempts) {
+        // If it's a 429, we wait a bit longer (6s instead of 5s) to let the rate limit reset
+        const waitTime = statusCode === 429 ? 6000 : 5000;
+        console.log(`[AI RETRYABLE ERROR ${statusCode || err.code}]: Service not ready. Retrying in ${waitTime/1000}s...`);
+        await new Promise(r => setTimeout(r, waitTime)); 
       } else {
-        console.error(`[AI ERROR]: ${err.message}`);
+        // This is a 400, 401, 404, etc. - No point in retrying
+        console.error(`[AI FATAL ERROR]: ${err.message} (Status: ${statusCode})`);
         break; 
       }
     }
   }
 
+  if (!aiSuccess) {
+    console.log("[AI FALLBACK]: All retries exhausted. Using High Severity safety protocol.");
+  }
+
+  // 3. Save to Database
   try {
     const bug = await prisma.bug.create({
       data: { 

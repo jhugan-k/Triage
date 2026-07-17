@@ -70,7 +70,7 @@ export default function LoginPage() {
                 <span className="bg-linear-to-r from-accent-bright to-accent-soft bg-clip-text text-transparent">Resolve.</span>
               </h2>
               <p className="text-muted font-medium text-lg max-w-xs">
-                The world&apos;s first neural-link bug management system.
+                The AI-Powered neural-link bug management system.
               </p>
            </div>
 

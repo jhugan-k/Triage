@@ -13,6 +13,13 @@ dotenv.config();
 const prisma = new PrismaClient();
 const app = express();
 
+// Fail fast rather than silently signing tokens with a guessable fallback secret.
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  console.error("FATAL: JWT_SECRET is not set. Refusing to start.");
+  process.exit(1);
+}
+
 // RENDER FIX: Use the PORT provided by Render, or 10000 as a fallback (Render default)
 const PORT = process.env.PORT || 10000; 
 
@@ -46,6 +53,14 @@ const logActivity = async (dashboardId: string, text: string, type: string) => {
   });
 };
 
+// Returns the bug only if the requesting user is a member of its dashboard.
+const findBugForMember = async (bugId: string, userId?: string) => {
+  if (!userId) return null;
+  return prisma.bug.findFirst({
+    where: { id: bugId, dashboard: { members: { some: { id: userId } } } }
+  });
+};
+
 // ==========================================
 // 1. AUTHENTICATION
 // ==========================================
@@ -76,12 +91,14 @@ app.post('/auth/login', async (req: Request, res: Response) => {
 
     const token = jwt.sign(
       { id: user.id, email: user.email },
-      process.env.JWT_SECRET || "default_secret",
+      JWT_SECRET,
       { expiresIn: "7d" }
     );
 
-    return res.json({ message: "Login successful", user, token, newUser: isNewUser });
+    const { password: _password, ...safeUser } = user;
+    return res.json({ message: "Login successful", user: safeUser, token, newUser: isNewUser });
   } catch (error) {
+    console.error("[AUTH ERROR]:", error);
     return res.status(500).json({ error: "Authentication failed" });
   }
 });
@@ -102,14 +119,16 @@ app.get('/dashboards', authenticateToken, async (req: Request, res: Response) =>
 
 app.get('/dashboards/:id', authenticateToken, async (req: Request, res: Response) => {
   const id = req.params.id as string; // FIX: Explicit cast
+  const userId = (req as AuthRequest).user?.id;
   try {
-    const dashboard = await prisma.dashboard.findUnique({
-      where: { id },
-      include: { 
+    const dashboard = await prisma.dashboard.findFirst({
+      where: { id, members: { some: { id: userId } } },
+      include: {
         members: { select: { id: true, name: true, avatarUrl: true, email: true } },
         activities: { take: 15, orderBy: { createdAt: 'desc' } }
       }
     });
+    if (!dashboard) return res.status(404).json({ error: "Not found" });
     return res.json(dashboard);
   } catch (error) {
     return res.status(500).json({ error: "Fetch failed" });
@@ -239,7 +258,13 @@ app.post('/bugs', authenticateToken, async (req: Request, res: Response) => {
 
 app.get('/dashboards/:id/bugs', authenticateToken, async (req: Request, res: Response) => {
   const id = req.params.id as string; // FIX: Explicit cast
+  const userId = (req as AuthRequest).user?.id;
   try {
+    const isMember = await prisma.dashboard.findFirst({
+      where: { id, members: { some: { id: userId } } }
+    });
+    if (!isMember) return res.status(403).json({ error: "Forbidden" });
+
     const bugs = await prisma.bug.findMany({
       where: { dashboardId: id },
       include: { comments: { include: { user: { select: { name: true, avatarUrl: true } } } } },
@@ -251,7 +276,10 @@ app.get('/dashboards/:id/bugs', authenticateToken, async (req: Request, res: Res
 
 app.patch('/bugs/:id/resolve', authenticateToken, async (req: Request, res: Response) => {
   const id = req.params.id as string; // FIX: Explicit cast
+  const userId = (req as AuthRequest).user?.id;
   try {
+    if (!await findBugForMember(id, userId)) return res.status(403).json({ error: "Forbidden" });
+
     const bug = await prisma.bug.update({ where: { id }, data: { status: 'RESOLVED' } });
     await logActivity(bug.dashboardId, `Resolved: ${bug.title}`, "BUG_RESOLVED");
     return res.json(bug);
@@ -260,13 +288,16 @@ app.patch('/bugs/:id/resolve', authenticateToken, async (req: Request, res: Resp
 
 app.post('/bugs/:id/comments', authenticateToken, async (req: Request, res: Response) => {
   const bugId = req.params.id as string; // FIX: Explicit cast
+  const userId = (req as AuthRequest).user?.id;
+  const { text } = req.body;
+  if (!text?.trim()) return res.status(400).json({ error: "Comment text is required" });
+
   try {
+    if (!await findBugForMember(bugId, userId)) return res.status(403).json({ error: "Forbidden" });
+
     const comment = await prisma.comment.create({
-      data: { 
-        text: req.body.text, 
-        bugId: bugId, 
-        userId: (req as AuthRequest).user!.id 
-      }
+      data: { text, bugId, userId: userId! },
+      include: { user: { select: { name: true, avatarUrl: true } } }
     });
     return res.json(comment);
   } catch (error) { return res.status(500).json({ error: "Failed" }); }
@@ -274,8 +305,15 @@ app.post('/bugs/:id/comments', authenticateToken, async (req: Request, res: Resp
 
 app.delete('/bugs/:id', authenticateToken, async (req: Request, res: Response) => {
   const id = req.params.id as string; // FIX: Explicit cast
+  const userId = (req as AuthRequest).user?.id;
   try {
-    await prisma.bug.delete({ where: { id } });
+    if (!await findBugForMember(id, userId)) return res.status(403).json({ error: "Forbidden" });
+
+    // Comments hold an FK to the bug; clear them first or the delete violates the constraint.
+    await prisma.$transaction([
+      prisma.comment.deleteMany({ where: { bugId: id } }),
+      prisma.bug.delete({ where: { id } })
+    ]);
     return res.json({ message: "Deleted" });
   } catch (error) { return res.status(500).json({ error: "Failed" }); }
 });

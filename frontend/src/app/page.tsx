@@ -46,74 +46,77 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#EAEFEF] items-center justify-center p-6 relative overflow-hidden">
-      
+    <div className="atmosphere grid-field flex min-h-screen bg-background items-center justify-center p-4 sm:p-6 relative overflow-hidden">
+
       {/* Background Atmosphere */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/20 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent-bright/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
       </div>
 
-      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 bg-white rounded-[2.5rem] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.15)] overflow-hidden relative z-10 border border-white">
-        
+      <div className="panel w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 rounded-[2.5rem] shadow-[0_50px_120px_-20px_rgba(0,0,0,0.9)] overflow-hidden relative z-10">
+
         {/* Left Side: Branding & Features */}
-        <div className="bg-primary p-12 lg:p-16 flex flex-col justify-between text-white relative overflow-hidden">
-           <div className="absolute top-0 right-0 p-4 opacity-10"><Zap size={200} /></div>
-           
-           <div>
+        <div className="bg-linear-to-br from-accent-deep/25 via-surface to-black p-10 sm:p-12 lg:p-16 flex flex-col justify-between text-primary relative overflow-hidden border-b lg:border-b-0 lg:border-r border-line">
+           <div className="absolute top-0 right-0 p-4 text-accent-bright/10" aria-hidden="true"><Zap size={200} /></div>
+
+           <div className="relative">
               <div className="flex items-center gap-3 mb-8">
-                <div className="bg-accent p-2 rounded-xl"><ShieldCheck className="text-primary w-6 h-6" /></div>
+                <div className="bg-accent-deep p-2 rounded-xl glow-sm"><ShieldCheck className="text-white w-6 h-6" /></div>
                 <h1 className="text-2xl font-black tracking-tighter">TRIAGE</h1>
               </div>
               <h2 className="text-4xl lg:text-5xl font-black tracking-tighter leading-tight mb-6">
-                Predict. <br />Prioritize. <br /><span className="text-accent">Resolve.</span>
+                Predict. <br />Prioritize. <br />
+                <span className="bg-linear-to-r from-accent-bright to-accent-soft bg-clip-text text-transparent">Resolve.</span>
               </h2>
-              <p className="text-secondary font-medium text-lg max-w-xs opacity-80">
-                The world's first neural-link bug management system.
+              <p className="text-muted font-medium text-lg max-w-xs">
+                The world&apos;s first neural-link bug management system.
               </p>
            </div>
 
-           <div className="space-y-6">
+           <div className="space-y-4 mt-12 relative">
               {[
-                { icon: <Target className="text-accent" />, text: "Easily report and manage Bugs" },
-                { icon: <Sparkles className="text-accent" />, text: "Predicts Bug Severity using AI" }
+                { icon: <Target className="text-accent-bright shrink-0" />, text: "Easily report and manage Bugs" },
+                { icon: <Sparkles className="text-accent-bright shrink-0" />, text: "Predicts Bug Severity using AI" }
               ].map((f, i) => (
-                <div key={i} className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                <div key={i} className="flex items-center gap-4 bg-white/3 p-4 rounded-2xl border border-line hover:border-line-strong transition-colors">
                   {f.icon}
-                  <span className="text-sm font-bold uppercase tracking-widest">{f.text}</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-secondary">{f.text}</span>
                 </div>
               ))}
            </div>
         </div>
 
         {/* Right Side: Form */}
-        <div className="p-12 lg:p-20 flex flex-col justify-center">
+        <div className="p-8 sm:p-12 lg:p-20 flex flex-col justify-center bg-surface/60">
           <div className="mb-10">
             <h3 className="text-3xl font-black text-primary tracking-tighter mb-2">Initialize Session</h3>
-            <p className="text-secondary text-sm font-bold uppercase tracking-widest">Enter credentials to gain access</p>
+            <p className="text-secondary text-xs font-bold uppercase tracking-widest">Enter credentials to gain access</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-6">
             {error && (
-              <div className="bg-danger/10 text-danger text-[10px] font-black p-4 rounded-xl border border-danger/20 uppercase tracking-widest text-center">
+              <div role="alert" className="bg-danger/10 text-danger text-[10px] font-black p-4 rounded-xl border border-danger/30 uppercase tracking-widest text-center">
                 {error}
               </div>
             )}
 
             <div className="space-y-4">
               <div className="relative group">
-                <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary group-focus-within:text-accent transition-colors" />
+                <label htmlFor="email" className="sr-only">Work Email</label>
+                <Mail aria-hidden="true" className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted group-focus-within:text-accent-bright transition-colors" />
                 <input
-                  type="email" placeholder="Work Email" required
-                  className="w-full p-5 pl-14 rounded-2xl border-2 border-secondary/20 bg-background/30 focus:border-accent outline-none font-bold transition-all"
+                  id="email" type="email" placeholder="Work Email" required autoComplete="email"
+                  className="w-full p-5 pl-14 rounded-2xl border border-line bg-black/40 text-primary focus:border-accent outline-none font-bold transition-colors"
                   value={email} onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="relative group">
-                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary group-focus-within:text-accent transition-colors" />
+                <label htmlFor="password" className="sr-only">Secure Password</label>
+                <Lock aria-hidden="true" className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-muted group-focus-within:text-accent-bright transition-colors" />
                 <input
-                  type="password" placeholder="Secure Password" required
-                  className="w-full p-5 pl-14 rounded-2xl border-2 border-secondary/20 bg-background/30 focus:border-accent outline-none font-bold transition-all"
+                  id="password" type="password" placeholder="Secure Password" required autoComplete="current-password"
+                  className="w-full p-5 pl-14 rounded-2xl border border-line bg-black/40 text-primary focus:border-accent outline-none font-bold transition-colors"
                   value={password} onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
@@ -122,13 +125,13 @@ export default function LoginPage() {
             <div className="space-y-4">
               <button
                 type="submit" disabled={loading}
-                className="w-full bg-accent text-primary font-black py-5 rounded-2xl hover:brightness-110 active:scale-[0.98] transition-all shadow-xl shadow-accent/20 uppercase tracking-[0.2em] text-sm disabled:opacity-50 flex items-center justify-center gap-3"
+                className="w-full bg-accent-deep text-white font-black py-5 rounded-2xl hover:bg-accent active:scale-[0.98] transition-all shadow-[0_18px_50px_-12px_rgba(26,102,255,0.7)] hover:shadow-[0_18px_60px_-8px_rgba(26,102,255,0.95)] uppercase tracking-[0.2em] text-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-3"
               >
-                {loading && <Loader2 className="animate-spin w-4 h-4" />}
+                {loading && <Loader2 aria-hidden="true" className="animate-spin w-4 h-4" />}
                 {loading ? "Authenticating..." : "Establish Link"}
               </button>
 
-              <p className="text-center text-secondary text-xs font-medium">
+              <p className="text-center text-muted text-xs font-medium">
                 New users are registered with first login.
               </p>
 
@@ -138,9 +141,9 @@ export default function LoginPage() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-center"
+                    className="p-4 bg-warning/10 border border-warning/25 rounded-xl text-center"
                   >
-                    <p className="text-[10px] font-black uppercase tracking-widest text-amber-600 dark:text-amber-500 leading-relaxed">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-warning leading-relaxed">
                       Render may take ~50 seconds to wake up from inactivity.
                     </p>
                   </motion.div>
@@ -155,9 +158,9 @@ export default function LoginPage() {
         {flyer.show && (
           <motion.div
             initial={{ y: 100, opacity: 0 }} animate={{ y: -40, opacity: 1 }} exit={{ y: 100, opacity: 0 }}
-            className="fixed bottom-0 z-[100] flex items-center gap-3 px-8 py-4 rounded-full shadow-2xl font-black uppercase tracking-widest text-sm bg-primary text-white border-2 border-accent"
+            className="fixed bottom-0 z-[100] flex items-center gap-3 px-8 py-4 rounded-full shadow-2xl font-black uppercase tracking-widest text-sm bg-surface-2 text-primary border border-accent glow"
           >
-            {flyer.type === 'returning' ? <CheckCircle className="text-accent" /> : <UserPlus className="text-accent" />}
+            {flyer.type === 'returning' ? <CheckCircle className="text-accent-bright" /> : <UserPlus className="text-accent-bright" />}
             <span>{flyer.type === 'returning' ? 'Welcome back, operator' : 'New operator registered'}</span>
           </motion.div>
         )}

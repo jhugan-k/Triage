@@ -1,45 +1,164 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #EAEFEF;
-  --color-secondary: #BFC9D1;
-  --color-primary: #25343F;
-  --color-accent: #FF9B51;
-  
-  --color-danger: #EF4444;
-  --color-warning: #F59E0B;
-  --color-success: #10B981;
-  --color-info: #3B82F6;
+  /* Surfaces — black base, lifted panels */
+  --color-background: #000000;
+  --color-surface: #0a0d14;
+  --color-surface-2: #10151f;
+  --color-elevated: #161d2b;
+
+  /* Text — white primary, blue secondary */
+  --color-primary: #ffffff;
+  --color-secondary: #6699ff;
+  --color-muted: #8fa3c4;
+
+  /* Blues */
+  --color-accent: #3377ff;
+  --color-accent-deep: #1a66ff;
+  --color-accent-bright: #6699ff;
+  --color-accent-soft: #b3ccff;
+
+  /* Status — tuned for contrast on black */
+  --color-danger: #ff5f6b;
+  --color-warning: #ffb224;
+  --color-success: #2ee6a8;
+  --color-info: #6699ff;
+
+  /* Hairlines */
+  --color-line: rgba(102, 153, 255, 0.14);
+  --color-line-strong: rgba(102, 153, 255, 0.28);
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
-/* Dark Mode Variables */
-.dark {
-  --color-background: #1A2228;
-  /* Brighter secondary for dark mode readability */
-  --color-secondary: #90A4AE; 
-  --color-primary: #ECEFF1;
-  background: #12181C;
-  color: #ECEFF1;
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background: #000000;
+    color: var(--color-primary);
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
 }
 
-body {
-  background: radial-gradient(circle at top left, #EAEFEF, #DEE7E7);
-  color: var(--color-primary);
-  font-family: 'Inter', sans-serif;
-  min-height: 100vh;
-  transition: background 0.3s ease, color 0.3s ease;
+/* Components live in the components layer so utilities (border-l-4,
+   hover:border-line-strong, shadow-*) still win over them. */
+@layer components {
+
+/* Ambient blue field behind everything */
+.atmosphere::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 40rem at 12% -10%, rgba(51, 119, 255, 0.16), transparent 60%),
+    radial-gradient(45rem 35rem at 100% 100%, rgba(102, 153, 255, 0.1), transparent 60%);
 }
 
-.dark body {
-  background: radial-gradient(circle at top left, #1A2228, #12181C);
+/* Faint blueprint grid */
+.grid-field::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(rgba(102, 153, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102, 153, 255, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 20%, transparent 75%);
 }
 
-/* Kanban Column Styling */
+/* Panel: lifted glass card with a top light-catch */
+.panel {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(12px);
+  position: relative;
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(179, 204, 255, 0.45), transparent);
+}
+
 .kanban-column {
-  @apply bg-white/40 dark:bg-black/20 backdrop-blur-sm rounded-3xl p-4 min-h-[500px] border border-white/20;
+  @apply rounded-3xl p-4 min-h-[500px];
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--color-line);
 }
 
-/* Utility for the brighter dark mode text requested */
-.dark .text-secondary {
-  @apply text-slate-400;
+/* Blue glow for primary actions */
+.glow {
+  box-shadow: 0 0 0 1px rgba(102, 153, 255, 0.35), 0 18px 50px -12px rgba(26, 102, 255, 0.75);
+}
+
+.glow-sm {
+  box-shadow: 0 0 24px -6px rgba(51, 119, 255, 0.6);
+}
+
+} /* end @layer components */
+
+/* Keyboard focus — always visible, never removed */
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--color-accent-bright);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+::selection {
+  background: rgba(51, 119, 255, 0.35);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(102, 153, 255, 0.22);
+  border-radius: 99px;
+  border: 2px solid #000;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 153, 255, 0.4);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(143, 163, 196, 0.55);
+}
+
+/* Recharts tooltip inherits the dark shell */
+.recharts-default-tooltip {
+  background: #10151f !important;
+  border: 1px solid rgba(102, 153, 255, 0.28) !important;
+  border-radius: 0.75rem !important;
+  color: #fff !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

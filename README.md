@@ -258,7 +258,6 @@ without anyone triaging by hand.
   <text x="50" y="945" font-size="11.5" fill="#5a6a8f">Triage architecture · generated diagram · edit colors via the &lt;style&gt; block in &lt;defs&gt;</text>
 </svg>
 
-
 ## Tech Stack
 
 | Layer | Technology |

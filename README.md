@@ -1,7 +1,7 @@
-# Triage — AI-Powered Bug Management
+# Triage (AI-Powered Bug Management)
 
 Triage is a collaborative bug-tracking platform that classifies incident severity
-automatically. Report a bug in plain language and a zero-shot AI model labels it
+automatically. Report a bug in plain language and a AI model labels it
 **High**, **Normal**, or **Low** in the background, so the board stays prioritized
 without anyone triaging by hand.
 
@@ -43,14 +43,6 @@ flowchart LR
     AI -->|zero-shot| HF
 ```
 
-**Why a separate AI service?** Classification is proxied through a thin FastAPI
-app so the Node backend never blocks on model cold-starts. When a bug is
-reported, the backend saves it as `Pending`, returns `202` immediately, then
-classifies in the background and updates the severity when the model responds.
-If the model never responds, the bug stays honestly `Pending` rather than being
-mislabeled.
-
----
 
 ## Tech Stack
 
@@ -60,98 +52,7 @@ mislabeled.
 | **Backend** | Node.js, Express 5, Prisma 5, JWT (`jsonwebtoken`), `bcrypt`, `express-rate-limit`, CORS |
 | **AI Service** | Python, FastAPI, Uvicorn — proxies Hugging Face zero-shot classification (`facebook/bart-large-mnli`) |
 | **Database** | PostgreSQL (Neon serverless) |
-| **Hosting** | Frontend → Vercel · Backend & AI → Render |
-
----
-
-## Repository Layout
-
-```
-Triage/
-├── frontend/          Next.js app (App Router)
-│   └── src/
-│       ├── app/       routes: login, dashboard list, bug board, report, new
-│       ├── components/ shared UI (feedback: toasts + confirm dialogs)
-│       └── lib/       api client, static demo workspace
-├── Backend/           Express + Prisma API
-│   ├── prisma/schema.prisma
-│   └── src/index.ts   all routes
-└── AI/                FastAPI severity classifier
-    └── app/main.py
-```
-
----
-
-## Getting Started
-
-### Prerequisites
-- Node.js 18+
-- Python 3.10+
-- A PostgreSQL database (a free [Neon](https://neon.tech) project works)
-- A [Hugging Face](https://huggingface.co) access token for the AI service
-
-### 1. Backend API
-
-```bash
-cd Backend
-npm install
-```
-
-Create `Backend/.env`:
-
-```env
-DATABASE_URL="postgresql://user:pass@host/db?sslmode=require"
-JWT_SECRET="a-long-random-string"     # required — the server refuses to start without it
-PORT=4002
-FRONTEND_URL="http://localhost:3000"
-AI_SERVICE_URL="http://127.0.0.1:8000/classify"
-```
-
-Push the schema and start:
-
-```bash
-npx prisma db push       # sync schema to the database
-npx prisma generate      # generate the client
-npm run dev              # nodemon on the PORT above
-```
-
-### 2. AI Service
-
-```bash
-cd AI
-python -m venv venv
-venv\Scripts\activate            # Windows  (source venv/bin/activate on macOS/Linux)
-pip install -r requirements.txt
-```
-
-Set your token and run:
-
-```bash
-set HF_TOKEN=hf_xxx               # Windows  (export HF_TOKEN=hf_xxx elsewhere)
-uvicorn app.main:app --port 8000 --reload
-```
-
-### 3. Frontend
-
-```bash
-cd frontend
-npm install
-```
-
-Create `frontend/.env.local`:
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:4002
-```
-
-```bash
-npm run dev              # http://localhost:3000
-```
-
-> **Note:** `NEXT_PUBLIC_*` values are inlined at build time — restart `next dev`
-> after changing them.
-
----
+| **Hosting** | Frontend → Vercel · Backend & AI → Render
 
 ## How It Works
 

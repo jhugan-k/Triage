@@ -1,13 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import { api, logout } from "@/lib/api";
-import { Plus, LayoutDashboard, Key, ArrowRight, Activity, LogOut, X, User, Ghost, Box, Sparkles } from "lucide-react";
+import { Plus, LayoutDashboard, Key, ArrowRight, Activity, LogOut, X, User, Ghost, Box, Sparkles, Trash2, DoorOpen, Crown } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { DEMO_BUGS, DEMO_DASHBOARD, DEMO_ID, type DemoBug } from "@/lib/demo";
+import { useToast, useConfirm } from "@/components/feedback";
 
 interface Dashboard {
-  id: string; name: string; accessKey: string;
+  id: string; name: string; accessKey: string; ownerId?: string | null;
 }
 
 const SEVERITY_DOT: Record<DemoBug["severity"], string> = {
@@ -77,9 +78,12 @@ function SampleWorkspaceCard() {
 }
 
 export default function DashboardPage() {
+  const toast = useToast();
+  const confirm = useConfirm();
   const [dashboards, setDashboards] = useState<Dashboard[]>([]);
   const [loading, setLoading] = useState(true);
   const [userEmail, setUserEmail] = useState("");
+  const [userId, setUserId] = useState("");
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const [accessKeyInput, setAccessKeyInput] = useState("");
@@ -91,7 +95,11 @@ export default function DashboardPage() {
         const res = await api.get<Dashboard[]>("/dashboards");
         setDashboards(res.data);
         const token = localStorage.getItem('token');
-        if (token) setUserEmail(JSON.parse(atob(token.split('.')[1])).email);
+        if (token) {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          setUserEmail(payload.email);
+          setUserId(payload.id);
+        }
         setLoading(false);
       } catch (err) { setLoading(false); }
     };
@@ -104,10 +112,45 @@ export default function DashboardPage() {
     try {
       await api.post("/dashboards/join", { accessKey: accessKeyInput });
       setIsJoinModalOpen(false);
+      setAccessKeyInput("");
       const res = await api.get<Dashboard[]>("/dashboards");
       setDashboards(res.data);
-    } catch (err: any) { alert(err.response?.data?.error || "Key invalid"); }
+      toast("Joined workspace", "success");
+    } catch (err: any) { toast(err.response?.data?.error || "Key invalid", "error"); }
     finally { setJoinLoading(false); }
+  };
+
+  const handleDelete = async (db: Dashboard) => {
+    const ok = await confirm({
+      title: `Delete "${db.name}"?`,
+      body: "This permanently removes the workspace and every bug, comment, and activity in it. This cannot be undone.",
+      confirmLabel: "Delete forever",
+      destructive: true,
+    });
+    if (!ok) return;
+    try {
+      await api.delete(`/dashboards/${db.id}`);
+      setDashboards(prev => prev.filter(d => d.id !== db.id));
+      toast(`Deleted "${db.name}"`, "success");
+    } catch (err: any) {
+      toast(err.response?.data?.error || "Delete failed", "error");
+    }
+  };
+
+  const handleLeave = async (db: Dashboard) => {
+    const ok = await confirm({
+      title: `Leave "${db.name}"?`,
+      body: "You'll lose access until someone shares the access key again. The workspace itself stays intact for other members.",
+      confirmLabel: "Leave workspace",
+    });
+    if (!ok) return;
+    try {
+      await api.post(`/dashboards/${db.id}/leave`);
+      setDashboards(prev => prev.filter(d => d.id !== db.id));
+      toast(`Left "${db.name}"`, "success");
+    } catch (err: any) {
+      toast(err.response?.data?.error || "Could not leave", "error");
+    }
   };
 
   if (loading) return (
@@ -196,27 +239,63 @@ export default function DashboardPage() {
           </motion.div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {dashboards.map((db) => (
-              <Link
-                key={db.id}
-                href={`/dashboard/${db.id}`}
-                className="panel group rounded-[2rem] p-8 lg:p-10 hover:border-line-strong hover:shadow-[0_30px_70px_-25px_rgba(26,102,255,0.6)] transition-colors duration-200"
-              >
-                <div className="bg-accent/10 border border-line w-14 h-14 rounded-2xl flex items-center justify-center mb-8 text-accent-bright group-hover:bg-accent-deep group-hover:text-white transition-colors">
-                   <Box size={28} aria-hidden="true" />
-                </div>
-                <h3 className="text-2xl font-black text-primary tracking-tighter mb-2">{db.name}</h3>
-                <div className="flex items-center gap-2 text-muted font-mono text-xs font-bold uppercase tracking-widest">
-                  <Key size={14} aria-hidden="true" /> {db.accessKey}
-                </div>
-                <div className="mt-10 flex justify-end">
-                  <div className="flex items-center gap-2 bg-white/5 border border-line px-4 py-3 rounded-xl text-secondary group-hover:bg-accent-deep group-hover:text-white group-hover:border-transparent transition-colors">
-                    <span className="text-xs font-black uppercase tracking-widest">Go to Dashboard</span>
-                    <ArrowRight size={20} aria-hidden="true" />
+            {dashboards.map((db) => {
+              const isOwner = !!db.ownerId && db.ownerId === userId;
+              return (
+                <div
+                  key={db.id}
+                  className="panel group relative rounded-[2rem] hover:border-line-strong hover:shadow-[0_30px_70px_-25px_rgba(26,102,255,0.6)] transition-colors duration-200"
+                >
+                  {/* Owner/member actions sit outside the link — a button inside an
+                      anchor is invalid and would swallow the click. */}
+                  <div className="absolute top-6 right-6 z-10 flex gap-2">
+                    {isOwner ? (
+                      <button
+                        onClick={() => handleDelete(db)}
+                        aria-label={`Delete workspace ${db.name}`}
+                        title="Delete workspace"
+                        className="p-2.5 rounded-xl bg-danger/10 text-danger border border-danger/20 hover:bg-danger hover:text-white transition-colors cursor-pointer"
+                      >
+                        <Trash2 size={16} aria-hidden="true" />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleLeave(db)}
+                        aria-label={`Leave workspace ${db.name}`}
+                        title="Leave workspace"
+                        className="p-2.5 rounded-xl bg-white/5 text-muted border border-line hover:text-primary hover:bg-white/10 transition-colors cursor-pointer"
+                      >
+                        <DoorOpen size={16} aria-hidden="true" />
+                      </button>
+                    )}
                   </div>
+
+                  <Link href={`/dashboard/${db.id}`} className="block p-8 lg:p-10">
+                    <div className="bg-accent/10 border border-line w-14 h-14 rounded-2xl flex items-center justify-center mb-8 text-accent-bright group-hover:bg-accent-deep group-hover:text-white transition-colors">
+                       <Box size={28} aria-hidden="true" />
+                    </div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="text-2xl font-black text-primary tracking-tighter truncate">{db.name}</h3>
+                      {isOwner && (
+                        <span title="You own this workspace" className="shrink-0 text-accent-bright">
+                          <Crown size={14} aria-hidden="true" />
+                          <span className="sr-only">You are the owner</span>
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2 text-muted font-mono text-xs font-bold uppercase tracking-widest">
+                      <Key size={14} aria-hidden="true" /> {db.accessKey}
+                    </div>
+                    <div className="mt-10 flex justify-end">
+                      <div className="flex items-center gap-2 bg-white/5 border border-line px-4 py-3 rounded-xl text-secondary group-hover:bg-accent-deep group-hover:text-white group-hover:border-transparent transition-colors">
+                        <span className="text-xs font-black uppercase tracking-widest">Go to Dashboard</span>
+                        <ArrowRight size={20} aria-hidden="true" />
+                      </div>
+                    </div>
+                  </Link>
                 </div>
-              </Link>
-            ))}
+              );
+            })}
           </div>
         )}
       </main>

@@ -2,12 +2,14 @@
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { api } from "@/lib/api";
+import { useToast } from "@/components/feedback";
 import { Sparkles, X, Loader2 } from "lucide-react";
 import Link from "next/link";
 
 export default function ReportPage() {
   const { id } = useParams();
   const router = useRouter();
+  const toast = useToast();
   const [form, setForm] = useState({ title: "", description: "" });
   const [loading, setLoading] = useState(false);
   const [showRenderWarning, setShowRenderWarning] = useState(false);
@@ -29,11 +31,13 @@ export default function ReportPage() {
     e.preventDefault();
     setLoading(true);
     try {
+      // Returns 202 as soon as the bug is saved; the AI classifies afterwards.
       await api.post("/bugs", { ...form, dashboardId: id });
+      toast("Incident filed — Triage AI is classifying it now", "success");
       router.push(`/dashboard/${id}`);
-    } catch (err) {
+    } catch (err: any) {
       setLoading(false);
-      alert("Submission failed. The AI service might be unreachable.");
+      toast(err.response?.data?.error || "Could not file the incident. Check your connection.", "error");
     }
   };
 
@@ -63,7 +67,7 @@ export default function ReportPage() {
               <div className="w-full bg-black/40 p-6 rounded-3xl border-2 border-dashed border-line-strong flex items-center justify-between gap-4">
                 <div className="flex items-center gap-4 min-w-0">
                   <span className="px-4 py-1.5 bg-accent-deep text-white rounded-full text-[10px] font-black uppercase tracking-widest shrink-0">
-                    uploading
+                    filing
                   </span>
                   <p className="font-bold text-primary truncate">{form.title}</p>
                 </div>
@@ -71,9 +75,9 @@ export default function ReportPage() {
               </div>
 
               <div className="space-y-2" role="status" aria-live="polite">
-                <h3 className="text-xl font-black text-primary tracking-tight">AI is predicting severity...</h3>
+                <h3 className="text-xl font-black text-primary tracking-tight">Filing incident...</h3>
                 <p className="text-secondary text-xs font-bold uppercase tracking-widest px-8">
-                  Analyzing logs and calculating impact metrics
+                  Triage AI will classify severity in the background
                 </p>
               </div>
 

@@ -15,8 +15,12 @@ model User {
   avatarUrl String?
   createdAt DateTime    @default(now())
   
-  dashboards Dashboard[]
-  comments   Comment[]
+  // NOTE: the relation name is pinned to Prisma's original implicit default so the
+  // existing "_DashboardToUser" join table is preserved. Renaming it would drop
+  // every membership.
+  dashboards      Dashboard[] @relation("DashboardToUser")
+  ownedDashboards Dashboard[] @relation("DashboardOwner")
+  comments        Comment[]
 }
 
 model Dashboard {
@@ -26,7 +30,12 @@ model Dashboard {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  members    User[]
+  // Nullable so existing rows migrate cleanly; backfilled to each workspace's
+  // earliest member. Only the owner may delete a workspace.
+  ownerId String?
+  owner   User?   @relation("DashboardOwner", fields: [ownerId], references: [id])
+
+  members    User[]     @relation("DashboardToUser")
   bugs       Bug[]
   activities Activity[]
 }
@@ -70,6 +79,7 @@ model Comment {
 }
 
 enum Severity {
+  Pending // awaiting AI classification (or classification failed)
   High
   Normal
   Low

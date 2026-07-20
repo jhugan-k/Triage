@@ -77,33 +77,3 @@ header. Membership is enforced server-side on every workspace and bug.
 The AI service exposes `POST /classify` (`{ title, description }` →
 `{ severity }`) and `GET /health`.
 
----
-
-## Data Model
-
-```
-User ──< owns >── Dashboard          User >──< Dashboard   (membership, many-to-many)
-                     │
-                     ├──< Bug ──< Comment >── User
-                     └──< Activity
-
-Bug.severity ∈ { Pending, High, Normal, Low }
-Bug.status   ∈ { OPEN, RESOLVED }
-```
-
-See [`Backend/prisma/schema.prisma`](Backend/prisma/schema.prisma) for the full
-schema.
-
----
-
-## Deployment
-
-| Service | Platform | Notes |
-|---------|----------|-------|
-| Frontend | Vercel | Set `NEXT_PUBLIC_API_URL` to the backend's public URL |
-| Backend | Render | Add the backend `.env` vars; add the frontend origin to CORS `allowedOrigins` in `Backend/src/index.ts` |
-| AI Service | Render | Set `HF_TOKEN`; start with `uvicorn app.main:app --host 0.0.0.0 --port $PORT` |
-| Database | Neon | Use the pooled connection string as `DATABASE_URL` |
-
-Free-tier Render services sleep when idle and take ~30–50s to wake — the UI
-surfaces a warning during that cold start.
